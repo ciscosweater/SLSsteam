@@ -37,6 +37,9 @@ lm_address_t MemHlp::patternScan(const char* pattern, lm_module_t module)
 	constexpr lm_address_t excludeTailSize = 0xd8000;
 	const lm_address_t end = module.end - excludeTailSize - bytes.size() - 1;
 
+	//Maybe cache all Segments via LM_EnumSegments and check them for their protection before wantomly reading addresses
+	//Totally unnecessary right now, and might always be
+
 	for (lm_address_t cur = module.base; cur < end; cur++)
 	{
 		bool found = true;
@@ -48,7 +51,6 @@ lm_address_t MemHlp::patternScan(const char* pattern, lm_module_t module)
 			}
 
 			lm_address_t byteAddr = cur + i;
-
 			const lm_byte_t* pbyte = reinterpret_cast<lm_byte_t*>(byteAddr);
 			if (*pbyte != bytes.at(i))
 			{
