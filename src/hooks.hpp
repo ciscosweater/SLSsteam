@@ -67,24 +67,25 @@ public:
 namespace Hooks
 {
 	typedef void(*LogSteamPipeCall_t)(const char*, const char*);
-	typedef bool(*CheckAppOwnership_t)(void*, uint32_t, CAppOwnershipInfo*);
 
 	typedef void(*IClientAppManager_PipeLoop_t)(void*, void*, void*, void*);
 	typedef void(*IClientApps_PipeLoop_t)(void*, void*, void*, void*);
 	typedef void(*IClientRemoteStorage_PipeLoop_t)(void*, void*, void*, void*);
 
 	typedef bool(*IClientUser_BIsSubscribedApp_t)(void*, uint32_t);
+	typedef bool(*IClientUser_CheckAppOwnership_t)(void*, uint32_t, CAppOwnershipInfo*);
 	typedef uint32_t(*IClientUser_GetSubscribedApps_t)(void*, uint32_t*, size_t, bool);
 	typedef uint8_t(*IClientUser_IsUserSubscribedAppInTicket_t)(void*, uint32_t, uint32_t, uint32_t, uint32_t);
 	typedef bool(*IClientUser_RequiresLegacyCDKey_t)(void*, uint32_t, uint32_t*);
 
 	extern DetourHook<LogSteamPipeCall_t> LogSteamPipeCall;
-	extern DetourHook<CheckAppOwnership_t> CheckAppOwnership;
+
 	extern DetourHook<IClientAppManager_PipeLoop_t> IClientAppManager_PipeLoop;
 	extern DetourHook<IClientApps_PipeLoop_t> IClientApps_PipeLoop;
 	extern DetourHook<IClientRemoteStorage_PipeLoop_t> IClientRemoteStorage_PipeLoop;
 
 	extern DetourHook<IClientUser_BIsSubscribedApp_t> IClientUser_BIsSubscribedApp;
+	extern DetourHook<IClientUser_CheckAppOwnership_t> IClientUser_CheckAppOwnership;
 	extern DetourHook<IClientUser_IsUserSubscribedAppInTicket_t> IClientUser_IsUserSubscribedAppInTicket;
 	extern DetourHook<IClientUser_GetSubscribedApps_t> IClientUser_GetSubscribedApps;
 	extern DetourHook<IClientUser_RequiresLegacyCDKey_t> IClientUser_RequiresLegacyCDKey;

@@ -148,98 +148,13 @@ static void hkLogSteamPipeCall(const char* iface, const char* fn)
 	}
 }
 
+{
+
+
+}
+
 static bool applistRequested = false;
 static auto appIdOwnerOverride = std::map<uint32_t, int>();
-
-__attribute__((hot))
-static bool hkCheckAppOwnership(void* a0, uint32_t appId, CAppOwnershipInfo* pOwnershipInfo)
-{
-	const bool ret = Hooks::CheckAppOwnership.tramp.fn(a0, appId, pOwnershipInfo);
-
-	//Do not log pOwnershipInfo because it gets deleted very quickly, so it's pretty much useless in the logs
-	g_pLog->once("CheckAppOwnership(%p, %u) -> %i\n", a0, appId, ret);
-
-	//Wait Until GetSubscribedApps gets called once to let Steam request and populate legit data first.
-	//Afterwards modifying should hopefully not affect false positives anymore
-	if (!applistRequested || g_config.shouldExcludeAppId(appId) || !pOwnershipInfo || !g_currentSteamId)
-	{
-		return ret;
-	}
-
-	const u_int32_t denuvoOwner = g_config.getDenuvoGameOwner(appId);
-	//Do not modify Denuvo enabled Games
-	if (!g_config.denuvoSpoof && denuvoOwner && denuvoOwner != g_currentSteamId)
-	{
-		//Would love to log the SteamId, but for users anonymity I won't
-		g_pLog->once("Skipping %u because it's a Denuvo game from someone else\n", appId);
-		return ret;
-	}
-
-	if (g_config.isAddedAppId(appId) || (g_config.playNotOwnedGames && !pOwnershipInfo->purchased))
-	{
-		if (!denuvoOwner || denuvoOwner == g_currentSteamId)
-		{
-			//Changing the purchased field is enough, but just for nicety in the Steamclient UI we change the owner too
-			pOwnershipInfo->ownerSteamId = g_currentSteamId;
-			pOwnershipInfo->familyShared = false;
-		}
-		else if (denuvoOwner)
-		{
-			pOwnershipInfo->ownerSteamId = denuvoOwner;
-			pOwnershipInfo->familyShared = true;
-		}
-
-		pOwnershipInfo->purchased = true;
-		//Unnessecary but whatever
-		pOwnershipInfo->permanent = true;
-
-		//Found in backtrace
-		pOwnershipInfo->releaseState = 4;
-		pOwnershipInfo->field10_0x25 = 0;
-		//Seems to do nothing in particular, some dlc have this as 1 so I uncomented this for now. Might be free stuff?
-		//pOwnershipInfo->field27_0x36 = 1;
-
-		g_config.addAdditionalAppId(appId);
-	}
-
-	//Doing that might be not worth it since this will most likely be easier to mantain
-	//TODO: Backtrace those 4 calls and only patch the really necessary ones since this might be prone to breakage
-	if (!denuvoOwner && g_config.disableFamilyLock && appIdOwnerOverride.count(appId) && appIdOwnerOverride.at(appId) < 4)
-	{
-		pOwnershipInfo->ownerSteamId = 1; //Setting to "arbitrary" steam Id instead of own, otherwise bypass won't work for own games
-		//Unnessecarry again, but whatever
-		pOwnershipInfo->permanent = true;
-		pOwnershipInfo->familyShared = false;
-
-		appIdOwnerOverride[appId]++;
-	}
-
-	//Returning false after we modify data shouldn't cause any problems because it should just get discarded
-
-	if (!g_pClientApps)
-		return ret;
-
-	auto type = g_pClientApps->getAppType(appId);
-	if (type == APPTYPE_DLC) //Don't touch DLC here, otherwise downloads might break. Hopefully this won't decrease compatibility
-	{
-		return ret;
-	}
-
-	if (g_config.automaticFilter)
-	{
-		switch(type)
-		{
-			case APPTYPE_APPLICATION:
-			case APPTYPE_GAME:
-				break;
-
-			default:
-				return ret;
-		}
-	}
-
-	return true;
-}
 
 static void* hkClientAppManager_LaunchApp(void* pClientAppManager, uint32_t* pAppId, void* a2, void* a3, void* a4)
 {
@@ -432,6 +347,96 @@ static bool hkClientUser_BIsSubscribedApp(void* pClientUser, uint32_t appId)
 	return true;
 }
 
+__attribute__((hot))
+static bool hkClientUser_CheckAppOwnership(void* pClientUser, uint32_t appId, CAppOwnershipInfo* pOwnershipInfo)
+{
+	const bool ret = Hooks::IClientUser_CheckAppOwnership.tramp.fn(pClientUser, appId, pOwnershipInfo);
+
+	//Do not log pOwnershipInfo because it gets deleted very quickly, so it's pretty much useless in the logs
+	g_pLog->once("IClientUser::CheckAppOwnership(%p, %u) -> %i\n", pClientUser, appId, ret);
+
+	//Wait Until GetSubscribedApps gets called once to let Steam request and populate legit data first.
+	//Afterwards modifying should hopefully not affect false positives anymore
+	if (!applistRequested || g_config.shouldExcludeAppId(appId) || !pOwnershipInfo || !g_currentSteamId)
+	{
+		return ret;
+	}
+
+	const uint32_t denuvoOwner = g_config.getDenuvoGameOwner(appId);
+	//Do not modify Denuvo enabled Games
+	if (!g_config.denuvoSpoof && denuvoOwner && denuvoOwner != g_currentSteamId)
+	{
+		//Would love to log the SteamId, but for users anonymity I won't
+		g_pLog->once("Skipping %u because it's a Denuvo game from someone else\n", appId);
+		return ret;
+	}
+
+	if (g_config.isAddedAppId(appId) || (g_config.playNotOwnedGames && !pOwnershipInfo->purchased))
+	{
+		if (!denuvoOwner || denuvoOwner == g_currentSteamId)
+		{
+			//Changing the purchased field is enough, but just for nicety in the Steamclient UI we change the owner too
+			pOwnershipInfo->ownerSteamId = g_currentSteamId;
+			pOwnershipInfo->familyShared = false;
+		}
+		else if (denuvoOwner)
+		{
+			pOwnershipInfo->ownerSteamId = denuvoOwner;
+			pOwnershipInfo->familyShared = true;
+		}
+
+		pOwnershipInfo->purchased = true;
+		//Unnessecary but whatever
+		pOwnershipInfo->permanent = true;
+
+		//Found in backtrace
+		pOwnershipInfo->releaseState = 4;
+		pOwnershipInfo->field10_0x25 = 0;
+		//Seems to do nothing in particular, some dlc have this as 1 so I uncomented this for now. Might be free stuff?
+		//pOwnershipInfo->field27_0x36 = 1;
+
+		g_config.addAdditionalAppId(appId);
+	}
+
+	//Doing that might be not worth it since this will most likely be easier to mantain
+	//TODO: Backtrace those 4 calls and only patch the really necessary ones since this might be prone to breakage
+	if (!denuvoOwner && g_config.disableFamilyLock && appIdOwnerOverride.count(appId) && appIdOwnerOverride.at(appId) < 4)
+	{
+		pOwnershipInfo->ownerSteamId = 1; //Setting to "arbitrary" steam Id instead of own, otherwise bypass won't work for own games
+		//Unnessecarry again, but whatever
+		pOwnershipInfo->permanent = true;
+		pOwnershipInfo->familyShared = false;
+
+		appIdOwnerOverride[appId]++;
+	}
+
+	//Returning false after we modify data shouldn't cause any problems because it should just get discarded
+
+	if (!g_pClientApps)
+		return ret;
+
+	auto type = g_pClientApps->getAppType(appId);
+	if (type == APPTYPE_DLC) //Don't touch DLC here, otherwise downloads might break. Hopefully this won't decrease compatibility
+	{
+		return ret;
+	}
+
+	if (g_config.automaticFilter)
+	{
+		switch(type)
+		{
+			case APPTYPE_APPLICATION:
+			case APPTYPE_GAME:
+				break;
+
+			default:
+				return ret;
+		}
+	}
+
+	return true;
+}
+
 static uint8_t hkClientUser_IsUserSubscribedAppInTicket(void* pClientUser, uint32_t steamId, uint32_t a2, uint32_t a3, uint32_t appId)
 {
 	const uint8_t ticketState = Hooks::IClientUser_IsUserSubscribedAppInTicket.tramp.fn(pClientUser, steamId, a2, a3, appId);
@@ -576,12 +581,13 @@ namespace Hooks
 {
 	//TODO: Replace logging in hooks with Hook::name
 	DetourHook<LogSteamPipeCall_t> LogSteamPipeCall("LogSteamPipeCall");
-	DetourHook<CheckAppOwnership_t> CheckAppOwnership("CheckAppOwnership");
+
 	DetourHook<IClientAppManager_PipeLoop_t> IClientAppManager_PipeLoop("IClientAppManager::PipeLoop");
 	DetourHook<IClientApps_PipeLoop_t> IClientApps_PipeLoop("IClientApps::PipeLoop");
 	DetourHook<IClientRemoteStorage_PipeLoop_t> IClientRemoteStorage_PipeLoop("IClientRemoteStorage::PipeLoop");
 
 	DetourHook<IClientUser_BIsSubscribedApp_t> IClientUser_BIsSubscribedApp("IClientUser::BIsSubscribedApp");
+	DetourHook<IClientUser_CheckAppOwnership_t> IClientUser_CheckAppOwnership("IClientUser::CheckAppOwnership");
 	DetourHook<IClientUser_IsUserSubscribedAppInTicket_t> IClientUser_IsUserSubscribedAppInTicket("IClientUser::IsUserSubscribedAppInTicket");
 	DetourHook<IClientUser_GetSubscribedApps_t> IClientUser_GetSubscribedApps("IClientUser::GetSubscribedApps");
 	DetourHook<IClientUser_RequiresLegacyCDKey_t> IClientUser_RequiresLegacyCDKey("IClientUser::RequiresLegacyCDKey");
@@ -662,9 +668,9 @@ bool Hooks::setup()
 	);
 
 	bool succeeded =
-		CheckAppOwnership.setup(Patterns::CheckAppOwnership, MemHlp::SigFollowMode::Relative, &hkCheckAppOwnership)
-		&& LogSteamPipeCall.setup(Patterns::LogSteamPipeCall, MemHlp::SigFollowMode::Relative, &hkLogSteamPipeCall)
+		LogSteamPipeCall.setup(Patterns::LogSteamPipeCall, MemHlp::SigFollowMode::Relative, &hkLogSteamPipeCall)
 		&& IClientUser_BIsSubscribedApp.setup(Patterns::IsSubscribedApp, MemHlp::SigFollowMode::Relative, &hkClientUser_BIsSubscribedApp)
+		&& IClientUser_CheckAppOwnership.setup(Patterns::CheckAppOwnership, MemHlp::SigFollowMode::Relative, &hkClientUser_CheckAppOwnership)
 		&& IClientUser_IsUserSubscribedAppInTicket.setup(Patterns::IsUserSubscribedAppInTicket, MemHlp::SigFollowMode::Relative, &hkClientUser_IsUserSubscribedAppInTicket)
 		&& IClientUser_GetSubscribedApps.setup(Patterns::GetSubscribedApps, MemHlp::SigFollowMode::Relative, &hkClientUser_GetSubscribedApps)
 
@@ -698,12 +704,14 @@ bool Hooks::setup()
 void Hooks::place()
 {
 	//Detours
-	CheckAppOwnership.place();
 	LogSteamPipeCall.place();
+
 	IClientApps_PipeLoop.place();
 	IClientAppManager_PipeLoop.place();
 	IClientRemoteStorage_PipeLoop.place();
+
 	IClientUser_BIsSubscribedApp.place();
+	IClientUser_CheckAppOwnership.place();
 	IClientUser_IsUserSubscribedAppInTicket.place();
 	IClientUser_GetSubscribedApps.place();
 	IClientUser_RequiresLegacyCDKey.place();
@@ -714,12 +722,14 @@ void Hooks::place()
 void Hooks::remove()
 {
 	//Detours
-	CheckAppOwnership.remove();
 	LogSteamPipeCall.remove();
+
 	IClientApps_PipeLoop.remove();
 	IClientAppManager_PipeLoop.remove();
 	IClientRemoteStorage_PipeLoop.remove();
+
 	IClientUser_BIsSubscribedApp.remove();
+	IClientUser_CheckAppOwnership.remove();
 	IClientUser_IsUserSubscribedAppInTicket.remove();
 	IClientUser_GetSubscribedApps.remove();
 	IClientUser_RequiresLegacyCDKey.remove();
