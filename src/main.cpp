@@ -19,7 +19,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-static const char* EXPECTED_STEAMCLIENT_HASH = "91b60769f5b05971144adbc02a584efa706817a4191d06d535ebab484f326c2d";
+static const char* EXPECTED_STEAMCLIENT_HASH = "ec96ee3c700e759c118bfe308e1fc707ec3a8e4f6bf2bbb117df19b5b730b62d";
 
 static bool cleanEnvVar(const char* varName)
 {
