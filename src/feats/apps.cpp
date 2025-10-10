@@ -12,7 +12,7 @@ bool Apps::checkAppOwnership(uint32_t appId, CAppOwnershipInfo* pInfo)
 {
 	//Wait Until GetSubscribedApps gets called once to let Steam request and populate legit data first.
 	//Afterwards modifying should hopefully not affect false positives anymore
-	if (!applistRequested || g_config.shouldExcludeAppId(appId) || !pInfo || !g_currentSteamId)
+	if (!applistRequested || !pInfo || !g_currentSteamId)
 	{
 		return false;
 	}
@@ -23,6 +23,24 @@ bool Apps::checkAppOwnership(uint32_t appId, CAppOwnershipInfo* pInfo)
 	{
 		//Would love to log the SteamId, but for users anonymity I won't
 		g_pLog->once("Skipping %u because it's a Denuvo game from someone else\n", appId);
+		return false;
+	}
+
+	//Doing that might be not worth it since this will most likely be easier to mantain
+	//TODO: Backtrace those 4 calls and only patch the really necessary ones since this might be prone to breakage
+	if (g_config.disableFamilyLock && appIdOwnerOverride.count(appId) && appIdOwnerOverride.at(appId) < 4)
+	{
+		pInfo->ownerSteamId = 1; //Setting to "arbitrary" steam Id instead of own, otherwise bypass won't work for own games
+		//Unnessecarry again, but whatever
+		pInfo->permanent = true;
+		pInfo->familyShared = false;
+
+		appIdOwnerOverride[appId]++;
+		return false;
+	}
+
+	if (g_config.shouldExcludeAppId(appId))
+	{
 		return false;
 	}
 
@@ -51,18 +69,6 @@ bool Apps::checkAppOwnership(uint32_t appId, CAppOwnershipInfo* pInfo)
 		//pOwnershipInfo->field27_0x36 = 1;
 
 		g_config.addAdditionalAppId(appId);
-	}
-
-	//Doing that might be not worth it since this will most likely be easier to mantain
-	//TODO: Backtrace those 4 calls and only patch the really necessary ones since this might be prone to breakage
-	if (!denuvoOwner && g_config.disableFamilyLock && appIdOwnerOverride.count(appId) && appIdOwnerOverride.at(appId) < 4)
-	{
-		pInfo->ownerSteamId = 1; //Setting to "arbitrary" steam Id instead of own, otherwise bypass won't work for own games
-		//Unnessecarry again, but whatever
-		pInfo->permanent = true;
-		pInfo->familyShared = false;
-
-		appIdOwnerOverride[appId]++;
 	}
 
 	//Returning false after we modify data shouldn't cause any problems because it should just get discarded
