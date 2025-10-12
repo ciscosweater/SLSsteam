@@ -15,6 +15,7 @@ depends=("steam"
 optdepends=("steam-native")
 
 provides=("slssteam")
+conflicts=("slssteam-git")
 
 source=("https://github.com/AceSLS/SLSsteam/archive/refs/tags/$pkgver.tar.gz")
 makedepends=("gcc")

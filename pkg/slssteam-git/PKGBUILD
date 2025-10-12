@@ -16,6 +16,7 @@ optdepends=("steam-native"
 			"ccache")
 
 provides=("slssteam")
+conflicts=("slssteam")
 
 
 source=("git+$url#branch=dev")
