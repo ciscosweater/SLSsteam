@@ -30,4 +30,9 @@ namespace VFTIndexes
 	{
 		constexpr int GetSteamID = 10;
 	}
+
+	namespace IClientUtils
+	{
+		constexpr int GetAppId = 19;
+	}
 }

@@ -3,8 +3,8 @@
 #include "../config.hpp"
 #include "../globals.hpp"
 
-#include <cstdio>
-#include <cstdlib>
+#include "../sdk/IClientUtils.hpp"
+
 #include <cstring>
 #include <filesystem>
 #include <fstream>
@@ -12,8 +12,9 @@
 #include <sstream>
 
 uint32_t Ticket::steamIdSpoof = 0;
+std::map<uint32_t, CEncryptedAppTicket> Ticket::encryptedTicketMap = std::map<uint32_t, CEncryptedAppTicket>();
 
-std::string Ticket::getTicketPath(uint32_t appId)
+std::string Ticket::getTicketDir()
 {
 	std::stringstream ss;
 	ss << g_config.getDir().c_str() << "/cache";
@@ -24,7 +25,13 @@ std::string Ticket::getTicketPath(uint32_t appId)
 		std::filesystem::create_directory(dir.c_str());
 	}
 
-	ss << "/ticketData_" << appId;
+	return ss.str();
+}
+
+std::string Ticket::getTicketPath(uint32_t appId)
+{
+	std::stringstream ss;
+	ss << getTicketDir().c_str() << "/ticket_" << appId;
 
 	return ss.str();
 }
@@ -90,3 +97,115 @@ uint32_t Ticket::getTicketOwnershipExtendedData(uint32_t appId, void* ticket, ui
 
 	return size;
 }
+
+std::string Ticket::getEncryptedTicketPath(uint32_t appId)
+{
+	std::stringstream ss;
+	ss << getTicketDir().c_str() << "/encryptedTicket_" << appId;
+
+	return ss.str();
+}
+
+CEncryptedAppTicket Ticket::getCachedEncryptedTicket(uint32_t appId)
+{
+	if (encryptedTicketMap.contains(appId))
+	{
+		return encryptedTicketMap[appId];
+	}
+
+	CEncryptedAppTicket ticket {};
+
+	const auto path = getEncryptedTicketPath(appId);
+	if (!std::filesystem::exists(path.c_str()))
+	{
+		return ticket;
+	}
+
+	std::ifstream ifs(path, std::ios::in);
+
+	g_pLog->debug("Reading encrypted ticket for %u\n", appId);
+
+	ifs.read(reinterpret_cast<char*>(&ticket), sizeof ticket);
+	//g_pLog->debug("Ticket: %u, %u, %u\n", ticket.getSteamId(), ticket.getAppId(), ticket.getSize());
+
+	encryptedTicketMap[appId] = ticket;
+
+	return ticket;
+}
+
+bool Ticket::saveEncryptedTicketToCache(uint32_t appId, uint32_t steamId, void* ticketData, uint32_t ticketSize)
+{
+	CEncryptedAppTicket ticket {};
+	g_pLog->debug("Saving encrypted ticket for %u...\n", appId);
+
+	ticket.steamId = steamId;
+	ticket.size = ticketSize;
+	memcpy(ticket.bytes, ticketData, ticketSize);
+
+	const auto path = getEncryptedTicketPath(appId);
+	std::ofstream ofs(path.c_str(), std::ios::out);
+
+	ofs.write(reinterpret_cast<char*>(&ticket), sizeof(ticket));
+
+	g_pLog->once("Saved encrypted ticket for %u\n", appId);
+
+	encryptedTicketMap[appId] = ticket;
+	
+	return true;
+}
+
+bool Ticket::getEncryptedAppTicket(void* ticketData, uint32_t* bytesWritten)
+{
+	if (*bytesWritten)
+	{
+		saveEncryptedTicketToCache(g_pClientUtils->getAppId(), g_currentSteamId, ticketData, *bytesWritten);
+
+		if (g_config.blockEncryptedAppTickets)
+		{
+			memset(ticketData, 0, 0x1000);
+			*bytesWritten = 0;
+		}
+
+		return false;
+	}
+
+	CEncryptedAppTicket ticket = Ticket::getCachedEncryptedTicket(g_pClientUtils->getAppId());
+	//TODO: Add isValid helper function to ticket or similiar
+	if (!ticket.size || !ticket.steamId)
+	{
+		return false;
+	}
+
+	steamIdSpoof = ticket.steamId;
+	memcpy(ticketData, ticket.bytes, ticket.size);
+	*bytesWritten = ticket.size;
+
+	return true;
+}
+
+bool Ticket::getAPICallResult(ECallbackType type, void* pCallback)
+{
+	if (type != ECallbackType::RequestEncryptedAppOwnershipTicket)
+	{
+		return false;
+	}
+
+	uint32_t* pResult = reinterpret_cast<uint32_t*>(pCallback);
+
+	if (*pResult == 1)
+	{
+		return false;
+	}
+
+	CEncryptedAppTicket ticket = getCachedEncryptedTicket(g_pClientUtils->getAppId());
+	if (!ticket.size || !ticket.steamId)
+	{
+		return false;
+	}
+
+	*pResult = 1; //Success
+	g_pLog->debug("Spoofed RequestEncryptedAppOwnershipTicket callback!\n");
+
+	return true;
+}
+

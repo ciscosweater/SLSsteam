@@ -13,3 +13,11 @@ public:
 	uint32_t getAppId() const;
 	uint32_t getSize() const;
 };
+
+class CEncryptedAppTicket
+{
+public:
+	uint32_t steamId;
+	uint32_t size;
+	uint8_t bytes[0x1000];
+};

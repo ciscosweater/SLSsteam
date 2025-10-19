@@ -4,14 +4,18 @@
 #include "log.hpp"
 #include "memhlp.hpp"
 #include "patterns.hpp"
-#include "sdk/IClientUser.hpp"
 #include "vftableinfo.hpp"
 
 #include "libmem/libmem.h"
 
 #include "sdk/CAppOwnershipInfo.hpp"
+#include "sdk/CAppTicket.hpp"
+#include "sdk/CCallback.hpp"
+#include "sdk/IClientUser.hpp"
 #include "sdk/IClientApps.hpp"
 #include "sdk/IClientAppManager.hpp"
+#include "sdk/IClientUtils.hpp"
+#include "sdk/IClientUser.hpp"
 
 #include "feats/apps.hpp"
 #include "feats/dlc.hpp"
@@ -393,6 +397,19 @@ static void hkClientRemoteStorage_PipeLoop(void* pClientRemoteStorage, void* a1,
 	Hooks::IClientRemoteStorage_PipeLoop.originalFn.fn(pClientRemoteStorage, a1, a2, a3);
 }
 
+static void hkClientUtils_PipeLoop(void* pClientUtils, void* a1, void* a2, void* a3)
+{
+	g_pClientUtils = reinterpret_cast<IClientUtils*>(pClientUtils);
+
+	std::shared_ptr<lm_vmt_t> vft = std::make_shared<lm_vmt_t>();
+	LM_VmtNew(*reinterpret_cast<lm_address_t**>(pClientUtils), vft.get());
+
+	g_pLog->debug("IClientUtils->vft at %p\n", vft->vtable);
+
+	Hooks::IClientUtils_PipeLoop.remove();
+	Hooks::IClientUtils_PipeLoop.originalFn.fn(pClientUtils, a1, a2, a3);
+}
+
 static bool hkClientUser_BIsSubscribedApp(void* pClientUser, uint32_t appId)
 {
 	const bool ret = Hooks::IClientUser_BIsSubscribedApp.tramp.fn(pClientUser, appId);
@@ -431,6 +448,37 @@ static bool hkClientUser_CheckAppOwnership(void* pClientUser, uint32_t appId, CA
 	);
 
 	if (Apps::checkAppOwnership(appId, pOwnershipInfo))
+	{
+		return true;
+	}
+
+	return ret;
+}
+
+__attribute__((hot))
+static bool hkClientUser_GetAPICallResult(void* pClientUser, uint32_t callbackHandle, uint32_t a2, void* pCallback, uint32_t callbackSize, uint32_t type, bool* pbFailed)
+{
+	const auto ret = Hooks::IClientUser_GetAPICallResult.tramp.fn(pClientUser, callbackHandle, a2, pCallback, callbackSize, type, pbFailed);
+
+	if (g_config.extendedLogging)
+	{
+		g_pLog->debug
+		(
+			"%s(%p, %p, %p, %p, %u, %p, %p) -> %i\n",
+
+			Hooks::IClientUser_GetAPICallResult.name.c_str(),
+			pClientUser,
+			callbackHandle,
+			a2,
+			pCallback,
+			callbackSize,
+			type,
+			pbFailed,
+			ret
+		);
+	}
+
+	if (Ticket::getAPICallResult(static_cast<ECallbackType>(type), pCallback))
 	{
 		return true;
 	}
@@ -487,6 +535,31 @@ static uint8_t hkClientUser_IsUserSubscribedAppInTicket(void* pClientUser, uint3
 	return ticketState;
 }
 
+
+static bool hkClientUser_GetEncryptedAppTicket(void* pClientUser, void* pTicket, uint32_t maxSize, uint32_t* pBytesWritten)
+{
+	const bool ret = Hooks::IClientUser_GetEncryptedAppTicket.tramp.fn(pClientUser, pTicket, maxSize, pBytesWritten);
+
+	g_pLog->debug
+	(
+		"%s(%p, %p, %u, %p) -> %i\n",
+
+		Hooks::IClientUser_GetEncryptedAppTicket.name.c_str(),
+		pClientUser,
+		pTicket,
+		maxSize,
+		pBytesWritten,
+		ret
+	);
+
+	if (Ticket::getEncryptedAppTicket(pTicket, pBytesWritten))
+	{
+		return true;
+	}
+
+	return ret;
+}
+
 static uint32_t hkClientUser_GetSubscribedApps(void* pClientUser, uint32_t* pAppList, size_t size, bool a3)
 {
 	uint32_t count = Hooks::IClientUser_GetSubscribedApps.tramp.fn(pClientUser, pAppList, size, a3);
@@ -530,6 +603,14 @@ static bool hkClientUser_RequiresLegacyCDKey(void* pClientUser, uint32_t appId, 
 	return requiresKey;
 }
 
+static void hkClientUser_PipeLoop(void* pClientUser, void* a1, void* a2, void* a3)
+{
+	g_pClientUser = reinterpret_cast<IClientUser*>(pClientUser);
+
+	Hooks::IClientUser_PipeLoop.remove();
+	Hooks::IClientUser_PipeLoop.originalFn.fn(pClientUser, a1, a2, a3);
+}
+
 static void patchRetn(lm_address_t address)
 {
 	constexpr lm_byte_t retn = 0xC3;
@@ -540,17 +621,41 @@ static void patchRetn(lm_address_t address)
 	LM_ProtMemory(address, 1, oldProt, LM_NULL);
 }
 
-static lm_address_t hkGetSteamId;
+__attribute__((stdcall))
+static uint32_t hkIClientUser_GetSteamId(uint32_t steamId)
+{
+	if (!g_currentSteamId)
+	{
+		g_currentSteamId = steamId;
+	}
+
+	CEncryptedAppTicket ticket = Ticket::getCachedEncryptedTicket(g_pClientUtils->getAppId());
+	
+	if (ticket.size && ticket.steamId)
+	{
+		steamId = ticket.steamId;
+	}
+	else if (Ticket::steamIdSpoof)
+	{
+		//One time spoof should be enough for this type
+		steamId = Ticket::steamIdSpoof;
+		Ticket::steamIdSpoof = 0;
+	}
+
+	return steamId;
+}
+
+static lm_address_t hkNakedGetSteamId;
 static bool createAndPlaceSteamIdHook()
 {
-	hkGetSteamId = LM_AllocMemory(0, LM_PROT_XRW);
-	if (hkGetSteamId == LM_ADDRESS_BAD)
+	hkNakedGetSteamId = LM_AllocMemory(0, LM_PROT_XRW);
+	if (hkNakedGetSteamId == LM_ADDRESS_BAD)
 	{
 		g_pLog->debug("Failed to allocate memory for GetSteamId!\n");
 		return false;
 	}
 
-	g_pLog->debug("Allocated memory for GetSteamId hook at %p\n", hkGetSteamId);
+	g_pLog->debug("Allocated memory for GetSteamId hook at %p\n", hkNakedGetSteamId);
 
 	auto insts = std::vector<lm_inst_t>();
 	lm_address_t readAddr = Hooks::IClientUser_GetSteamId;
@@ -591,20 +696,40 @@ static bool createAndPlaceSteamIdHook()
 		}
 	}
 
-	lm_address_t writeAddr = hkGetSteamId;
+	static uint32_t steamId;
+
+	lm_address_t writeAddr = hkNakedGetSteamId;
+	//I really didn't want to use pushad and popad since it's just lazy
+	//But I'm bad at this so this has to do
+	MemHlp::assembleCodeAt(writeAddr, "mov [%p], ecx", &steamId);
+	MemHlp::assembleCodeAt(writeAddr, "pushad", nullptr);
+	MemHlp::assembleCodeAt(writeAddr, "pushfd", nullptr);
+	//MemHlp::assembleCodeAt(writeAddr, "pushfq", nullptr);
+
+	MemHlp::assembleCodeAt(writeAddr, "mov eax, %p", &hkIClientUser_GetSteamId);
+	MemHlp::assembleCodeAt(writeAddr, "mov ebx, [%p]", &steamId);
+	MemHlp::assembleCodeAt(writeAddr, "push ebx", steamId);
+	MemHlp::assembleCodeAt(writeAddr, "call eax", nullptr);
+	MemHlp::assembleCodeAt(writeAddr, "mov [%p], eax", &steamId);
+
+	//MemHlp::assembleCodeAt(writeAddr, "popfq", nullptr);
+	MemHlp::assembleCodeAt(writeAddr, "popfd", nullptr);
+	MemHlp::assembleCodeAt(writeAddr, "popad", nullptr);
+	MemHlp::assembleCodeAt(writeAddr, "mov ecx, [%p]", &steamId);
+	
 	//TODO: Dynamically resolve register which holds SteamId
-	MemHlp::assembleCodeAt(writeAddr, "mov [%p], ecx", &g_currentSteamId);
+	//MemHlp::assembleCodeAt(writeAddr, "mov [%p], ecx", &g_currentSteamId);
 
-	MemHlp::assembleCodeAt(writeAddr, "push eax", nullptr);
+	//MemHlp::assembleCodeAt(writeAddr, "push eax", nullptr);
 
-	MemHlp::assembleCodeAt(writeAddr, "mov eax, [%p]", &Ticket::steamIdSpoof);
-	MemHlp::assembleCodeAt(writeAddr, "test eax, eax", nullptr);
-	MemHlp::assembleCodeAt(writeAddr, "je %p", 14); //2 bytes
-	MemHlp::assembleCodeAt(writeAddr, "mov ecx, eax", nullptr); //2 bytes
-	MemHlp::assembleCodeAt(writeAddr, "mov eax, 0", nullptr); //6 bytes
-	MemHlp::assembleCodeAt(writeAddr, "mov [%p], eax", &Ticket::steamIdSpoof); //6 bytes
+	//MemHlp::assembleCodeAt(writeAddr, "mov eax, [%p]", &Ticket::steamIdSpoof);
+	//MemHlp::assembleCodeAt(writeAddr, "test eax, eax", nullptr);
+	//MemHlp::assembleCodeAt(writeAddr, "je %p", 4); //2 bytes
+	//MemHlp::assembleCodeAt(writeAddr, "mov ecx, eax", nullptr); //2 bytes
+	//MemHlp::assembleCodeAt(writeAddr, "mov eax, 0", nullptr); //5 bytes
+	//MemHlp::assembleCodeAt(writeAddr, "mov [%p], eax", &Ticket::steamIdSpoof); //5 bytes
 	//
-	MemHlp::assembleCodeAt(writeAddr, "pop eax", nullptr);
+	//MemHlp::assembleCodeAt(writeAddr, "pop eax", nullptr);
 
 	//Write the overwritten instructions after our hook code
 	for (unsigned int i = 0; i < instsToOverwrite; i++)
@@ -623,7 +748,7 @@ static bool createAndPlaceSteamIdHook()
 	lm_prot_t oldProt;
 	LM_ProtMemory(jmpAddr, 5, LM_PROT_XRW, &oldProt);
 	*reinterpret_cast<lm_byte_t*>(jmpAddr) = 0xE9;
-	*reinterpret_cast<lm_address_t*>(jmpAddr + 1) = hkGetSteamId - jmpAddr - 5;
+	*reinterpret_cast<lm_address_t*>(jmpAddr + 1) = hkNakedGetSteamId - jmpAddr - 5;
 	LM_ProtMemory(jmpAddr, 5, oldProt, nullptr);
 
 	return true;
@@ -637,12 +762,16 @@ namespace Hooks
 	DetourHook<IClientAppManager_PipeLoop_t> IClientAppManager_PipeLoop("IClientAppManager::PipeLoop");
 	DetourHook<IClientApps_PipeLoop_t> IClientApps_PipeLoop("IClientApps::PipeLoop");
 	DetourHook<IClientRemoteStorage_PipeLoop_t> IClientRemoteStorage_PipeLoop("IClientRemoteStorage::PipeLoop");
+	DetourHook<IClientUtils_PipeLoop_t> IClientUtils_PipeLoop("IClientUtils::PipeLoop");
+	DetourHook<IClientUser_PipeLoop_t> IClientUser_PipeLoop("IClientUser::PipeLoop");
 
 	DetourHook<CAPIJob_RequestUserStats_t> CAPIJob_RequestUserStats("CAPIJob_RequestUserStats");
 
 	DetourHook<IClientUser_BIsSubscribedApp_t> IClientUser_BIsSubscribedApp("IClientUser::BIsSubscribedApp");
 	DetourHook<IClientUser_CheckAppOwnership_t> IClientUser_CheckAppOwnership("IClientUser::CheckAppOwnership");
+	DetourHook<IClientUser_GetAPICallResult_t> IClientUser_GetAPICallResult("IClientUser::GetAPICallResult");
 	DetourHook<IClientUser_GetAppOwnershipTicketExtendedData_t> IClientUser_GetAppOwnershipTicketExtendedData("IClientUser::GetAppOwnershipTicketExtendedData");
+	DetourHook<IClientUser_GetEncryptedAppTicket_t> IClientUser_GetEncryptedAppTicket("IClientUser::GetEncryptedAppTicket");
 	DetourHook<IClientUser_GetSubscribedApps_t> IClientUser_GetSubscribedApps("IClientUser::GetSubscribedApps");
 	DetourHook<IClientUser_IsUserSubscribedAppInTicket_t> IClientUser_IsUserSubscribedAppInTicket("IClientUser::IsUserSubscribedAppInTicket");
 	DetourHook<IClientUser_RequiresLegacyCDKey_t> IClientUser_RequiresLegacyCDKey("IClientUser::RequiresLegacyCDKey");
@@ -708,6 +837,22 @@ bool Hooks::setup()
 		prologue.size(),
 		&hkClientRemoteStorage_PipeLoop
 	);
+	bool clientUtils_PipeLoop = IClientUtils_PipeLoop.setup
+	(
+		Patterns::IClientUtils_PipeLoop,
+		MemHlp::SigFollowMode::PrologueUpwards,
+		&prologue[0],
+		prologue.size(),
+		&hkClientUtils_PipeLoop
+	);
+	bool clientUser_PipeLoop = IClientUser_PipeLoop.setup
+	(
+		Patterns::IClientUser_PipeLoop,
+		MemHlp::SigFollowMode::PrologueUpwards,
+		&prologue[0],
+		prologue.size(),
+		&hkClientUser_PipeLoop
+	);
 
 	//TODO: Make this shit less verbose in case I fail my reversing & refactor for all this crap
 	prologue = std::vector<lm_byte_t>({
@@ -731,12 +876,24 @@ bool Hooks::setup()
 		&hkClientUser_GetAppOwnershipTicketExtendedData
 	);
 
+	prologue = std::vector<lm_byte_t>({
+		0x74, 0x8b, 0x53, 0x56, 0x57
+	});
+	bool getEncryptedAppTicket = IClientUser_GetEncryptedAppTicket.setup
+	(
+		Patterns::GetEncryptedAppTicket,
+		MemHlp::SigFollowMode::PrologueUpwards,
+		&prologue[0],
+		prologue.size(),
+		&hkClientUser_GetEncryptedAppTicket
+	);
 
 	bool succeeded =
 		LogSteamPipeCall.setup(Patterns::LogSteamPipeCall, MemHlp::SigFollowMode::Relative, &hkLogSteamPipeCall)
 		&& CAPIJob_RequestUserStats.setup(Patterns::CAPIJob_RequestUserStats, MemHlp::SigFollowMode::Relative, &hkCAPIJob_RequestUserStats)
 		&& IClientUser_BIsSubscribedApp.setup(Patterns::IsSubscribedApp, MemHlp::SigFollowMode::Relative, &hkClientUser_BIsSubscribedApp)
 		&& IClientUser_CheckAppOwnership.setup(Patterns::CheckAppOwnership, MemHlp::SigFollowMode::Relative, &hkClientUser_CheckAppOwnership)
+		&& IClientUser_GetAPICallResult.setup(Patterns::GetAPICallResult, MemHlp::SigFollowMode::Relative, &hkClientUser_GetAPICallResult)
 		&& IClientUser_IsUserSubscribedAppInTicket.setup(Patterns::IsUserSubscribedAppInTicket, MemHlp::SigFollowMode::Relative, &hkClientUser_IsUserSubscribedAppInTicket)
 		&& IClientUser_GetSubscribedApps.setup(Patterns::GetSubscribedApps, MemHlp::SigFollowMode::Relative, &hkClientUser_GetSubscribedApps)
 
@@ -747,8 +904,11 @@ bool Hooks::setup()
 		&& clientApps_PipeLoop
 		&& clientAppManager_PipeLoop
 		&& clientRemoteStorage_PipeLoop
+		&& clientUtils_PipeLoop
+		&& clientUser_PipeLoop
 		&& requiresLegacyCDKey
-		&& getAppOwnershipTicketExtendedData;
+		&& getAppOwnershipTicketExtendedData
+		&& getEncryptedAppTicket;
 
 	if (!succeeded)
 	{
@@ -777,9 +937,13 @@ void Hooks::place()
 	IClientApps_PipeLoop.place();
 	IClientAppManager_PipeLoop.place();
 	IClientRemoteStorage_PipeLoop.place();
+	IClientUtils_PipeLoop.place();
+	IClientUser_PipeLoop.place();
 
 	IClientUser_BIsSubscribedApp.place();
 	IClientUser_CheckAppOwnership.place();
+	IClientUser_GetAPICallResult.place();
+	IClientUser_GetEncryptedAppTicket.place();
 	IClientUser_GetAppOwnershipTicketExtendedData.place();
 	IClientUser_IsUserSubscribedAppInTicket.place();
 	IClientUser_GetSubscribedApps.place();
@@ -797,9 +961,13 @@ void Hooks::remove()
 	IClientApps_PipeLoop.remove();
 	IClientAppManager_PipeLoop.remove();
 	IClientRemoteStorage_PipeLoop.remove();
+	IClientUtils_PipeLoop.remove();
+	IClientUser_PipeLoop.remove();
 
 	IClientUser_BIsSubscribedApp.remove();
 	IClientUser_CheckAppOwnership.remove();
+	IClientUser_GetAPICallResult.remove();
+	IClientUser_GetEncryptedAppTicket.remove();
 	IClientUser_GetAppOwnershipTicketExtendedData.remove();
 	IClientUser_IsUserSubscribedAppInTicket.remove();
 	IClientUser_GetSubscribedApps.remove();
@@ -817,8 +985,8 @@ void Hooks::remove()
 	IClientRemoteStorage_IsCloudEnabledForApp.remove();
 	
 	//TODO: Remove jmp
-	if (hkGetSteamId != LM_ADDRESS_BAD)
+	if (hkNakedGetSteamId != LM_ADDRESS_BAD)
 	{
-		LM_FreeMemory(hkGetSteamId, 0);
+		LM_FreeMemory(hkNakedGetSteamId, 0);
 	}
 }

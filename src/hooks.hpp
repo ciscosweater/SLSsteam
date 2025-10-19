@@ -71,11 +71,15 @@ namespace Hooks
 	typedef void(*IClientAppManager_PipeLoop_t)(void*, void*, void*, void*);
 	typedef void(*IClientApps_PipeLoop_t)(void*, void*, void*, void*);
 	typedef void(*IClientRemoteStorage_PipeLoop_t)(void*, void*, void*, void*);
+	typedef void(*IClientUtils_PipeLoop_t)(void*, void*, void*, void*);
+	typedef void(*IClientUser_PipeLoop_t)(void*, void*, void*, void*);
 
 	typedef uint32_t(*CAPIJob_RequestUserStats_t)(void*);
 
 	typedef bool(*IClientUser_BIsSubscribedApp_t)(void*, uint32_t);
 	typedef bool(*IClientUser_CheckAppOwnership_t)(void*, uint32_t, CAppOwnershipInfo*);
+	typedef bool(*IClientUser_GetAPICallResult_t)(void*, uint32_t, uint32_t, void*, uint32_t, uint32_t, bool*);
+	typedef bool(*IClientUser_GetEncryptedAppTicket_t)(void*, void*, uint32_t, uint32_t*);
 	typedef uint32_t(*IClientUser_GetSubscribedApps_t)(void*, uint32_t*, size_t, bool);
 	typedef uint32_t(*IClientUser_GetAppOwnershipTicketExtendedData_t)(void*, uint32_t, void*, uint32_t, uint32_t*, uint32_t*, uint32_t*, uint32_t*);
 	typedef uint8_t(*IClientUser_IsUserSubscribedAppInTicket_t)(void*, uint32_t, uint32_t, uint32_t, uint32_t);
@@ -86,11 +90,15 @@ namespace Hooks
 	extern DetourHook<IClientAppManager_PipeLoop_t> IClientAppManager_PipeLoop;
 	extern DetourHook<IClientApps_PipeLoop_t> IClientApps_PipeLoop;
 	extern DetourHook<IClientRemoteStorage_PipeLoop_t> IClientRemoteStorage_PipeLoop;
+	extern DetourHook<IClientUtils_PipeLoop_t> IClientUtils_PipeLoop;
+	extern DetourHook<IClientUser_PipeLoop_t> IClientUser_PipeLoop;
 
 	extern DetourHook<CAPIJob_RequestUserStats_t> CAPIJob_RequestUserStats;
 
 	extern DetourHook<IClientUser_BIsSubscribedApp_t> IClientUser_BIsSubscribedApp;
 	extern DetourHook<IClientUser_CheckAppOwnership_t> IClientUser_CheckAppOwnership;
+	extern DetourHook<IClientUser_GetAPICallResult_t> IClientUser_GetAPICallResult;
+	extern DetourHook<IClientUser_GetEncryptedAppTicket_t> IClientUser_GetEncryptedAppTicket;
 	extern DetourHook<IClientUser_GetSubscribedApps_t> IClientUser_GetSubscribedApps;
 	extern DetourHook<IClientUser_GetAppOwnershipTicketExtendedData_t> IClientUser_GetAppOwnershipTicketExtendedData;
 	extern DetourHook<IClientUser_IsUserSubscribedAppInTicket_t> IClientUser_IsUserSubscribedAppInTicket;

@@ -7,4 +7,4 @@ class IClientUser
 public:
 };
 
-extern IClientUser* g_pSteamUser;
+extern IClientUser* g_pClientUser;
