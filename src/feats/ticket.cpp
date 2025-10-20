@@ -11,7 +11,8 @@
 #include <ios>
 #include <sstream>
 
-uint32_t Ticket::steamIdSpoof = 0;
+uint32_t Ticket::oneTimeSteamIdSpoof = 0;
+uint32_t Ticket::tempSteamIdSpoof = 0;
 std::map<uint32_t, CEncryptedAppTicket> Ticket::encryptedTicketMap = std::map<uint32_t, CEncryptedAppTicket>();
 
 std::string Ticket::getTicketDir()
@@ -90,7 +91,7 @@ uint32_t Ticket::getTicketOwnershipExtendedData(uint32_t appId, void* ticket, ui
 		return 0;
 	}
 
-	steamIdSpoof = cached.getSteamId();
+	oneTimeSteamIdSpoof = cached.getSteamId();
 
 	memcpy(ticket, cached.bytes, size);
 	memcpy(a4, cached.extraData, sizeof(cached.extraData));
@@ -156,16 +157,28 @@ bool Ticket::saveEncryptedTicketToCache(uint32_t appId, uint32_t steamId, void* 
 
 bool Ticket::getEncryptedAppTicket(void* ticketData, uint32_t* bytesWritten)
 {
+	if (!ticketData || !bytesWritten)
+	{
+		//This shouldn't happen, but some games seem to do it for some reason (possible a pitfall idk)
+		return false;
+	}
+
+	bool cached = false;
+
 	if (*bytesWritten)
 	{
 		saveEncryptedTicketToCache(g_pClientUtils->getAppId(), g_currentSteamId, ticketData, *bytesWritten);
+		cached = true;
+	}
 
-		if (g_config.blockEncryptedAppTickets)
-		{
-			memset(ticketData, 0, 0x1000);
-			*bytesWritten = 0;
-		}
+	if (g_config.blockEncryptedAppTickets)
+	{
+		memset(ticketData, 0, 0x1000);
+		*bytesWritten = 0;
+	}
 
+	if (cached)
+	{
 		return false;
 	}
 
@@ -176,7 +189,7 @@ bool Ticket::getEncryptedAppTicket(void* ticketData, uint32_t* bytesWritten)
 		return false;
 	}
 
-	steamIdSpoof = ticket.steamId;
+	tempSteamIdSpoof = ticket.steamId;
 	memcpy(ticketData, ticket.bytes, ticket.size);
 	*bytesWritten = ticket.size;
 

@@ -569,16 +569,24 @@ static uint32_t hkIClientUser_GetSteamId(uint32_t steamId)
 	}
 
 	CEncryptedAppTicket ticket = Ticket::getCachedEncryptedTicket(g_pClientUtils->getAppId());
-	
+
 	if (ticket.size && ticket.steamId)
 	{
 		steamId = ticket.steamId;
+		Ticket::tempSteamIdSpoof = 0;
 	}
-	else if (Ticket::steamIdSpoof)
+	else if (Ticket::tempSteamIdSpoof)
+	{
+		//We need to do it like this, since getAppId returns 0 (Steam Client)
+		//when activating a Ticket for the first time. So we just spoof the whole Steam Client
+		//until that is done, even if it's very hacky
+		steamId = Ticket::tempSteamIdSpoof;
+	}
+	else if (Ticket::oneTimeSteamIdSpoof)
 	{
 		//One time spoof should be enough for this type
-		steamId = Ticket::steamIdSpoof;
-		Ticket::steamIdSpoof = 0;
+		steamId = Ticket::oneTimeSteamIdSpoof;
+		Ticket::oneTimeSteamIdSpoof = 0;
 	}
 
 	return steamId;

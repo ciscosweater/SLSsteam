@@ -10,7 +10,8 @@
 
 namespace Ticket
 {
-	extern uint32_t steamIdSpoof;
+	extern uint32_t oneTimeSteamIdSpoof;
+	extern uint32_t tempSteamIdSpoof;
 	extern std::map<uint32_t, CEncryptedAppTicket> encryptedTicketMap;
 
 	std::string getTicketDir();
