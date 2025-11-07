@@ -175,6 +175,7 @@ static void hkParseProtoBufResponse(void* pDst, void* pSrc)
 	}
 
 	const CProtoBufMsgBase* msg = reinterpret_cast<CProtoBufMsgBase*>(pDst);
+	g_pLog->debug("Received ProtoBufMsg of type %p\n", msg->type);
 
 	switch(msg->type)
 	{
