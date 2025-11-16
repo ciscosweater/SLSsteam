@@ -1,9 +1,31 @@
 #pragma once
 
+#include "memhlp.hpp"
+
 #include "libmem/libmem.h"
+
+#include <string>
+
+
+class CPattern
+{
+public:
+	const std::string name;
+	const std::string pattern;
+	const MemHlp::SigFollowMode followMode;
+
+	lm_address_t address;
+
+	CPattern(const char* name, const char* pattern, MemHlp::SigFollowMode followMode);
+	//~CPattern();
+
+	bool find();
+};
 
 namespace Patterns
 {
+	//TODO: Order
+
 	//Relative
 	constexpr lm_string_t LogSteamPipeCall = "E8 ? ? ? ? 83 C4 10 85 FF 74 ? 8B 07 83 EC 04 FF B5 ? ? ? ? FF B5 ? ? ? ? 57 FF 10 83 C4 10 8D 45 ? 83 EC 04 89 F3 6A 04 50 FF 75";
 	//Relative
@@ -55,4 +77,12 @@ namespace Patterns
 
 	//Mid function
 	constexpr lm_string_t BUpdateAppOwnershipInfo = "83 EC 0C 89 F3 8B 7D ? FF 30 E8 ? ? ? ? 83 C4 10 83 FF 01 77 ? 84 C0 75 ? 80 7D ? 00 74 ? 80 7D ? 00 0F 84 ? ? ? ? 8D 65";
+
+	//Relative
+	//constexpr lm_string_t UpdateAppOwnershipTicket = "E8 ? ? ? ? E9 ? ? ? ? ? ? ? ? ? ? 8D 45 ? 89 45 ? EB";
+
+	//TODO: Order & Convert old patterns
+	extern CPattern UpdateAppOwnershipTicket;
+
+	bool init();
 }

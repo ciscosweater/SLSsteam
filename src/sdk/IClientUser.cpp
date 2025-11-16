@@ -1,6 +1,7 @@
 #include "IClientUser.hpp"
 
 #include "../hooks.hpp"
+#include "../patterns.hpp"
 
 
 bool IClientUser::isLoggedOn()

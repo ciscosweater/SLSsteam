@@ -3,6 +3,7 @@
 #include "globals.hpp"
 #include "hooks.hpp"
 #include "log.hpp"
+#include "patterns.hpp"
 #include "utils.hpp"
 
 #include "libmem/libmem.h"
@@ -175,6 +176,12 @@ static void load()
 		{
 			g_pLog->warn("steamclient.so hash missmatch! Please update :)");
 		}
+	}
+
+	if (!Patterns::init())
+	{
+		g_pLog->warn("Failed to find all patterns! Aborting...");
+		return;
 	}
 
 	if (!Hooks::setup())
