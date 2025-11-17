@@ -210,6 +210,80 @@ static uint32_t hkCAPIJob_RequestUserStats(void* a0)
 	}
 }
 
+__attribute__((hot))
+static bool hkUser_CheckAppOwnership(void* pClientUser, uint32_t appId, CAppOwnershipInfo* pOwnershipInfo)
+{
+	if (!g_pUser)
+	{
+		//TODO: Grab properly
+		g_pUser = reinterpret_cast<CUser*>(pClientUser);
+	}
+
+	const bool ret = Hooks::CUser_CheckAppOwnership.tramp.fn(pClientUser, appId, pOwnershipInfo);
+
+	//Do not log pOwnershipInfo because it gets deleted very quickly, so it's pretty much useless in the logs
+	g_pLog->once
+	(
+		"%s(%p, %u) -> %i\n",
+
+		Hooks::CUser_CheckAppOwnership.name.c_str(),
+		pClientUser,
+		appId,
+		ret
+	);
+
+	if (Apps::checkAppOwnership(appId, pOwnershipInfo))
+	{
+		return true;
+	}
+
+	return ret;
+}
+
+static bool hkUser_GetEncryptedAppTicket(void* pClientUser, void* pTicket, uint32_t maxSize, uint32_t* pBytesWritten)
+{
+	const bool ret = Hooks::CUser_GetEncryptedAppTicket.tramp.fn(pClientUser, pTicket, maxSize, pBytesWritten);
+
+	g_pLog->debug
+	(
+		"%s(%p, %p, %u, %p) -> %i\n",
+
+		Hooks::CUser_GetEncryptedAppTicket.name.c_str(),
+		pClientUser,
+		pTicket,
+		maxSize,
+		pBytesWritten,
+		ret
+	);
+
+	if (Ticket::getEncryptedAppTicket(pTicket, maxSize, pBytesWritten))
+	{
+		return true;
+	}
+
+	return ret;
+}
+
+static uint32_t hkUser_GetSubscribedApps(void* pClientUser, uint32_t* pAppList, size_t size, bool a3)
+{
+	uint32_t count = Hooks::CUser_GetSubscribedApps.tramp.fn(pClientUser, pAppList, size, a3);
+	g_pLog->once
+	(
+		"%s(%p, %p, %i, %i) -> %i\n",
+
+		Hooks::CUser_GetSubscribedApps.name.c_str(),
+		pClientUser,
+		pAppList,
+		size,
+		a3,
+		count
+	);
+
+	Apps::getSubscribedApps(pAppList, size, count);
+
+	return count;
+}
+
 static void* hkClientAppManager_LaunchApp(void* pClientAppManager, uint32_t* pAppId, void* a2, void* a3, void* a4)
 {
 	if (pAppId)
@@ -515,37 +589,6 @@ static uint32_t hkClientUser_BUpdateOwnershipInfo(void* pClientUser, uint32_t ap
 	return ret;
 }
 
-//TODO: Move to proper class
-__attribute__((hot))
-static bool hkClientUser_CheckAppOwnership(void* pClientUser, uint32_t appId, CAppOwnershipInfo* pOwnershipInfo)
-{
-	if (!g_pUser)
-	{
-		//TODO: Grab properly
-		g_pUser = reinterpret_cast<CUser*>(pClientUser);
-	}
-
-	const bool ret = Hooks::IClientUser_CheckAppOwnership.tramp.fn(pClientUser, appId, pOwnershipInfo);
-
-	//Do not log pOwnershipInfo because it gets deleted very quickly, so it's pretty much useless in the logs
-	g_pLog->once
-	(
-		"%s(%p, %u) -> %i\n",
-
-		Hooks::IClientUser_CheckAppOwnership.name.c_str(),
-		pClientUser,
-		appId,
-		ret
-	);
-
-	if (Apps::checkAppOwnership(appId, pOwnershipInfo))
-	{
-		return true;
-	}
-
-	return ret;
-}
-
 __attribute__((hot))
 static bool hkClientUser_GetAPICallResult(void* pClientUser, uint32_t callbackHandle, uint32_t a2, void* pCallback, uint32_t callbackSize, uint32_t type, bool* pbFailed)
 {
@@ -622,33 +665,8 @@ static uint8_t hkClientUser_IsUserSubscribedAppInTicket(void* pClientUser, uint3
 	return ticketState;
 }
 
-
-static bool hkClientUser_GetEncryptedAppTicket(void* pClientUser, void* pTicket, uint32_t maxSize, uint32_t* pBytesWritten)
-{
-	const bool ret = Hooks::IClientUser_GetEncryptedAppTicket.tramp.fn(pClientUser, pTicket, maxSize, pBytesWritten);
-
-	g_pLog->debug
-	(
-		"%s(%p, %p, %u, %p) -> %i\n",
-
-		Hooks::IClientUser_GetEncryptedAppTicket.name.c_str(),
-		pClientUser,
-		pTicket,
-		maxSize,
-		pBytesWritten,
-		ret
-	);
-
-	if (Ticket::getEncryptedAppTicket(pTicket, maxSize, pBytesWritten))
-	{
-		return true;
-	}
-
-	return ret;
-}
-
 __attribute__((stdcall))
-static uint32_t hkIClientUser_GetSteamId(uint32_t steamId)
+static uint32_t hkClientUser_GetSteamId(uint32_t steamId)
 {
 	if (!g_currentSteamId)
 	{
@@ -677,26 +695,6 @@ static uint32_t hkIClientUser_GetSteamId(uint32_t steamId)
 	}
 
 	return steamId;
-}
-
-static uint32_t hkClientUser_GetSubscribedApps(void* pClientUser, uint32_t* pAppList, size_t size, bool a3)
-{
-	uint32_t count = Hooks::IClientUser_GetSubscribedApps.tramp.fn(pClientUser, pAppList, size, a3);
-	g_pLog->once
-	(
-		"%s(%p, %p, %i, %i) -> %i\n",
-
-		Hooks::IClientUser_GetSubscribedApps.name.c_str(),
-		pClientUser,
-		pAppList,
-		size,
-		a3,
-		count
-	);
-
-	Apps::getSubscribedApps(pAppList, size, count);
-
-	return count;
 }
 
 static bool hkClientUser_RequiresLegacyCDKey(void* pClientUser, uint32_t appId, uint32_t* a2)
@@ -806,7 +804,7 @@ static bool createAndPlaceSteamIdHook()
 	MemHlp::assembleCodeAt(writeAddr, "pushfd", nullptr);
 	//MemHlp::assembleCodeAt(writeAddr, "pushfq", nullptr);
 
-	MemHlp::assembleCodeAt(writeAddr, "mov eax, %p", &hkIClientUser_GetSteamId);
+	MemHlp::assembleCodeAt(writeAddr, "mov eax, %p", &hkClientUser_GetSteamId);
 	MemHlp::assembleCodeAt(writeAddr, "mov ebx, [%p]", &steamId);
 	MemHlp::assembleCodeAt(writeAddr, "push ebx", steamId);
 	MemHlp::assembleCodeAt(writeAddr, "call eax", nullptr);
@@ -867,18 +865,18 @@ namespace Hooks
 
 	DetourHook<CAPIJob_RequestUserStats_t> CAPIJob_RequestUserStats;
 
+	DetourHook<CUser_CheckAppOwnership_t> CUser_CheckAppOwnership;
+	DetourHook<CUser_GetEncryptedAppTicket_t> CUser_GetEncryptedAppTicket;
+	DetourHook<CUser_GetSubscribedApps_t> CUser_GetSubscribedApps;
+
 	DetourHook<IClientUser_BIsSubscribedApp_t> IClientUser_BIsSubscribedApp;
 	DetourHook<IClientUser_BLoggedOn_t> IClientUser_BLoggedOn;
 	DetourHook<IClientUser_BUpdateAppOwnershipInfo_t> IClientUser_BUpdateAppOwnershipInfo;
-	DetourHook<IClientUser_CheckAppOwnership_t> IClientUser_CheckAppOwnership;
 	DetourHook<IClientUser_GetAPICallResult_t> IClientUser_GetAPICallResult;
-	DetourHook<IClientUser_GetEncryptedAppTicket_t> IClientUser_GetEncryptedAppTicket;
-	DetourHook<IClientUser_GetSubscribedApps_t> IClientUser_GetSubscribedApps;
 	DetourHook<IClientUser_GetAppOwnershipTicketExtendedData_t> IClientUser_GetAppOwnershipTicketExtendedData;
 	DetourHook<IClientUser_IsUserSubscribedAppInTicket_t> IClientUser_IsUserSubscribedAppInTicket;
 	DetourHook<IClientUser_RequiresLegacyCDKey_t> IClientUser_RequiresLegacyCDKey;
 
-	//TODO: Either save Pattern_t into the hook itself or something else. This sucks
 	VFTHook<IClientAppManager_BIsDlcEnabled_t> IClientAppManager_BIsDlcEnabled("IClientAppManager::BIsDlcEnabled");
 	VFTHook<IClientAppManager_GetAppUpdateInfo_t> IClientAppManager_GetAppUpdateInfo("IClientAppManager::GetAppUpdateInfo");
 	VFTHook<IClientAppManager_LaunchApp_t> IClientAppManager_LaunchApp("IClientAppManager::LaunchApp");
@@ -903,13 +901,12 @@ bool Hooks::setup()
 	bool succeeded =
 		LogSteamPipeCall.setup(Patterns::LogSteamPipeCall, &hkLogSteamPipeCall)
 		&& ParseProtoBufResponse.setup(Patterns::ParseProtoBufResponse, &hkParseProtoBufResponse)
+
 		&& CAPIJob_RequestUserStats.setup(Patterns::CAPIJob::RequestUserStats, &hkCAPIJob_RequestUserStats)
-		&& IClientUser_BIsSubscribedApp.setup(Patterns::IClientUser::BIsSubscribedApp, &hkClientUser_BIsSubscribedApp)
-		&& IClientUser_BLoggedOn.setup(Patterns::IClientUser::BLoggedOn, &hkClientUser_BLoggedOn)
-		&& IClientUser_CheckAppOwnership.setup(Patterns::CUser::CheckAppOwnership, &hkClientUser_CheckAppOwnership)
-		&& IClientUser_GetAPICallResult.setup(Patterns::IClientUser::GetAPICallResult, &hkClientUser_GetAPICallResult)
-		&& IClientUser_IsUserSubscribedAppInTicket.setup(Patterns::IClientUser::IsUserSubscribedAppInTicket, &hkClientUser_IsUserSubscribedAppInTicket)
-		&& IClientUser_GetSubscribedApps.setup(Patterns::CUser::GetSubscribedApps, &hkClientUser_GetSubscribedApps)
+
+		&& CUser_CheckAppOwnership.setup(Patterns::CUser::CheckAppOwnership, &hkUser_CheckAppOwnership)
+		&& CUser_GetSubscribedApps.setup(Patterns::CUser::GetSubscribedApps, &hkUser_GetSubscribedApps)
+		&& CUser_GetEncryptedAppTicket.setup(Patterns::CUser::GetEncryptedAppTicket, hkUser_GetEncryptedAppTicket)
 
 		&& IClientApps_PipeLoop.setup(Patterns::IClientApps::PipeLoop, hkClientApps_PipeLoop)
 		&& IClientAppManager_PipeLoop.setup(Patterns::IClientAppManager::PipeLoop, hkClientAppManager_PipeLoop)
@@ -917,12 +914,16 @@ bool Hooks::setup()
 		&& IClientUtils_PipeLoop.setup(Patterns::IClientUtils::PipeLoop, hkClientUtils_PipeLoop)
 		&& IClientUser_PipeLoop.setup(Patterns::IClientUser::PipeLoop, hkClientUser_PipeLoop)
 
+		&& IClientUser_BIsSubscribedApp.setup(Patterns::IClientUser::BIsSubscribedApp, &hkClientUser_BIsSubscribedApp)
+		&& IClientUser_BLoggedOn.setup(Patterns::IClientUser::BLoggedOn, &hkClientUser_BLoggedOn)
 		&& IClientUser_BUpdateAppOwnershipInfo.setup(Patterns::IClientUser::BUpdateAppOwnershipInfo, hkClientUser_BUpdateOwnershipInfo)
-		&& IClientUser_RequiresLegacyCDKey.setup(Patterns::IClientUser::RequiresLegacyCDKey, hkClientUser_RequiresLegacyCDKey)
 		&& IClientUser_GetAppOwnershipTicketExtendedData.setup(Patterns::IClientUser::GetAppOwnershipTicketExtendedData, hkClientUser_GetAppOwnershipTicketExtendedData)
-		&& IClientUser_GetEncryptedAppTicket.setup(Patterns::CUser::GetEncryptedAppTicket, hkClientUser_GetEncryptedAppTicket);
+		&& IClientUser_GetAPICallResult.setup(Patterns::IClientUser::GetAPICallResult, &hkClientUser_GetAPICallResult)
+		&& IClientUser_IsUserSubscribedAppInTicket.setup(Patterns::IClientUser::IsUserSubscribedAppInTicket, &hkClientUser_IsUserSubscribedAppInTicket)
+		&& IClientUser_RequiresLegacyCDKey.setup(Patterns::IClientUser::RequiresLegacyCDKey, hkClientUser_RequiresLegacyCDKey);
 
 	Hooks::place();
+	//This is unnecessary but I'll keep this for now in case I wanna improve error checks
 	return succeeded;
 }
 
@@ -937,7 +938,12 @@ void Hooks::place()
 	//Detours
 	LogSteamPipeCall.place();
 	ParseProtoBufResponse.place();
+
 	CAPIJob_RequestUserStats.place();
+
+	CUser_CheckAppOwnership.place();
+	CUser_GetEncryptedAppTicket.place();
+	CUser_GetSubscribedApps.place();
 
 	IClientApps_PipeLoop.place();
 	IClientAppManager_PipeLoop.place();
@@ -948,12 +954,9 @@ void Hooks::place()
 	IClientUser_BIsSubscribedApp.place();
 	IClientUser_BLoggedOn.place();
 	IClientUser_BUpdateAppOwnershipInfo.place();
-	IClientUser_CheckAppOwnership.place();
 	IClientUser_GetAPICallResult.place();
-	IClientUser_GetEncryptedAppTicket.place();
 	IClientUser_GetAppOwnershipTicketExtendedData.place();
 	IClientUser_IsUserSubscribedAppInTicket.place();
-	IClientUser_GetSubscribedApps.place();
 	IClientUser_RequiresLegacyCDKey.place();
 
 	createAndPlaceSteamIdHook();
@@ -964,7 +967,12 @@ void Hooks::remove()
 	//Detours
 	LogSteamPipeCall.remove();
 	ParseProtoBufResponse.remove();
+
 	CAPIJob_RequestUserStats.remove();
+
+	CUser_CheckAppOwnership.remove();
+	CUser_GetEncryptedAppTicket.remove();
+	CUser_GetSubscribedApps.remove();
 
 	IClientApps_PipeLoop.remove();
 	IClientAppManager_PipeLoop.remove();
@@ -975,12 +983,9 @@ void Hooks::remove()
 	IClientUser_BIsSubscribedApp.remove();
 	IClientUser_BLoggedOn.remove();
 	IClientUser_BUpdateAppOwnershipInfo.remove();
-	IClientUser_CheckAppOwnership.remove();
 	IClientUser_GetAPICallResult.remove();
-	IClientUser_GetEncryptedAppTicket.remove();
 	IClientUser_GetAppOwnershipTicketExtendedData.remove();
 	IClientUser_IsUserSubscribedAppInTicket.remove();
-	IClientUser_GetSubscribedApps.remove();
 	IClientUser_RequiresLegacyCDKey.remove();
 
 	//VFT Hooks
