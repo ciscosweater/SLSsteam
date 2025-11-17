@@ -45,6 +45,8 @@ static const char* defaultConfig =
 "DlcData:\n\n"
 "#Fake Steam being offline for specified AppIds. Same format as AppIds\n"
 "FakeOffline: \n\n"
+"#Change AppIds of games to enable networking features\n"
+"FakeAppIds:\n\n"
 "#Blocks games from unlocking on wrong accounts\n"
 "DenuvoGames:\n\n"
 "#Spoof Denuvo Games owner instead of blocking them\n"
@@ -182,6 +184,31 @@ bool CConfig::loadSettings()
 	appIds = getList<uint32_t>(node, "AppIds");
 	addedAppIds = getList<uint32_t>(node, "AdditionalApps");
 	fakeOffline = getList<uint32_t>(node, "FakeOffline");
+
+	const auto fakeAppIdsNode = node["FakeAppIds"];
+	if (fakeAppIdsNode)
+	{
+		for (const auto& node : fakeAppIdsNode)
+		{
+			try
+			{
+				uint32_t k = node.first.as<uint32_t>();
+				uint32_t v = node.second.as<uint32_t>();
+				fakeAppIds[k] = v;
+
+				g_pLog->debug("Added %u : %u to FakeAppIds\n", k, v);
+			}
+			catch(...)
+			{
+				g_pLog->warn("Failed to parse FakeAppIds!");
+				break;
+			}
+		}
+	}
+	else
+	{
+		g_pLog->warn("Missing FakeAppIds entry in config!");
+	}
 
 	const auto dlcDataNode = node["DlcData"];
 	if(dlcDataNode)

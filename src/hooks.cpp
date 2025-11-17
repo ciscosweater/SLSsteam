@@ -245,9 +245,10 @@ static bool hkSteamEngine_GetAPICallResult(void* pSteamEngine, uint32_t callback
 
 static bool hkSteamEngine_SetAppIdForCurrentPipe(void* pSteamEngine, uint32_t appId, bool a2)
 {
-	if (g_config.isAddedAppId(appId))
+	if (g_config.fakeAppIds.contains(appId))
 	{
-		appId = 440; //Tf2
+		g_pLog->once("Changing AppId of %u\n", appId);
+		appId = g_config.fakeAppIds[appId];
 	}
 
 	const bool ret = Hooks::CSteamEngine_SetAppIdForCurrentPipe.tramp.fn(pSteamEngine, appId, a2);

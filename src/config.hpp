@@ -28,6 +28,7 @@ public:
 	std::unordered_set<uint32_t> addedAppIds;
 	std::unordered_map<uint32_t, CDlcData> dlcData;
 	std::unordered_set<uint32_t> fakeOffline;
+	std::unordered_map<uint32_t, uint32_t> fakeAppIds;
 
 	//SteamId, AppIds tuple
 	std::unordered_map<uint32_t, std::unordered_set<uint32_t>> denuvoGames;
