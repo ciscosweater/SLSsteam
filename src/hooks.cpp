@@ -505,21 +505,26 @@ static bool hkClientApps_GetDLCDataByIndex(void* pClientApps, uint32_t appId, in
 __attribute__((hot))
 static void hkClientApps_PipeLoop(void* pClientApps, void* a1, void* a2, void* a3)
 {
-	g_pClientApps = reinterpret_cast<IClientApps*>(pClientApps);
+	static bool hooked = false;
+	if (!hooked)
+	{
+		g_pClientApps = reinterpret_cast<IClientApps*>(pClientApps);
 
-	std::shared_ptr<lm_vmt_t> vft = std::make_shared<lm_vmt_t>();
-	LM_VmtNew(*reinterpret_cast<lm_address_t**>(pClientApps), vft.get());
+		std::shared_ptr<lm_vmt_t> vft = std::make_shared<lm_vmt_t>();
+		LM_VmtNew(*reinterpret_cast<lm_address_t**>(pClientApps), vft.get());
 
-	Hooks::IClientApps_GetDLCDataByIndex.setup(vft, VFTIndexes::IClientApps::GetDLCDataByIndex, hkClientApps_GetDLCDataByIndex);
-	Hooks::IClientApps_GetDLCCount.setup(vft, VFTIndexes::IClientApps::GetDLCCount, hkClientApps_GetDLCCount);
+		Hooks::IClientApps_GetDLCDataByIndex.setup(vft, VFTIndexes::IClientApps::GetDLCDataByIndex, hkClientApps_GetDLCDataByIndex);
+		Hooks::IClientApps_GetDLCCount.setup(vft, VFTIndexes::IClientApps::GetDLCCount, hkClientApps_GetDLCCount);
 
-	Hooks::IClientApps_GetDLCDataByIndex.place();
-	Hooks::IClientApps_GetDLCCount.place();
+		Hooks::IClientApps_GetDLCDataByIndex.place();
+		Hooks::IClientApps_GetDLCCount.place();
 
-	g_pLog->debug("IClientApps->vft at %p\n", vft->vtable);
+		g_pLog->debug("IClientApps->vft at %p\n", vft->vtable);
 
-	Hooks::IClientApps_PipeLoop.remove();
-	Hooks::IClientApps_PipeLoop.originalFn.fn(pClientApps, a1, a2, a3);
+		hooked = true;
+	}
+
+	Hooks::IClientApps_PipeLoop.tramp.fn(pClientApps, a1, a2, a3);
 }
 
 static bool hkClientRemoteStorage_IsCloudEnabledForApp(void* pClientRemoteStorage, uint32_t appId)
@@ -589,18 +594,23 @@ static bool hkClientUtils_GetOfflineMode(void* pClientUtils)
 
 static void hkClientUtils_PipeLoop(void* pClientUtils, void* a1, void* a2, void* a3)
 {
-	g_pClientUtils = reinterpret_cast<IClientUtils*>(pClientUtils);
+	static bool hooked = false;
+	if (!hooked)
+	{
+		g_pClientUtils = reinterpret_cast<IClientUtils*>(pClientUtils);
 
-	std::shared_ptr<lm_vmt_t> vft = std::make_shared<lm_vmt_t>();
-	LM_VmtNew(*reinterpret_cast<lm_address_t**>(pClientUtils), vft.get());
+		std::shared_ptr<lm_vmt_t> vft = std::make_shared<lm_vmt_t>();
+		LM_VmtNew(*reinterpret_cast<lm_address_t**>(pClientUtils), vft.get());
 
-	Hooks::IClientUtils_GetOfflineMode.setup(vft, VFTIndexes::IClientUtils::GetOfflineMode, hkClientUtils_GetOfflineMode);
-	Hooks::IClientUtils_GetOfflineMode.place();
+		Hooks::IClientUtils_GetOfflineMode.setup(vft, VFTIndexes::IClientUtils::GetOfflineMode, hkClientUtils_GetOfflineMode);
+		Hooks::IClientUtils_GetOfflineMode.place();
 
-	g_pLog->debug("IClientUtils->vft at %p\n", vft->vtable);
+		g_pLog->debug("IClientUtils->vft at %p\n", vft->vtable);
 
-	Hooks::IClientUtils_PipeLoop.remove();
-	Hooks::IClientUtils_PipeLoop.originalFn.fn(pClientUtils, a1, a2, a3);
+		hooked = true;
+	}
+
+	Hooks::IClientUtils_PipeLoop.tramp.fn(pClientUtils, a1, a2, a3);
 }
 
 static bool hkClientUser_BIsSubscribedApp(void* pClientUser, uint32_t appId)
@@ -781,9 +791,9 @@ static void hkClientUser_PipeLoop(void* pClientUser, void* a1, void* a2, void* a
 	//Hooks::IClientUser_PipeLoop.remove();
 	//Hooks::IClientUser_PipeLoop.originalFn.fn(pClientUser, a1, a2, a3);
 	
-	//FakeAppIds::pipeLoop(false);
+	FakeAppIds::pipeLoop(false);
 	Hooks::IClientUser_PipeLoop.tramp.fn(pClientUser, a1, a2, a3);
-	//FakeAppIds::pipeLoop(true);
+	FakeAppIds::pipeLoop(true);
 }
 
 static void hkClientUserStats_PipeLoop(void* pClientUserStats, void* a1, void* a2, void* a3)
