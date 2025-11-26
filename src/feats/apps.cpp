@@ -118,12 +118,12 @@ void Apps::launchApp(uint32_t appId)
 
 bool Apps::shouldDisableCloud(uint32_t appId)
 {
-	return g_pUser->checkAppOwnership(appId);
+	return !g_pUser->checkAppOwnership(appId);
 }
 
 bool Apps::shouldDisableCDKey(uint32_t appId)
 {
-	return g_pUser->checkAppOwnership(appId);
+	return !g_pUser->checkAppOwnership(appId);
 }
 
 bool Apps::shouldDisableUpdates(uint32_t appId)
