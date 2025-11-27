@@ -2,7 +2,8 @@
 
 #include <cstdint>
 
-class CAppOwnershipInfo {
+class CAppOwnershipInfo
+{
 public:
     int32_t subId; //-1 for none
     int releaseState;
@@ -34,4 +35,4 @@ public:
     bool field27_0x36;
     char field28_0x37;
     //char field29_0x38;
-};
+}; //0x38
