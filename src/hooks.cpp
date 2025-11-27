@@ -253,11 +253,11 @@ static bool hkSteamEngine_GetAPICallResult(void* pSteamEngine, uint32_t callback
 	return ret;
 }
 
-static bool hkSteamEngine_SetAppIdForCurrentPipe(void* pSteamEngine, uint32_t appId, bool a2)
+static uint32_t hkSteamEngine_SetAppIdForCurrentPipe(void* pSteamEngine, uint32_t appId, bool a2)
 {
 	FakeAppIds::setAppIdForCurrentPipe(appId);
 
-	const bool ret = Hooks::CSteamEngine_SetAppIdForCurrentPipe.tramp.fn(pSteamEngine, appId, a2);
+	const uint32_t ret = Hooks::CSteamEngine_SetAppIdForCurrentPipe.tramp.fn(pSteamEngine, appId, a2);
 
 	g_pLog->debug
 	(
