@@ -40,7 +40,6 @@ namespace TicketGrabber
             if (callback != null)
             {
                 this.Client.PostCallback(callback);
-
             }
         }
     }
