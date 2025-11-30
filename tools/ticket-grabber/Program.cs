@@ -271,9 +271,9 @@ namespace TicketGrabber
     {
         public static void Main(string[] args)
         {
-            if (args.Length < 3)
+            if (args.Length < 3 || (args.Length > 0 && args.Any(a => a == "-h" || a == "--help")))
             {
-                Console.WriteLine("Missing arguments!\n");
+                Console.WriteLine("Usage: ./ticket-grabber username password appId");
                 Environment.Exit(1);
             }
 
