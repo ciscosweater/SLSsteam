@@ -22,7 +22,7 @@ conflicts=("slssteam")
 source=("git+$url#branch=dev")
 makedepends=("git"
 			"gcc"
-			"dotnet-sdk: Building ticket-generator")
+			"dotnet-sdk")
 
 #Disable stripping to not mess up disturb ticket-grabber
 options=(!strip)

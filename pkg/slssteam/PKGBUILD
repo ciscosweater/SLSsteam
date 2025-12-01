@@ -21,7 +21,7 @@ conflicts=("slssteam-git")
 
 source=("https://github.com/AceSLS/SLSsteam/archive/refs/tags/$pkgver.tar.gz")
 makedepends=("gcc"
-			"dotnet-sdk: Building ticket-generator")
+			"dotnet-sdk")
 
 #Disable stripping to not mess up disturb ticket-grabber
 options=(!strip)
