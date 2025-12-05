@@ -128,6 +128,6 @@ bool Apps::shouldDisableCDKey(uint32_t appId)
 
 bool Apps::shouldDisableUpdates(uint32_t appId)
 {
-	//Using AdditionalApps here so users can manually block updates
-	return g_config.isAddedAppId(appId);
+	//Using AdditionalApps here aswell so users can manually block updates
+	return g_config.isAddedAppId(appId) || !g_pUser->checkAppOwnership(appId);
 }
