@@ -26,7 +26,8 @@ bool Apps::unlockApp(uint32_t appId, CAppOwnershipInfo* info, uint32_t ownerId)
 	//Seems to do nothing in particular, some dlc have this as 1 so I uncomented this for now. Might be free stuff?
 	//pOwnershipInfo->field27_0x36 = 1;
 
-	g_pLog->debug("Unlocked %u for %u\n", appId, ownerId);
+	//g_pLog->debug("Unlocked %u for %u\n", appId, ownerId);
+	g_pLog->debug("Unlocked %u\n", appId);
 	return true;
 }
 
