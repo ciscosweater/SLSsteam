@@ -1,6 +1,6 @@
 # Maintainer: Ace! _SL/S <acesls@protonmail.com>
 pkgname="slssteam-git"
-pkgver=20251206112936
+pkgver=20251206112936.r10.g599f6a3
 pkgrel=1
 pkgdesc="Steamclient Mod - Pre release"
 arch=("i686" "x86_64")
@@ -45,6 +45,9 @@ build() {
 
 package() {
 	cd "$pkgdir"
+
+	mkdir -p "$pkgdir/usr/share/doc/"
+	cp -rvL "$srcdir/SLSsteam/docs" "$pkgdir/usr/share/doc/SLSsteam"
 
 	#TODO: Create make install target
 	install -D "$srcdir/SLSsteam/bin/SLSsteam.so" "$pkgdir/usr/lib32/libSLSsteam.so"
