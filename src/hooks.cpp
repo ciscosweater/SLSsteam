@@ -234,7 +234,7 @@ static uint32_t hkProtoBufMsgBase_Send(CProtoBufMsgBase* pMsg)
 					game->set_game_id(statusApp.appId);
 					game->set_game_extra_info(statusApp.title);
 					game->set_game_flags(0);
-					//game->set_game_flags(EGAMEFLAG_MULTIPLAYER);
+					game->set_game_flags(EGAMEFLAG_MULTIPLAYER);
 				}
 			}
 			break;

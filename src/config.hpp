@@ -19,8 +19,6 @@ public:
 	{
 		uint32_t appId = 0;
 		std::string title;
-
-		void sanitizeTitle();
 	};
 
 	class CDlcData

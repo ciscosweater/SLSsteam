@@ -26,12 +26,10 @@
 #include <google/protobuf/generated_message_table_driven.h>
 #include <google/protobuf/generated_message_util.h>
 #include <google/protobuf/metadata_lite.h>
-#include <google/protobuf/generated_message_reflection.h>
-#include <google/protobuf/message.h>
+#include <google/protobuf/message_lite.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
-#include <google/protobuf/generated_enum_reflection.h>
-#include <google/protobuf/unknown_field_set.h>
+#include <google/protobuf/generated_enum_util.h>
 #include "steammessages_base.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -54,8 +52,6 @@ struct TableStruct_steammessages_5fclientserver_5f2_2eproto {
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
   static const ::PROTOBUF_NAMESPACE_ID::uint32 offsets[];
 };
-extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_steammessages_5fclientserver_5f2_2eproto;
-::PROTOBUF_NAMESPACE_ID::Metadata descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(int index);
 class CMsgAMUnlockH264;
 struct CMsgAMUnlockH264DefaultTypeInternal;
 extern CMsgAMUnlockH264DefaultTypeInternal _CMsgAMUnlockH264_default_instance_;
@@ -531,24 +527,20 @@ constexpr CMsgGCClient_EFlag CMsgGCClient_EFlag_EFlag_MIN = CMsgGCClient_EFlag_V
 constexpr CMsgGCClient_EFlag CMsgGCClient_EFlag_EFlag_MAX = CMsgGCClient_EFlag_VALVE_DS;
 constexpr int CMsgGCClient_EFlag_EFlag_ARRAYSIZE = CMsgGCClient_EFlag_EFlag_MAX + 1;
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CMsgGCClient_EFlag_descriptor();
+const std::string& CMsgGCClient_EFlag_Name(CMsgGCClient_EFlag value);
 template<typename T>
 inline const std::string& CMsgGCClient_EFlag_Name(T enum_t_value) {
   static_assert(::std::is_same<T, CMsgGCClient_EFlag>::value ||
     ::std::is_integral<T>::value,
     "Incorrect type passed to function CMsgGCClient_EFlag_Name.");
-  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
-    CMsgGCClient_EFlag_descriptor(), enum_t_value);
+  return CMsgGCClient_EFlag_Name(static_cast<CMsgGCClient_EFlag>(enum_t_value));
 }
-inline bool CMsgGCClient_EFlag_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CMsgGCClient_EFlag* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<CMsgGCClient_EFlag>(
-    CMsgGCClient_EFlag_descriptor(), name, value);
-}
+bool CMsgGCClient_EFlag_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CMsgGCClient_EFlag* value);
 // ===================================================================
 
 class CMsgClientUpdateUserGameInfo PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientUpdateUserGameInfo) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientUpdateUserGameInfo) */ {
  public:
   inline CMsgClientUpdateUserGameInfo() : CMsgClientUpdateUserGameInfo(nullptr) {}
   virtual ~CMsgClientUpdateUserGameInfo();
@@ -573,22 +565,13 @@ class CMsgClientUpdateUserGameInfo PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientUpdateUserGameInfo& default_instance() {
     return *internal_default_instance();
   }
@@ -625,8 +608,8 @@ class CMsgClientUpdateUserGameInfo PROTOBUF_FINAL :
   CMsgClientUpdateUserGameInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientUpdateUserGameInfo>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientUpdateUserGameInfo& from);
   void MergeFrom(const CMsgClientUpdateUserGameInfo& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -636,12 +619,13 @@ class CMsgClientUpdateUserGameInfo PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientUpdateUserGameInfo* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -654,13 +638,7 @@ class CMsgClientUpdateUserGameInfo PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -764,7 +742,7 @@ class CMsgClientUpdateUserGameInfo PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRichPresenceUpload PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRichPresenceUpload) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRichPresenceUpload) */ {
  public:
   inline CMsgClientRichPresenceUpload() : CMsgClientRichPresenceUpload(nullptr) {}
   virtual ~CMsgClientRichPresenceUpload();
@@ -789,22 +767,13 @@ class CMsgClientRichPresenceUpload PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRichPresenceUpload& default_instance() {
     return *internal_default_instance();
   }
@@ -841,8 +810,8 @@ class CMsgClientRichPresenceUpload PROTOBUF_FINAL :
   CMsgClientRichPresenceUpload* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRichPresenceUpload>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRichPresenceUpload& from);
   void MergeFrom(const CMsgClientRichPresenceUpload& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -852,12 +821,13 @@ class CMsgClientRichPresenceUpload PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRichPresenceUpload* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -870,13 +840,7 @@ class CMsgClientRichPresenceUpload PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -944,7 +908,7 @@ class CMsgClientRichPresenceUpload PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRichPresenceRequest PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRichPresenceRequest) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRichPresenceRequest) */ {
  public:
   inline CMsgClientRichPresenceRequest() : CMsgClientRichPresenceRequest(nullptr) {}
   virtual ~CMsgClientRichPresenceRequest();
@@ -969,22 +933,13 @@ class CMsgClientRichPresenceRequest PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRichPresenceRequest& default_instance() {
     return *internal_default_instance();
   }
@@ -1021,8 +976,8 @@ class CMsgClientRichPresenceRequest PROTOBUF_FINAL :
   CMsgClientRichPresenceRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRichPresenceRequest>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRichPresenceRequest& from);
   void MergeFrom(const CMsgClientRichPresenceRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -1032,12 +987,13 @@ class CMsgClientRichPresenceRequest PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRichPresenceRequest* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -1050,13 +1006,7 @@ class CMsgClientRichPresenceRequest PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -1101,7 +1051,7 @@ class CMsgClientRichPresenceRequest PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRichPresenceInfo_KV PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRichPresenceInfo.KV) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRichPresenceInfo.KV) */ {
  public:
   inline CMsgClientRichPresenceInfo_KV() : CMsgClientRichPresenceInfo_KV(nullptr) {}
   virtual ~CMsgClientRichPresenceInfo_KV();
@@ -1126,22 +1076,13 @@ class CMsgClientRichPresenceInfo_KV PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRichPresenceInfo_KV& default_instance() {
     return *internal_default_instance();
   }
@@ -1178,8 +1119,8 @@ class CMsgClientRichPresenceInfo_KV PROTOBUF_FINAL :
   CMsgClientRichPresenceInfo_KV* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRichPresenceInfo_KV>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRichPresenceInfo_KV& from);
   void MergeFrom(const CMsgClientRichPresenceInfo_KV& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -1189,12 +1130,13 @@ class CMsgClientRichPresenceInfo_KV PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRichPresenceInfo_KV* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -1207,13 +1149,7 @@ class CMsgClientRichPresenceInfo_KV PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -1279,7 +1215,7 @@ class CMsgClientRichPresenceInfo_KV PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRichPresenceInfo_RichPresence PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRichPresenceInfo.RichPresence) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRichPresenceInfo.RichPresence) */ {
  public:
   inline CMsgClientRichPresenceInfo_RichPresence() : CMsgClientRichPresenceInfo_RichPresence(nullptr) {}
   virtual ~CMsgClientRichPresenceInfo_RichPresence();
@@ -1304,22 +1240,13 @@ class CMsgClientRichPresenceInfo_RichPresence PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRichPresenceInfo_RichPresence& default_instance() {
     return *internal_default_instance();
   }
@@ -1356,8 +1283,8 @@ class CMsgClientRichPresenceInfo_RichPresence PROTOBUF_FINAL :
   CMsgClientRichPresenceInfo_RichPresence* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRichPresenceInfo_RichPresence>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRichPresenceInfo_RichPresence& from);
   void MergeFrom(const CMsgClientRichPresenceInfo_RichPresence& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -1367,12 +1294,13 @@ class CMsgClientRichPresenceInfo_RichPresence PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRichPresenceInfo_RichPresence* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -1385,13 +1313,7 @@ class CMsgClientRichPresenceInfo_RichPresence PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -1448,7 +1370,7 @@ class CMsgClientRichPresenceInfo_RichPresence PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRichPresenceInfo PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRichPresenceInfo) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRichPresenceInfo) */ {
  public:
   inline CMsgClientRichPresenceInfo() : CMsgClientRichPresenceInfo(nullptr) {}
   virtual ~CMsgClientRichPresenceInfo();
@@ -1473,22 +1395,13 @@ class CMsgClientRichPresenceInfo PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRichPresenceInfo& default_instance() {
     return *internal_default_instance();
   }
@@ -1525,8 +1438,8 @@ class CMsgClientRichPresenceInfo PROTOBUF_FINAL :
   CMsgClientRichPresenceInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRichPresenceInfo>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRichPresenceInfo& from);
   void MergeFrom(const CMsgClientRichPresenceInfo& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -1536,12 +1449,13 @@ class CMsgClientRichPresenceInfo PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRichPresenceInfo* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -1554,13 +1468,7 @@ class CMsgClientRichPresenceInfo PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -1604,7 +1512,7 @@ class CMsgClientRichPresenceInfo PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientCheckFileSignature PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientCheckFileSignature) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientCheckFileSignature) */ {
  public:
   inline CMsgClientCheckFileSignature() : CMsgClientCheckFileSignature(nullptr) {}
   virtual ~CMsgClientCheckFileSignature();
@@ -1629,22 +1537,13 @@ class CMsgClientCheckFileSignature PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientCheckFileSignature& default_instance() {
     return *internal_default_instance();
   }
@@ -1681,8 +1580,8 @@ class CMsgClientCheckFileSignature PROTOBUF_FINAL :
   CMsgClientCheckFileSignature* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientCheckFileSignature>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientCheckFileSignature& from);
   void MergeFrom(const CMsgClientCheckFileSignature& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -1692,12 +1591,13 @@ class CMsgClientCheckFileSignature PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientCheckFileSignature* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -1710,13 +1610,7 @@ class CMsgClientCheckFileSignature PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -1753,7 +1647,7 @@ class CMsgClientCheckFileSignature PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientCheckFileSignatureResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientCheckFileSignatureResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientCheckFileSignatureResponse) */ {
  public:
   inline CMsgClientCheckFileSignatureResponse() : CMsgClientCheckFileSignatureResponse(nullptr) {}
   virtual ~CMsgClientCheckFileSignatureResponse();
@@ -1778,22 +1672,13 @@ class CMsgClientCheckFileSignatureResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientCheckFileSignatureResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -1830,8 +1715,8 @@ class CMsgClientCheckFileSignatureResponse PROTOBUF_FINAL :
   CMsgClientCheckFileSignatureResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientCheckFileSignatureResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientCheckFileSignatureResponse& from);
   void MergeFrom(const CMsgClientCheckFileSignatureResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -1841,12 +1726,13 @@ class CMsgClientCheckFileSignatureResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientCheckFileSignatureResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -1859,13 +1745,7 @@ class CMsgClientCheckFileSignatureResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -2058,7 +1938,7 @@ class CMsgClientCheckFileSignatureResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRegisterKey PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRegisterKey) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRegisterKey) */ {
  public:
   inline CMsgClientRegisterKey() : CMsgClientRegisterKey(nullptr) {}
   virtual ~CMsgClientRegisterKey();
@@ -2083,22 +1963,13 @@ class CMsgClientRegisterKey PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRegisterKey& default_instance() {
     return *internal_default_instance();
   }
@@ -2135,8 +2006,8 @@ class CMsgClientRegisterKey PROTOBUF_FINAL :
   CMsgClientRegisterKey* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRegisterKey>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRegisterKey& from);
   void MergeFrom(const CMsgClientRegisterKey& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -2146,12 +2017,13 @@ class CMsgClientRegisterKey PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRegisterKey* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -2164,13 +2036,7 @@ class CMsgClientRegisterKey PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -2214,7 +2080,7 @@ class CMsgClientRegisterKey PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientPurchaseResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientPurchaseResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientPurchaseResponse) */ {
  public:
   inline CMsgClientPurchaseResponse() : CMsgClientPurchaseResponse(nullptr) {}
   virtual ~CMsgClientPurchaseResponse();
@@ -2239,22 +2105,13 @@ class CMsgClientPurchaseResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientPurchaseResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -2291,8 +2148,8 @@ class CMsgClientPurchaseResponse PROTOBUF_FINAL :
   CMsgClientPurchaseResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientPurchaseResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientPurchaseResponse& from);
   void MergeFrom(const CMsgClientPurchaseResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -2302,12 +2159,13 @@ class CMsgClientPurchaseResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientPurchaseResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -2320,13 +2178,7 @@ class CMsgClientPurchaseResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -2400,7 +2252,7 @@ class CMsgClientPurchaseResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientActivateOEMLicense PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientActivateOEMLicense) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientActivateOEMLicense) */ {
  public:
   inline CMsgClientActivateOEMLicense() : CMsgClientActivateOEMLicense(nullptr) {}
   virtual ~CMsgClientActivateOEMLicense();
@@ -2425,22 +2277,13 @@ class CMsgClientActivateOEMLicense PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientActivateOEMLicense& default_instance() {
     return *internal_default_instance();
   }
@@ -2477,8 +2320,8 @@ class CMsgClientActivateOEMLicense PROTOBUF_FINAL :
   CMsgClientActivateOEMLicense* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientActivateOEMLicense>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientActivateOEMLicense& from);
   void MergeFrom(const CMsgClientActivateOEMLicense& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -2488,12 +2331,13 @@ class CMsgClientActivateOEMLicense PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientActivateOEMLicense* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -2506,13 +2350,7 @@ class CMsgClientActivateOEMLicense PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -2666,7 +2504,7 @@ class CMsgClientActivateOEMLicense PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRegisterOEMMachine PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRegisterOEMMachine) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRegisterOEMMachine) */ {
  public:
   inline CMsgClientRegisterOEMMachine() : CMsgClientRegisterOEMMachine(nullptr) {}
   virtual ~CMsgClientRegisterOEMMachine();
@@ -2691,22 +2529,13 @@ class CMsgClientRegisterOEMMachine PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRegisterOEMMachine& default_instance() {
     return *internal_default_instance();
   }
@@ -2743,8 +2572,8 @@ class CMsgClientRegisterOEMMachine PROTOBUF_FINAL :
   CMsgClientRegisterOEMMachine* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRegisterOEMMachine>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRegisterOEMMachine& from);
   void MergeFrom(const CMsgClientRegisterOEMMachine& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -2754,12 +2583,13 @@ class CMsgClientRegisterOEMMachine PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRegisterOEMMachine* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -2772,13 +2602,7 @@ class CMsgClientRegisterOEMMachine PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -2822,7 +2646,7 @@ class CMsgClientRegisterOEMMachine PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRegisterOEMMachineResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRegisterOEMMachineResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRegisterOEMMachineResponse) */ {
  public:
   inline CMsgClientRegisterOEMMachineResponse() : CMsgClientRegisterOEMMachineResponse(nullptr) {}
   virtual ~CMsgClientRegisterOEMMachineResponse();
@@ -2847,22 +2671,13 @@ class CMsgClientRegisterOEMMachineResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRegisterOEMMachineResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -2899,8 +2714,8 @@ class CMsgClientRegisterOEMMachineResponse PROTOBUF_FINAL :
   CMsgClientRegisterOEMMachineResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRegisterOEMMachineResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRegisterOEMMachineResponse& from);
   void MergeFrom(const CMsgClientRegisterOEMMachineResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -2910,12 +2725,13 @@ class CMsgClientRegisterOEMMachineResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRegisterOEMMachineResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -2928,13 +2744,7 @@ class CMsgClientRegisterOEMMachineResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -2971,7 +2781,7 @@ class CMsgClientRegisterOEMMachineResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientPurchaseWithMachineID PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientPurchaseWithMachineID) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientPurchaseWithMachineID) */ {
  public:
   inline CMsgClientPurchaseWithMachineID() : CMsgClientPurchaseWithMachineID(nullptr) {}
   virtual ~CMsgClientPurchaseWithMachineID();
@@ -2996,22 +2806,13 @@ class CMsgClientPurchaseWithMachineID PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientPurchaseWithMachineID& default_instance() {
     return *internal_default_instance();
   }
@@ -3048,8 +2849,8 @@ class CMsgClientPurchaseWithMachineID PROTOBUF_FINAL :
   CMsgClientPurchaseWithMachineID* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientPurchaseWithMachineID>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientPurchaseWithMachineID& from);
   void MergeFrom(const CMsgClientPurchaseWithMachineID& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -3059,12 +2860,13 @@ class CMsgClientPurchaseWithMachineID PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientPurchaseWithMachineID* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -3077,13 +2879,7 @@ class CMsgClientPurchaseWithMachineID PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -3142,7 +2938,7 @@ class CMsgClientPurchaseWithMachineID PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgTrading_InitiateTradeRequest PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgTrading_InitiateTradeRequest) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgTrading_InitiateTradeRequest) */ {
  public:
   inline CMsgTrading_InitiateTradeRequest() : CMsgTrading_InitiateTradeRequest(nullptr) {}
   virtual ~CMsgTrading_InitiateTradeRequest();
@@ -3167,22 +2963,13 @@ class CMsgTrading_InitiateTradeRequest PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgTrading_InitiateTradeRequest& default_instance() {
     return *internal_default_instance();
   }
@@ -3219,8 +3006,8 @@ class CMsgTrading_InitiateTradeRequest PROTOBUF_FINAL :
   CMsgTrading_InitiateTradeRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgTrading_InitiateTradeRequest>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgTrading_InitiateTradeRequest& from);
   void MergeFrom(const CMsgTrading_InitiateTradeRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -3230,12 +3017,13 @@ class CMsgTrading_InitiateTradeRequest PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgTrading_InitiateTradeRequest* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -3248,13 +3036,7 @@ class CMsgTrading_InitiateTradeRequest PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -3328,7 +3110,7 @@ class CMsgTrading_InitiateTradeRequest PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgTrading_InitiateTradeResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgTrading_InitiateTradeResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgTrading_InitiateTradeResponse) */ {
  public:
   inline CMsgTrading_InitiateTradeResponse() : CMsgTrading_InitiateTradeResponse(nullptr) {}
   virtual ~CMsgTrading_InitiateTradeResponse();
@@ -3353,22 +3135,13 @@ class CMsgTrading_InitiateTradeResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgTrading_InitiateTradeResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -3405,8 +3178,8 @@ class CMsgTrading_InitiateTradeResponse PROTOBUF_FINAL :
   CMsgTrading_InitiateTradeResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgTrading_InitiateTradeResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgTrading_InitiateTradeResponse& from);
   void MergeFrom(const CMsgTrading_InitiateTradeResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -3416,12 +3189,13 @@ class CMsgTrading_InitiateTradeResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgTrading_InitiateTradeResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -3434,13 +3208,7 @@ class CMsgTrading_InitiateTradeResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -3597,7 +3365,7 @@ class CMsgTrading_InitiateTradeResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgTrading_CancelTradeRequest PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgTrading_CancelTradeRequest) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgTrading_CancelTradeRequest) */ {
  public:
   inline CMsgTrading_CancelTradeRequest() : CMsgTrading_CancelTradeRequest(nullptr) {}
   virtual ~CMsgTrading_CancelTradeRequest();
@@ -3622,22 +3390,13 @@ class CMsgTrading_CancelTradeRequest PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgTrading_CancelTradeRequest& default_instance() {
     return *internal_default_instance();
   }
@@ -3674,8 +3433,8 @@ class CMsgTrading_CancelTradeRequest PROTOBUF_FINAL :
   CMsgTrading_CancelTradeRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgTrading_CancelTradeRequest>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgTrading_CancelTradeRequest& from);
   void MergeFrom(const CMsgTrading_CancelTradeRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -3685,12 +3444,13 @@ class CMsgTrading_CancelTradeRequest PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgTrading_CancelTradeRequest* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -3703,13 +3463,7 @@ class CMsgTrading_CancelTradeRequest PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -3746,7 +3500,7 @@ class CMsgTrading_CancelTradeRequest PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgTrading_StartSession PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgTrading_StartSession) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgTrading_StartSession) */ {
  public:
   inline CMsgTrading_StartSession() : CMsgTrading_StartSession(nullptr) {}
   virtual ~CMsgTrading_StartSession();
@@ -3771,22 +3525,13 @@ class CMsgTrading_StartSession PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgTrading_StartSession& default_instance() {
     return *internal_default_instance();
   }
@@ -3823,8 +3568,8 @@ class CMsgTrading_StartSession PROTOBUF_FINAL :
   CMsgTrading_StartSession* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgTrading_StartSession>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgTrading_StartSession& from);
   void MergeFrom(const CMsgTrading_StartSession& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -3834,12 +3579,13 @@ class CMsgTrading_StartSession PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgTrading_StartSession* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -3852,13 +3598,7 @@ class CMsgTrading_StartSession PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -3895,7 +3635,7 @@ class CMsgTrading_StartSession PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientGetDepotDecryptionKey PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientGetDepotDecryptionKey) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientGetDepotDecryptionKey) */ {
  public:
   inline CMsgClientGetDepotDecryptionKey() : CMsgClientGetDepotDecryptionKey(nullptr) {}
   virtual ~CMsgClientGetDepotDecryptionKey();
@@ -3920,22 +3660,13 @@ class CMsgClientGetDepotDecryptionKey PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientGetDepotDecryptionKey& default_instance() {
     return *internal_default_instance();
   }
@@ -3972,8 +3703,8 @@ class CMsgClientGetDepotDecryptionKey PROTOBUF_FINAL :
   CMsgClientGetDepotDecryptionKey* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientGetDepotDecryptionKey>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientGetDepotDecryptionKey& from);
   void MergeFrom(const CMsgClientGetDepotDecryptionKey& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -3983,12 +3714,13 @@ class CMsgClientGetDepotDecryptionKey PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientGetDepotDecryptionKey* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -4001,13 +3733,7 @@ class CMsgClientGetDepotDecryptionKey PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -4059,7 +3785,7 @@ class CMsgClientGetDepotDecryptionKey PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientGetDepotDecryptionKeyResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientGetDepotDecryptionKeyResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientGetDepotDecryptionKeyResponse) */ {
  public:
   inline CMsgClientGetDepotDecryptionKeyResponse() : CMsgClientGetDepotDecryptionKeyResponse(nullptr) {}
   virtual ~CMsgClientGetDepotDecryptionKeyResponse();
@@ -4084,22 +3810,13 @@ class CMsgClientGetDepotDecryptionKeyResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientGetDepotDecryptionKeyResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -4136,8 +3853,8 @@ class CMsgClientGetDepotDecryptionKeyResponse PROTOBUF_FINAL :
   CMsgClientGetDepotDecryptionKeyResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientGetDepotDecryptionKeyResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientGetDepotDecryptionKeyResponse& from);
   void MergeFrom(const CMsgClientGetDepotDecryptionKeyResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -4147,12 +3864,13 @@ class CMsgClientGetDepotDecryptionKeyResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientGetDepotDecryptionKeyResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -4165,13 +3883,7 @@ class CMsgClientGetDepotDecryptionKeyResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -4245,7 +3957,7 @@ class CMsgClientGetDepotDecryptionKeyResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientCheckAppBetaPassword PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientCheckAppBetaPassword) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientCheckAppBetaPassword) */ {
  public:
   inline CMsgClientCheckAppBetaPassword() : CMsgClientCheckAppBetaPassword(nullptr) {}
   virtual ~CMsgClientCheckAppBetaPassword();
@@ -4270,22 +3982,13 @@ class CMsgClientCheckAppBetaPassword PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientCheckAppBetaPassword& default_instance() {
     return *internal_default_instance();
   }
@@ -4322,8 +4025,8 @@ class CMsgClientCheckAppBetaPassword PROTOBUF_FINAL :
   CMsgClientCheckAppBetaPassword* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientCheckAppBetaPassword>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientCheckAppBetaPassword& from);
   void MergeFrom(const CMsgClientCheckAppBetaPassword& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -4333,12 +4036,13 @@ class CMsgClientCheckAppBetaPassword PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientCheckAppBetaPassword* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -4351,13 +4055,7 @@ class CMsgClientCheckAppBetaPassword PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -4431,7 +4129,7 @@ class CMsgClientCheckAppBetaPassword PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientCheckAppBetaPasswordResponse_BetaPassword PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientCheckAppBetaPasswordResponse.BetaPassword) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientCheckAppBetaPasswordResponse.BetaPassword) */ {
  public:
   inline CMsgClientCheckAppBetaPasswordResponse_BetaPassword() : CMsgClientCheckAppBetaPasswordResponse_BetaPassword(nullptr) {}
   virtual ~CMsgClientCheckAppBetaPasswordResponse_BetaPassword();
@@ -4456,22 +4154,13 @@ class CMsgClientCheckAppBetaPasswordResponse_BetaPassword PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientCheckAppBetaPasswordResponse_BetaPassword& default_instance() {
     return *internal_default_instance();
   }
@@ -4508,8 +4197,8 @@ class CMsgClientCheckAppBetaPasswordResponse_BetaPassword PROTOBUF_FINAL :
   CMsgClientCheckAppBetaPasswordResponse_BetaPassword* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientCheckAppBetaPasswordResponse_BetaPassword>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientCheckAppBetaPasswordResponse_BetaPassword& from);
   void MergeFrom(const CMsgClientCheckAppBetaPasswordResponse_BetaPassword& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -4519,12 +4208,13 @@ class CMsgClientCheckAppBetaPasswordResponse_BetaPassword PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientCheckAppBetaPasswordResponse_BetaPassword* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -4537,13 +4227,7 @@ class CMsgClientCheckAppBetaPasswordResponse_BetaPassword PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -4631,7 +4315,7 @@ class CMsgClientCheckAppBetaPasswordResponse_BetaPassword PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientCheckAppBetaPasswordResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientCheckAppBetaPasswordResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientCheckAppBetaPasswordResponse) */ {
  public:
   inline CMsgClientCheckAppBetaPasswordResponse() : CMsgClientCheckAppBetaPasswordResponse(nullptr) {}
   virtual ~CMsgClientCheckAppBetaPasswordResponse();
@@ -4656,22 +4340,13 @@ class CMsgClientCheckAppBetaPasswordResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientCheckAppBetaPasswordResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -4708,8 +4383,8 @@ class CMsgClientCheckAppBetaPasswordResponse PROTOBUF_FINAL :
   CMsgClientCheckAppBetaPasswordResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientCheckAppBetaPasswordResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientCheckAppBetaPasswordResponse& from);
   void MergeFrom(const CMsgClientCheckAppBetaPasswordResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -4719,12 +4394,13 @@ class CMsgClientCheckAppBetaPasswordResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientCheckAppBetaPasswordResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -4737,13 +4413,7 @@ class CMsgClientCheckAppBetaPasswordResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -4802,7 +4472,7 @@ class CMsgClientCheckAppBetaPasswordResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientUGSGetGlobalStats PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientUGSGetGlobalStats) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientUGSGetGlobalStats) */ {
  public:
   inline CMsgClientUGSGetGlobalStats() : CMsgClientUGSGetGlobalStats(nullptr) {}
   virtual ~CMsgClientUGSGetGlobalStats();
@@ -4827,22 +4497,13 @@ class CMsgClientUGSGetGlobalStats PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientUGSGetGlobalStats& default_instance() {
     return *internal_default_instance();
   }
@@ -4879,8 +4540,8 @@ class CMsgClientUGSGetGlobalStats PROTOBUF_FINAL :
   CMsgClientUGSGetGlobalStats* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientUGSGetGlobalStats>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientUGSGetGlobalStats& from);
   void MergeFrom(const CMsgClientUGSGetGlobalStats& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -4890,12 +4551,13 @@ class CMsgClientUGSGetGlobalStats PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientUGSGetGlobalStats* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -4908,13 +4570,7 @@ class CMsgClientUGSGetGlobalStats PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -5011,7 +4667,7 @@ class CMsgClientUGSGetGlobalStats PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientUGSGetGlobalStatsResponse_Day_Stat PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientUGSGetGlobalStatsResponse.Day.Stat) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientUGSGetGlobalStatsResponse.Day.Stat) */ {
  public:
   inline CMsgClientUGSGetGlobalStatsResponse_Day_Stat() : CMsgClientUGSGetGlobalStatsResponse_Day_Stat(nullptr) {}
   virtual ~CMsgClientUGSGetGlobalStatsResponse_Day_Stat();
@@ -5036,22 +4692,13 @@ class CMsgClientUGSGetGlobalStatsResponse_Day_Stat PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientUGSGetGlobalStatsResponse_Day_Stat& default_instance() {
     return *internal_default_instance();
   }
@@ -5088,8 +4735,8 @@ class CMsgClientUGSGetGlobalStatsResponse_Day_Stat PROTOBUF_FINAL :
   CMsgClientUGSGetGlobalStatsResponse_Day_Stat* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientUGSGetGlobalStatsResponse_Day_Stat>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientUGSGetGlobalStatsResponse_Day_Stat& from);
   void MergeFrom(const CMsgClientUGSGetGlobalStatsResponse_Day_Stat& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -5099,12 +4746,13 @@ class CMsgClientUGSGetGlobalStatsResponse_Day_Stat PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientUGSGetGlobalStatsResponse_Day_Stat* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -5117,13 +4765,7 @@ class CMsgClientUGSGetGlobalStatsResponse_Day_Stat PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -5175,7 +4817,7 @@ class CMsgClientUGSGetGlobalStatsResponse_Day_Stat PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientUGSGetGlobalStatsResponse_Day PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientUGSGetGlobalStatsResponse.Day) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientUGSGetGlobalStatsResponse.Day) */ {
  public:
   inline CMsgClientUGSGetGlobalStatsResponse_Day() : CMsgClientUGSGetGlobalStatsResponse_Day(nullptr) {}
   virtual ~CMsgClientUGSGetGlobalStatsResponse_Day();
@@ -5200,22 +4842,13 @@ class CMsgClientUGSGetGlobalStatsResponse_Day PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientUGSGetGlobalStatsResponse_Day& default_instance() {
     return *internal_default_instance();
   }
@@ -5252,8 +4885,8 @@ class CMsgClientUGSGetGlobalStatsResponse_Day PROTOBUF_FINAL :
   CMsgClientUGSGetGlobalStatsResponse_Day* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientUGSGetGlobalStatsResponse_Day>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientUGSGetGlobalStatsResponse_Day& from);
   void MergeFrom(const CMsgClientUGSGetGlobalStatsResponse_Day& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -5263,12 +4896,13 @@ class CMsgClientUGSGetGlobalStatsResponse_Day PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientUGSGetGlobalStatsResponse_Day* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -5281,13 +4915,7 @@ class CMsgClientUGSGetGlobalStatsResponse_Day PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -5346,7 +4974,7 @@ class CMsgClientUGSGetGlobalStatsResponse_Day PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientUGSGetGlobalStatsResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientUGSGetGlobalStatsResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientUGSGetGlobalStatsResponse) */ {
  public:
   inline CMsgClientUGSGetGlobalStatsResponse() : CMsgClientUGSGetGlobalStatsResponse(nullptr) {}
   virtual ~CMsgClientUGSGetGlobalStatsResponse();
@@ -5371,22 +4999,13 @@ class CMsgClientUGSGetGlobalStatsResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientUGSGetGlobalStatsResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -5423,8 +5042,8 @@ class CMsgClientUGSGetGlobalStatsResponse PROTOBUF_FINAL :
   CMsgClientUGSGetGlobalStatsResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientUGSGetGlobalStatsResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientUGSGetGlobalStatsResponse& from);
   void MergeFrom(const CMsgClientUGSGetGlobalStatsResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -5434,12 +5053,13 @@ class CMsgClientUGSGetGlobalStatsResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientUGSGetGlobalStatsResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -5452,13 +5072,7 @@ class CMsgClientUGSGetGlobalStatsResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -5547,7 +5161,7 @@ class CMsgClientUGSGetGlobalStatsResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRedeemGuestPass PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRedeemGuestPass) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRedeemGuestPass) */ {
  public:
   inline CMsgClientRedeemGuestPass() : CMsgClientRedeemGuestPass(nullptr) {}
   virtual ~CMsgClientRedeemGuestPass();
@@ -5572,22 +5186,13 @@ class CMsgClientRedeemGuestPass PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRedeemGuestPass& default_instance() {
     return *internal_default_instance();
   }
@@ -5624,8 +5229,8 @@ class CMsgClientRedeemGuestPass PROTOBUF_FINAL :
   CMsgClientRedeemGuestPass* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRedeemGuestPass>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRedeemGuestPass& from);
   void MergeFrom(const CMsgClientRedeemGuestPass& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -5635,12 +5240,13 @@ class CMsgClientRedeemGuestPass PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRedeemGuestPass* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -5653,13 +5259,7 @@ class CMsgClientRedeemGuestPass PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -5696,7 +5296,7 @@ class CMsgClientRedeemGuestPass PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRedeemGuestPassResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRedeemGuestPassResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRedeemGuestPassResponse) */ {
  public:
   inline CMsgClientRedeemGuestPassResponse() : CMsgClientRedeemGuestPassResponse(nullptr) {}
   virtual ~CMsgClientRedeemGuestPassResponse();
@@ -5721,22 +5321,13 @@ class CMsgClientRedeemGuestPassResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRedeemGuestPassResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -5773,8 +5364,8 @@ class CMsgClientRedeemGuestPassResponse PROTOBUF_FINAL :
   CMsgClientRedeemGuestPassResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRedeemGuestPassResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRedeemGuestPassResponse& from);
   void MergeFrom(const CMsgClientRedeemGuestPassResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -5784,12 +5375,13 @@ class CMsgClientRedeemGuestPassResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRedeemGuestPassResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -5802,13 +5394,7 @@ class CMsgClientRedeemGuestPassResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -5875,7 +5461,7 @@ class CMsgClientRedeemGuestPassResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientGetClanActivityCounts PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientGetClanActivityCounts) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientGetClanActivityCounts) */ {
  public:
   inline CMsgClientGetClanActivityCounts() : CMsgClientGetClanActivityCounts(nullptr) {}
   virtual ~CMsgClientGetClanActivityCounts();
@@ -5900,22 +5486,13 @@ class CMsgClientGetClanActivityCounts PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientGetClanActivityCounts& default_instance() {
     return *internal_default_instance();
   }
@@ -5952,8 +5529,8 @@ class CMsgClientGetClanActivityCounts PROTOBUF_FINAL :
   CMsgClientGetClanActivityCounts* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientGetClanActivityCounts>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientGetClanActivityCounts& from);
   void MergeFrom(const CMsgClientGetClanActivityCounts& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -5963,12 +5540,13 @@ class CMsgClientGetClanActivityCounts PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientGetClanActivityCounts* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -5981,13 +5559,7 @@ class CMsgClientGetClanActivityCounts PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -6032,7 +5604,7 @@ class CMsgClientGetClanActivityCounts PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientGetClanActivityCountsResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientGetClanActivityCountsResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientGetClanActivityCountsResponse) */ {
  public:
   inline CMsgClientGetClanActivityCountsResponse() : CMsgClientGetClanActivityCountsResponse(nullptr) {}
   virtual ~CMsgClientGetClanActivityCountsResponse();
@@ -6057,22 +5629,13 @@ class CMsgClientGetClanActivityCountsResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientGetClanActivityCountsResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -6109,8 +5672,8 @@ class CMsgClientGetClanActivityCountsResponse PROTOBUF_FINAL :
   CMsgClientGetClanActivityCountsResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientGetClanActivityCountsResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientGetClanActivityCountsResponse& from);
   void MergeFrom(const CMsgClientGetClanActivityCountsResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -6120,12 +5683,13 @@ class CMsgClientGetClanActivityCountsResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientGetClanActivityCountsResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -6138,13 +5702,7 @@ class CMsgClientGetClanActivityCountsResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -6181,7 +5739,7 @@ class CMsgClientGetClanActivityCountsResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientOGSReportString PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientOGSReportString) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientOGSReportString) */ {
  public:
   inline CMsgClientOGSReportString() : CMsgClientOGSReportString(nullptr) {}
   virtual ~CMsgClientOGSReportString();
@@ -6206,22 +5764,13 @@ class CMsgClientOGSReportString PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientOGSReportString& default_instance() {
     return *internal_default_instance();
   }
@@ -6258,8 +5807,8 @@ class CMsgClientOGSReportString PROTOBUF_FINAL :
   CMsgClientOGSReportString* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientOGSReportString>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientOGSReportString& from);
   void MergeFrom(const CMsgClientOGSReportString& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -6269,12 +5818,13 @@ class CMsgClientOGSReportString PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientOGSReportString* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -6287,13 +5837,7 @@ class CMsgClientOGSReportString PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -6404,7 +5948,7 @@ class CMsgClientOGSReportString PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientOGSReportBug PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientOGSReportBug) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientOGSReportBug) */ {
  public:
   inline CMsgClientOGSReportBug() : CMsgClientOGSReportBug(nullptr) {}
   virtual ~CMsgClientOGSReportBug();
@@ -6429,22 +5973,13 @@ class CMsgClientOGSReportBug PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientOGSReportBug& default_instance() {
     return *internal_default_instance();
   }
@@ -6481,8 +6016,8 @@ class CMsgClientOGSReportBug PROTOBUF_FINAL :
   CMsgClientOGSReportBug* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientOGSReportBug>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientOGSReportBug& from);
   void MergeFrom(const CMsgClientOGSReportBug& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -6492,12 +6027,13 @@ class CMsgClientOGSReportBug PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientOGSReportBug* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -6510,13 +6046,7 @@ class CMsgClientOGSReportBug PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -6597,7 +6127,7 @@ class CMsgClientOGSReportBug PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientSentLogs PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientSentLogs) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientSentLogs) */ {
  public:
   inline CMsgClientSentLogs() : CMsgClientSentLogs(nullptr) {}
   virtual ~CMsgClientSentLogs();
@@ -6622,22 +6152,13 @@ class CMsgClientSentLogs PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientSentLogs& default_instance() {
     return *internal_default_instance();
   }
@@ -6674,8 +6195,8 @@ class CMsgClientSentLogs PROTOBUF_FINAL :
   CMsgClientSentLogs* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientSentLogs>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientSentLogs& from);
   void MergeFrom(const CMsgClientSentLogs& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -6685,12 +6206,13 @@ class CMsgClientSentLogs PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientSentLogs* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -6703,13 +6225,7 @@ class CMsgClientSentLogs PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -6728,7 +6244,7 @@ class CMsgClientSentLogs PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgGCClient PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgGCClient) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgGCClient) */ {
  public:
   inline CMsgGCClient() : CMsgGCClient(nullptr) {}
   virtual ~CMsgGCClient();
@@ -6753,22 +6269,13 @@ class CMsgGCClient PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgGCClient& default_instance() {
     return *internal_default_instance();
   }
@@ -6805,8 +6312,8 @@ class CMsgGCClient PROTOBUF_FINAL :
   CMsgGCClient* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgGCClient>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgGCClient& from);
   void MergeFrom(const CMsgGCClient& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -6816,12 +6323,13 @@ class CMsgGCClient PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgGCClient* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -6834,13 +6342,7 @@ class CMsgGCClient PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -6856,10 +6358,6 @@ class CMsgGCClient PROTOBUF_FINAL :
     CMsgGCClient_EFlag_EFlag_MAX;
   static constexpr int EFlag_ARRAYSIZE =
     CMsgGCClient_EFlag_EFlag_ARRAYSIZE;
-  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
-  EFlag_descriptor() {
-    return CMsgGCClient_EFlag_descriptor();
-  }
   template<typename T>
   static inline const std::string& EFlag_Name(T enum_t_value) {
     static_assert(::std::is_same<T, EFlag>::value ||
@@ -7009,7 +6507,7 @@ class CMsgGCClient PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRequestFreeLicense PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRequestFreeLicense) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRequestFreeLicense) */ {
  public:
   inline CMsgClientRequestFreeLicense() : CMsgClientRequestFreeLicense(nullptr) {}
   virtual ~CMsgClientRequestFreeLicense();
@@ -7034,22 +6532,13 @@ class CMsgClientRequestFreeLicense PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRequestFreeLicense& default_instance() {
     return *internal_default_instance();
   }
@@ -7086,8 +6575,8 @@ class CMsgClientRequestFreeLicense PROTOBUF_FINAL :
   CMsgClientRequestFreeLicense* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRequestFreeLicense>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRequestFreeLicense& from);
   void MergeFrom(const CMsgClientRequestFreeLicense& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -7097,12 +6586,13 @@ class CMsgClientRequestFreeLicense PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRequestFreeLicense* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -7115,13 +6605,7 @@ class CMsgClientRequestFreeLicense PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -7166,7 +6650,7 @@ class CMsgClientRequestFreeLicense PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRequestFreeLicenseResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRequestFreeLicenseResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRequestFreeLicenseResponse) */ {
  public:
   inline CMsgClientRequestFreeLicenseResponse() : CMsgClientRequestFreeLicenseResponse(nullptr) {}
   virtual ~CMsgClientRequestFreeLicenseResponse();
@@ -7191,22 +6675,13 @@ class CMsgClientRequestFreeLicenseResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRequestFreeLicenseResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -7243,8 +6718,8 @@ class CMsgClientRequestFreeLicenseResponse PROTOBUF_FINAL :
   CMsgClientRequestFreeLicenseResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRequestFreeLicenseResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRequestFreeLicenseResponse& from);
   void MergeFrom(const CMsgClientRequestFreeLicenseResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -7254,12 +6729,13 @@ class CMsgClientRequestFreeLicenseResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRequestFreeLicenseResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -7272,13 +6748,7 @@ class CMsgClientRequestFreeLicenseResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -7363,7 +6833,7 @@ class CMsgClientRequestFreeLicenseResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgDRMDownloadRequestWithCrashData PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgDRMDownloadRequestWithCrashData) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgDRMDownloadRequestWithCrashData) */ {
  public:
   inline CMsgDRMDownloadRequestWithCrashData() : CMsgDRMDownloadRequestWithCrashData(nullptr) {}
   virtual ~CMsgDRMDownloadRequestWithCrashData();
@@ -7388,22 +6858,13 @@ class CMsgDRMDownloadRequestWithCrashData PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgDRMDownloadRequestWithCrashData& default_instance() {
     return *internal_default_instance();
   }
@@ -7440,8 +6901,8 @@ class CMsgDRMDownloadRequestWithCrashData PROTOBUF_FINAL :
   CMsgDRMDownloadRequestWithCrashData* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgDRMDownloadRequestWithCrashData>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgDRMDownloadRequestWithCrashData& from);
   void MergeFrom(const CMsgDRMDownloadRequestWithCrashData& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -7451,12 +6912,13 @@ class CMsgDRMDownloadRequestWithCrashData PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgDRMDownloadRequestWithCrashData* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -7469,13 +6931,7 @@ class CMsgDRMDownloadRequestWithCrashData PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -7659,7 +7115,7 @@ class CMsgDRMDownloadRequestWithCrashData PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgDRMDownloadResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgDRMDownloadResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgDRMDownloadResponse) */ {
  public:
   inline CMsgDRMDownloadResponse() : CMsgDRMDownloadResponse(nullptr) {}
   virtual ~CMsgDRMDownloadResponse();
@@ -7684,22 +7140,13 @@ class CMsgDRMDownloadResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgDRMDownloadResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -7736,8 +7183,8 @@ class CMsgDRMDownloadResponse PROTOBUF_FINAL :
   CMsgDRMDownloadResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgDRMDownloadResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgDRMDownloadResponse& from);
   void MergeFrom(const CMsgDRMDownloadResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -7747,12 +7194,13 @@ class CMsgDRMDownloadResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgDRMDownloadResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -7765,13 +7213,7 @@ class CMsgDRMDownloadResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -7934,7 +7376,7 @@ class CMsgDRMDownloadResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgDRMFinalResult PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgDRMFinalResult) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgDRMFinalResult) */ {
  public:
   inline CMsgDRMFinalResult() : CMsgDRMFinalResult(nullptr) {}
   virtual ~CMsgDRMFinalResult();
@@ -7959,22 +7401,13 @@ class CMsgDRMFinalResult PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgDRMFinalResult& default_instance() {
     return *internal_default_instance();
   }
@@ -8011,8 +7444,8 @@ class CMsgDRMFinalResult PROTOBUF_FINAL :
   CMsgDRMFinalResult* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgDRMFinalResult>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgDRMFinalResult& from);
   void MergeFrom(const CMsgDRMFinalResult& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -8022,12 +7455,13 @@ class CMsgDRMFinalResult PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgDRMFinalResult* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -8040,13 +7474,7 @@ class CMsgDRMFinalResult PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -8202,7 +7630,7 @@ class CMsgDRMFinalResult PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientDPCheckSpecialSurvey PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientDPCheckSpecialSurvey) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientDPCheckSpecialSurvey) */ {
  public:
   inline CMsgClientDPCheckSpecialSurvey() : CMsgClientDPCheckSpecialSurvey(nullptr) {}
   virtual ~CMsgClientDPCheckSpecialSurvey();
@@ -8227,22 +7655,13 @@ class CMsgClientDPCheckSpecialSurvey PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientDPCheckSpecialSurvey& default_instance() {
     return *internal_default_instance();
   }
@@ -8279,8 +7698,8 @@ class CMsgClientDPCheckSpecialSurvey PROTOBUF_FINAL :
   CMsgClientDPCheckSpecialSurvey* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientDPCheckSpecialSurvey>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientDPCheckSpecialSurvey& from);
   void MergeFrom(const CMsgClientDPCheckSpecialSurvey& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -8290,12 +7709,13 @@ class CMsgClientDPCheckSpecialSurvey PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientDPCheckSpecialSurvey* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -8308,13 +7728,7 @@ class CMsgClientDPCheckSpecialSurvey PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -8351,7 +7765,7 @@ class CMsgClientDPCheckSpecialSurvey PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientDPCheckSpecialSurveyResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientDPCheckSpecialSurveyResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientDPCheckSpecialSurveyResponse) */ {
  public:
   inline CMsgClientDPCheckSpecialSurveyResponse() : CMsgClientDPCheckSpecialSurveyResponse(nullptr) {}
   virtual ~CMsgClientDPCheckSpecialSurveyResponse();
@@ -8376,22 +7790,13 @@ class CMsgClientDPCheckSpecialSurveyResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientDPCheckSpecialSurveyResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -8428,8 +7833,8 @@ class CMsgClientDPCheckSpecialSurveyResponse PROTOBUF_FINAL :
   CMsgClientDPCheckSpecialSurveyResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientDPCheckSpecialSurveyResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientDPCheckSpecialSurveyResponse& from);
   void MergeFrom(const CMsgClientDPCheckSpecialSurveyResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -8439,12 +7844,13 @@ class CMsgClientDPCheckSpecialSurveyResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientDPCheckSpecialSurveyResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -8457,13 +7863,7 @@ class CMsgClientDPCheckSpecialSurveyResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -8596,7 +7996,7 @@ class CMsgClientDPCheckSpecialSurveyResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientDPSendSpecialSurveyResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientDPSendSpecialSurveyResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientDPSendSpecialSurveyResponse) */ {
  public:
   inline CMsgClientDPSendSpecialSurveyResponse() : CMsgClientDPSendSpecialSurveyResponse(nullptr) {}
   virtual ~CMsgClientDPSendSpecialSurveyResponse();
@@ -8621,22 +8021,13 @@ class CMsgClientDPSendSpecialSurveyResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientDPSendSpecialSurveyResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -8673,8 +8064,8 @@ class CMsgClientDPSendSpecialSurveyResponse PROTOBUF_FINAL :
   CMsgClientDPSendSpecialSurveyResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientDPSendSpecialSurveyResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientDPSendSpecialSurveyResponse& from);
   void MergeFrom(const CMsgClientDPSendSpecialSurveyResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -8684,12 +8075,13 @@ class CMsgClientDPSendSpecialSurveyResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientDPSendSpecialSurveyResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -8702,13 +8094,7 @@ class CMsgClientDPSendSpecialSurveyResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -8767,7 +8153,7 @@ class CMsgClientDPSendSpecialSurveyResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientDPSendSpecialSurveyResponseReply PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientDPSendSpecialSurveyResponseReply) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientDPSendSpecialSurveyResponseReply) */ {
  public:
   inline CMsgClientDPSendSpecialSurveyResponseReply() : CMsgClientDPSendSpecialSurveyResponseReply(nullptr) {}
   virtual ~CMsgClientDPSendSpecialSurveyResponseReply();
@@ -8792,22 +8178,13 @@ class CMsgClientDPSendSpecialSurveyResponseReply PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientDPSendSpecialSurveyResponseReply& default_instance() {
     return *internal_default_instance();
   }
@@ -8844,8 +8221,8 @@ class CMsgClientDPSendSpecialSurveyResponseReply PROTOBUF_FINAL :
   CMsgClientDPSendSpecialSurveyResponseReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientDPSendSpecialSurveyResponseReply>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientDPSendSpecialSurveyResponseReply& from);
   void MergeFrom(const CMsgClientDPSendSpecialSurveyResponseReply& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -8855,12 +8232,13 @@ class CMsgClientDPSendSpecialSurveyResponseReply PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientDPSendSpecialSurveyResponseReply* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -8873,13 +8251,7 @@ class CMsgClientDPSendSpecialSurveyResponseReply PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -8938,7 +8310,7 @@ class CMsgClientDPSendSpecialSurveyResponseReply PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRequestForgottenPasswordEmail PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRequestForgottenPasswordEmail) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRequestForgottenPasswordEmail) */ {
  public:
   inline CMsgClientRequestForgottenPasswordEmail() : CMsgClientRequestForgottenPasswordEmail(nullptr) {}
   virtual ~CMsgClientRequestForgottenPasswordEmail();
@@ -8963,22 +8335,13 @@ class CMsgClientRequestForgottenPasswordEmail PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRequestForgottenPasswordEmail& default_instance() {
     return *internal_default_instance();
   }
@@ -9015,8 +8378,8 @@ class CMsgClientRequestForgottenPasswordEmail PROTOBUF_FINAL :
   CMsgClientRequestForgottenPasswordEmail* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRequestForgottenPasswordEmail>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRequestForgottenPasswordEmail& from);
   void MergeFrom(const CMsgClientRequestForgottenPasswordEmail& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -9026,12 +8389,13 @@ class CMsgClientRequestForgottenPasswordEmail PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRequestForgottenPasswordEmail* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -9044,13 +8408,7 @@ class CMsgClientRequestForgottenPasswordEmail PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -9116,7 +8474,7 @@ class CMsgClientRequestForgottenPasswordEmail PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRequestForgottenPasswordEmailResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRequestForgottenPasswordEmailResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRequestForgottenPasswordEmailResponse) */ {
  public:
   inline CMsgClientRequestForgottenPasswordEmailResponse() : CMsgClientRequestForgottenPasswordEmailResponse(nullptr) {}
   virtual ~CMsgClientRequestForgottenPasswordEmailResponse();
@@ -9141,22 +8499,13 @@ class CMsgClientRequestForgottenPasswordEmailResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRequestForgottenPasswordEmailResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -9193,8 +8542,8 @@ class CMsgClientRequestForgottenPasswordEmailResponse PROTOBUF_FINAL :
   CMsgClientRequestForgottenPasswordEmailResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRequestForgottenPasswordEmailResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRequestForgottenPasswordEmailResponse& from);
   void MergeFrom(const CMsgClientRequestForgottenPasswordEmailResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -9204,12 +8553,13 @@ class CMsgClientRequestForgottenPasswordEmailResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRequestForgottenPasswordEmailResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -9222,13 +8572,7 @@ class CMsgClientRequestForgottenPasswordEmailResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -9280,7 +8624,7 @@ class CMsgClientRequestForgottenPasswordEmailResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientItemAnnouncements_UnseenItem PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientItemAnnouncements.UnseenItem) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientItemAnnouncements.UnseenItem) */ {
  public:
   inline CMsgClientItemAnnouncements_UnseenItem() : CMsgClientItemAnnouncements_UnseenItem(nullptr) {}
   virtual ~CMsgClientItemAnnouncements_UnseenItem();
@@ -9305,22 +8649,13 @@ class CMsgClientItemAnnouncements_UnseenItem PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientItemAnnouncements_UnseenItem& default_instance() {
     return *internal_default_instance();
   }
@@ -9357,8 +8692,8 @@ class CMsgClientItemAnnouncements_UnseenItem PROTOBUF_FINAL :
   CMsgClientItemAnnouncements_UnseenItem* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientItemAnnouncements_UnseenItem>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientItemAnnouncements_UnseenItem& from);
   void MergeFrom(const CMsgClientItemAnnouncements_UnseenItem& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -9368,12 +8703,13 @@ class CMsgClientItemAnnouncements_UnseenItem PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientItemAnnouncements_UnseenItem* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -9386,13 +8722,7 @@ class CMsgClientItemAnnouncements_UnseenItem PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -9504,7 +8834,7 @@ class CMsgClientItemAnnouncements_UnseenItem PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientItemAnnouncements PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientItemAnnouncements) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientItemAnnouncements) */ {
  public:
   inline CMsgClientItemAnnouncements() : CMsgClientItemAnnouncements(nullptr) {}
   virtual ~CMsgClientItemAnnouncements();
@@ -9529,22 +8859,13 @@ class CMsgClientItemAnnouncements PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientItemAnnouncements& default_instance() {
     return *internal_default_instance();
   }
@@ -9581,8 +8902,8 @@ class CMsgClientItemAnnouncements PROTOBUF_FINAL :
   CMsgClientItemAnnouncements* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientItemAnnouncements>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientItemAnnouncements& from);
   void MergeFrom(const CMsgClientItemAnnouncements& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -9592,12 +8913,13 @@ class CMsgClientItemAnnouncements PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientItemAnnouncements* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -9610,13 +8932,7 @@ class CMsgClientItemAnnouncements PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -9675,7 +8991,7 @@ class CMsgClientItemAnnouncements PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRequestItemAnnouncements PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRequestItemAnnouncements) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRequestItemAnnouncements) */ {
  public:
   inline CMsgClientRequestItemAnnouncements() : CMsgClientRequestItemAnnouncements(nullptr) {}
   virtual ~CMsgClientRequestItemAnnouncements();
@@ -9700,22 +9016,13 @@ class CMsgClientRequestItemAnnouncements PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRequestItemAnnouncements& default_instance() {
     return *internal_default_instance();
   }
@@ -9752,8 +9059,8 @@ class CMsgClientRequestItemAnnouncements PROTOBUF_FINAL :
   CMsgClientRequestItemAnnouncements* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRequestItemAnnouncements>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRequestItemAnnouncements& from);
   void MergeFrom(const CMsgClientRequestItemAnnouncements& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -9763,12 +9070,13 @@ class CMsgClientRequestItemAnnouncements PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRequestItemAnnouncements* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -9781,13 +9089,7 @@ class CMsgClientRequestItemAnnouncements PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -9806,7 +9108,7 @@ class CMsgClientRequestItemAnnouncements PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientUserNotifications_Notification PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientUserNotifications.Notification) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientUserNotifications.Notification) */ {
  public:
   inline CMsgClientUserNotifications_Notification() : CMsgClientUserNotifications_Notification(nullptr) {}
   virtual ~CMsgClientUserNotifications_Notification();
@@ -9831,22 +9133,13 @@ class CMsgClientUserNotifications_Notification PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientUserNotifications_Notification& default_instance() {
     return *internal_default_instance();
   }
@@ -9883,8 +9176,8 @@ class CMsgClientUserNotifications_Notification PROTOBUF_FINAL :
   CMsgClientUserNotifications_Notification* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientUserNotifications_Notification>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientUserNotifications_Notification& from);
   void MergeFrom(const CMsgClientUserNotifications_Notification& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -9894,12 +9187,13 @@ class CMsgClientUserNotifications_Notification PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientUserNotifications_Notification* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -9912,13 +9206,7 @@ class CMsgClientUserNotifications_Notification PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -9970,7 +9258,7 @@ class CMsgClientUserNotifications_Notification PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientUserNotifications PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientUserNotifications) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientUserNotifications) */ {
  public:
   inline CMsgClientUserNotifications() : CMsgClientUserNotifications(nullptr) {}
   virtual ~CMsgClientUserNotifications();
@@ -9995,22 +9283,13 @@ class CMsgClientUserNotifications PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientUserNotifications& default_instance() {
     return *internal_default_instance();
   }
@@ -10047,8 +9326,8 @@ class CMsgClientUserNotifications PROTOBUF_FINAL :
   CMsgClientUserNotifications* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientUserNotifications>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientUserNotifications& from);
   void MergeFrom(const CMsgClientUserNotifications& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -10058,12 +9337,13 @@ class CMsgClientUserNotifications PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientUserNotifications* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -10076,13 +9356,7 @@ class CMsgClientUserNotifications PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -10125,7 +9399,7 @@ class CMsgClientUserNotifications PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientCommentNotifications PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientCommentNotifications) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientCommentNotifications) */ {
  public:
   inline CMsgClientCommentNotifications() : CMsgClientCommentNotifications(nullptr) {}
   virtual ~CMsgClientCommentNotifications();
@@ -10150,22 +9424,13 @@ class CMsgClientCommentNotifications PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientCommentNotifications& default_instance() {
     return *internal_default_instance();
   }
@@ -10202,8 +9467,8 @@ class CMsgClientCommentNotifications PROTOBUF_FINAL :
   CMsgClientCommentNotifications* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientCommentNotifications>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientCommentNotifications& from);
   void MergeFrom(const CMsgClientCommentNotifications& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -10213,12 +9478,13 @@ class CMsgClientCommentNotifications PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientCommentNotifications* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -10231,13 +9497,7 @@ class CMsgClientCommentNotifications PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -10304,7 +9564,7 @@ class CMsgClientCommentNotifications PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRequestCommentNotifications PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRequestCommentNotifications) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRequestCommentNotifications) */ {
  public:
   inline CMsgClientRequestCommentNotifications() : CMsgClientRequestCommentNotifications(nullptr) {}
   virtual ~CMsgClientRequestCommentNotifications();
@@ -10329,22 +9589,13 @@ class CMsgClientRequestCommentNotifications PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRequestCommentNotifications& default_instance() {
     return *internal_default_instance();
   }
@@ -10381,8 +9632,8 @@ class CMsgClientRequestCommentNotifications PROTOBUF_FINAL :
   CMsgClientRequestCommentNotifications* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRequestCommentNotifications>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRequestCommentNotifications& from);
   void MergeFrom(const CMsgClientRequestCommentNotifications& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -10392,12 +9643,13 @@ class CMsgClientRequestCommentNotifications PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRequestCommentNotifications* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -10410,13 +9662,7 @@ class CMsgClientRequestCommentNotifications PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -10435,7 +9681,7 @@ class CMsgClientRequestCommentNotifications PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientOfflineMessageNotification PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientOfflineMessageNotification) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientOfflineMessageNotification) */ {
  public:
   inline CMsgClientOfflineMessageNotification() : CMsgClientOfflineMessageNotification(nullptr) {}
   virtual ~CMsgClientOfflineMessageNotification();
@@ -10460,22 +9706,13 @@ class CMsgClientOfflineMessageNotification PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientOfflineMessageNotification& default_instance() {
     return *internal_default_instance();
   }
@@ -10512,8 +9749,8 @@ class CMsgClientOfflineMessageNotification PROTOBUF_FINAL :
   CMsgClientOfflineMessageNotification* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientOfflineMessageNotification>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientOfflineMessageNotification& from);
   void MergeFrom(const CMsgClientOfflineMessageNotification& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -10523,12 +9760,13 @@ class CMsgClientOfflineMessageNotification PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientOfflineMessageNotification* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -10541,13 +9779,7 @@ class CMsgClientOfflineMessageNotification PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -10608,7 +9840,7 @@ class CMsgClientOfflineMessageNotification PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientRequestOfflineMessageCount PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientRequestOfflineMessageCount) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientRequestOfflineMessageCount) */ {
  public:
   inline CMsgClientRequestOfflineMessageCount() : CMsgClientRequestOfflineMessageCount(nullptr) {}
   virtual ~CMsgClientRequestOfflineMessageCount();
@@ -10633,22 +9865,13 @@ class CMsgClientRequestOfflineMessageCount PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientRequestOfflineMessageCount& default_instance() {
     return *internal_default_instance();
   }
@@ -10685,8 +9908,8 @@ class CMsgClientRequestOfflineMessageCount PROTOBUF_FINAL :
   CMsgClientRequestOfflineMessageCount* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientRequestOfflineMessageCount>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientRequestOfflineMessageCount& from);
   void MergeFrom(const CMsgClientRequestOfflineMessageCount& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -10696,12 +9919,13 @@ class CMsgClientRequestOfflineMessageCount PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientRequestOfflineMessageCount* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -10714,13 +9938,7 @@ class CMsgClientRequestOfflineMessageCount PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -10739,7 +9957,7 @@ class CMsgClientRequestOfflineMessageCount PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientChatGetFriendMessageHistory PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientChatGetFriendMessageHistory) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientChatGetFriendMessageHistory) */ {
  public:
   inline CMsgClientChatGetFriendMessageHistory() : CMsgClientChatGetFriendMessageHistory(nullptr) {}
   virtual ~CMsgClientChatGetFriendMessageHistory();
@@ -10764,22 +9982,13 @@ class CMsgClientChatGetFriendMessageHistory PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientChatGetFriendMessageHistory& default_instance() {
     return *internal_default_instance();
   }
@@ -10816,8 +10025,8 @@ class CMsgClientChatGetFriendMessageHistory PROTOBUF_FINAL :
   CMsgClientChatGetFriendMessageHistory* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientChatGetFriendMessageHistory>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientChatGetFriendMessageHistory& from);
   void MergeFrom(const CMsgClientChatGetFriendMessageHistory& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -10827,12 +10036,13 @@ class CMsgClientChatGetFriendMessageHistory PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientChatGetFriendMessageHistory* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -10845,13 +10055,7 @@ class CMsgClientChatGetFriendMessageHistory PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -10888,7 +10092,7 @@ class CMsgClientChatGetFriendMessageHistory PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientChatGetFriendMessageHistoryResponse.FriendMessage) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientChatGetFriendMessageHistoryResponse.FriendMessage) */ {
  public:
   inline CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage() : CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage(nullptr) {}
   virtual ~CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage();
@@ -10913,22 +10117,13 @@ class CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage PROTOBUF_FINAL
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage& default_instance() {
     return *internal_default_instance();
   }
@@ -10965,8 +10160,8 @@ class CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage PROTOBUF_FINAL
   CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage& from);
   void MergeFrom(const CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -10976,12 +10171,13 @@ class CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage PROTOBUF_FINAL
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -10994,13 +10190,7 @@ class CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage PROTOBUF_FINAL
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -11089,7 +10279,7 @@ class CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage PROTOBUF_FINAL
 // -------------------------------------------------------------------
 
 class CMsgClientChatGetFriendMessageHistoryResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientChatGetFriendMessageHistoryResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientChatGetFriendMessageHistoryResponse) */ {
  public:
   inline CMsgClientChatGetFriendMessageHistoryResponse() : CMsgClientChatGetFriendMessageHistoryResponse(nullptr) {}
   virtual ~CMsgClientChatGetFriendMessageHistoryResponse();
@@ -11114,22 +10304,13 @@ class CMsgClientChatGetFriendMessageHistoryResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientChatGetFriendMessageHistoryResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -11166,8 +10347,8 @@ class CMsgClientChatGetFriendMessageHistoryResponse PROTOBUF_FINAL :
   CMsgClientChatGetFriendMessageHistoryResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientChatGetFriendMessageHistoryResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientChatGetFriendMessageHistoryResponse& from);
   void MergeFrom(const CMsgClientChatGetFriendMessageHistoryResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -11177,12 +10358,13 @@ class CMsgClientChatGetFriendMessageHistoryResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientChatGetFriendMessageHistoryResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -11195,13 +10377,7 @@ class CMsgClientChatGetFriendMessageHistoryResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -11275,7 +10451,7 @@ class CMsgClientChatGetFriendMessageHistoryResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientChatGetFriendMessageHistoryForOfflineMessages PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientChatGetFriendMessageHistoryForOfflineMessages) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientChatGetFriendMessageHistoryForOfflineMessages) */ {
  public:
   inline CMsgClientChatGetFriendMessageHistoryForOfflineMessages() : CMsgClientChatGetFriendMessageHistoryForOfflineMessages(nullptr) {}
   virtual ~CMsgClientChatGetFriendMessageHistoryForOfflineMessages();
@@ -11300,22 +10476,13 @@ class CMsgClientChatGetFriendMessageHistoryForOfflineMessages PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientChatGetFriendMessageHistoryForOfflineMessages& default_instance() {
     return *internal_default_instance();
   }
@@ -11352,8 +10519,8 @@ class CMsgClientChatGetFriendMessageHistoryForOfflineMessages PROTOBUF_FINAL :
   CMsgClientChatGetFriendMessageHistoryForOfflineMessages* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientChatGetFriendMessageHistoryForOfflineMessages>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientChatGetFriendMessageHistoryForOfflineMessages& from);
   void MergeFrom(const CMsgClientChatGetFriendMessageHistoryForOfflineMessages& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -11363,12 +10530,13 @@ class CMsgClientChatGetFriendMessageHistoryForOfflineMessages PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientChatGetFriendMessageHistoryForOfflineMessages* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -11381,13 +10549,7 @@ class CMsgClientChatGetFriendMessageHistoryForOfflineMessages PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -11406,7 +10568,7 @@ class CMsgClientChatGetFriendMessageHistoryForOfflineMessages PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientFSGetFriendsSteamLevels PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientFSGetFriendsSteamLevels) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientFSGetFriendsSteamLevels) */ {
  public:
   inline CMsgClientFSGetFriendsSteamLevels() : CMsgClientFSGetFriendsSteamLevels(nullptr) {}
   virtual ~CMsgClientFSGetFriendsSteamLevels();
@@ -11431,22 +10593,13 @@ class CMsgClientFSGetFriendsSteamLevels PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientFSGetFriendsSteamLevels& default_instance() {
     return *internal_default_instance();
   }
@@ -11483,8 +10636,8 @@ class CMsgClientFSGetFriendsSteamLevels PROTOBUF_FINAL :
   CMsgClientFSGetFriendsSteamLevels* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientFSGetFriendsSteamLevels>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientFSGetFriendsSteamLevels& from);
   void MergeFrom(const CMsgClientFSGetFriendsSteamLevels& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -11494,12 +10647,13 @@ class CMsgClientFSGetFriendsSteamLevels PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientFSGetFriendsSteamLevels* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -11512,13 +10666,7 @@ class CMsgClientFSGetFriendsSteamLevels PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -11563,7 +10711,7 @@ class CMsgClientFSGetFriendsSteamLevels PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientFSGetFriendsSteamLevelsResponse_Friend PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientFSGetFriendsSteamLevelsResponse.Friend) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientFSGetFriendsSteamLevelsResponse.Friend) */ {
  public:
   inline CMsgClientFSGetFriendsSteamLevelsResponse_Friend() : CMsgClientFSGetFriendsSteamLevelsResponse_Friend(nullptr) {}
   virtual ~CMsgClientFSGetFriendsSteamLevelsResponse_Friend();
@@ -11588,22 +10736,13 @@ class CMsgClientFSGetFriendsSteamLevelsResponse_Friend PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientFSGetFriendsSteamLevelsResponse_Friend& default_instance() {
     return *internal_default_instance();
   }
@@ -11640,8 +10779,8 @@ class CMsgClientFSGetFriendsSteamLevelsResponse_Friend PROTOBUF_FINAL :
   CMsgClientFSGetFriendsSteamLevelsResponse_Friend* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientFSGetFriendsSteamLevelsResponse_Friend>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientFSGetFriendsSteamLevelsResponse_Friend& from);
   void MergeFrom(const CMsgClientFSGetFriendsSteamLevelsResponse_Friend& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -11651,12 +10790,13 @@ class CMsgClientFSGetFriendsSteamLevelsResponse_Friend PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientFSGetFriendsSteamLevelsResponse_Friend* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -11669,13 +10809,7 @@ class CMsgClientFSGetFriendsSteamLevelsResponse_Friend PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -11727,7 +10861,7 @@ class CMsgClientFSGetFriendsSteamLevelsResponse_Friend PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientFSGetFriendsSteamLevelsResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientFSGetFriendsSteamLevelsResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientFSGetFriendsSteamLevelsResponse) */ {
  public:
   inline CMsgClientFSGetFriendsSteamLevelsResponse() : CMsgClientFSGetFriendsSteamLevelsResponse(nullptr) {}
   virtual ~CMsgClientFSGetFriendsSteamLevelsResponse();
@@ -11752,22 +10886,13 @@ class CMsgClientFSGetFriendsSteamLevelsResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientFSGetFriendsSteamLevelsResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -11804,8 +10929,8 @@ class CMsgClientFSGetFriendsSteamLevelsResponse PROTOBUF_FINAL :
   CMsgClientFSGetFriendsSteamLevelsResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientFSGetFriendsSteamLevelsResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientFSGetFriendsSteamLevelsResponse& from);
   void MergeFrom(const CMsgClientFSGetFriendsSteamLevelsResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -11815,12 +10940,13 @@ class CMsgClientFSGetFriendsSteamLevelsResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientFSGetFriendsSteamLevelsResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -11833,13 +10959,7 @@ class CMsgClientFSGetFriendsSteamLevelsResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -11882,7 +11002,7 @@ class CMsgClientFSGetFriendsSteamLevelsResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientEmailAddrInfo PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientEmailAddrInfo) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientEmailAddrInfo) */ {
  public:
   inline CMsgClientEmailAddrInfo() : CMsgClientEmailAddrInfo(nullptr) {}
   virtual ~CMsgClientEmailAddrInfo();
@@ -11907,22 +11027,13 @@ class CMsgClientEmailAddrInfo PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientEmailAddrInfo& default_instance() {
     return *internal_default_instance();
   }
@@ -11959,8 +11070,8 @@ class CMsgClientEmailAddrInfo PROTOBUF_FINAL :
   CMsgClientEmailAddrInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientEmailAddrInfo>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientEmailAddrInfo& from);
   void MergeFrom(const CMsgClientEmailAddrInfo& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -11970,12 +11081,13 @@ class CMsgClientEmailAddrInfo PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientEmailAddrInfo* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -11988,13 +11100,7 @@ class CMsgClientEmailAddrInfo PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -12098,7 +11204,7 @@ class CMsgClientEmailAddrInfo PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgCREItemVoteSummary_PublishedFileId PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgCREItemVoteSummary.PublishedFileId) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgCREItemVoteSummary.PublishedFileId) */ {
  public:
   inline CMsgCREItemVoteSummary_PublishedFileId() : CMsgCREItemVoteSummary_PublishedFileId(nullptr) {}
   virtual ~CMsgCREItemVoteSummary_PublishedFileId();
@@ -12123,22 +11229,13 @@ class CMsgCREItemVoteSummary_PublishedFileId PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgCREItemVoteSummary_PublishedFileId& default_instance() {
     return *internal_default_instance();
   }
@@ -12175,8 +11272,8 @@ class CMsgCREItemVoteSummary_PublishedFileId PROTOBUF_FINAL :
   CMsgCREItemVoteSummary_PublishedFileId* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgCREItemVoteSummary_PublishedFileId>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgCREItemVoteSummary_PublishedFileId& from);
   void MergeFrom(const CMsgCREItemVoteSummary_PublishedFileId& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -12186,12 +11283,13 @@ class CMsgCREItemVoteSummary_PublishedFileId PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgCREItemVoteSummary_PublishedFileId* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -12204,13 +11302,7 @@ class CMsgCREItemVoteSummary_PublishedFileId PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -12247,7 +11339,7 @@ class CMsgCREItemVoteSummary_PublishedFileId PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgCREItemVoteSummary PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgCREItemVoteSummary) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgCREItemVoteSummary) */ {
  public:
   inline CMsgCREItemVoteSummary() : CMsgCREItemVoteSummary(nullptr) {}
   virtual ~CMsgCREItemVoteSummary();
@@ -12272,22 +11364,13 @@ class CMsgCREItemVoteSummary PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgCREItemVoteSummary& default_instance() {
     return *internal_default_instance();
   }
@@ -12324,8 +11407,8 @@ class CMsgCREItemVoteSummary PROTOBUF_FINAL :
   CMsgCREItemVoteSummary* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgCREItemVoteSummary>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgCREItemVoteSummary& from);
   void MergeFrom(const CMsgCREItemVoteSummary& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -12335,12 +11418,13 @@ class CMsgCREItemVoteSummary PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgCREItemVoteSummary* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -12353,13 +11437,7 @@ class CMsgCREItemVoteSummary PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -12402,7 +11480,7 @@ class CMsgCREItemVoteSummary PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgCREItemVoteSummaryResponse_ItemVoteSummary PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgCREItemVoteSummaryResponse.ItemVoteSummary) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgCREItemVoteSummaryResponse.ItemVoteSummary) */ {
  public:
   inline CMsgCREItemVoteSummaryResponse_ItemVoteSummary() : CMsgCREItemVoteSummaryResponse_ItemVoteSummary(nullptr) {}
   virtual ~CMsgCREItemVoteSummaryResponse_ItemVoteSummary();
@@ -12427,22 +11505,13 @@ class CMsgCREItemVoteSummaryResponse_ItemVoteSummary PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgCREItemVoteSummaryResponse_ItemVoteSummary& default_instance() {
     return *internal_default_instance();
   }
@@ -12479,8 +11548,8 @@ class CMsgCREItemVoteSummaryResponse_ItemVoteSummary PROTOBUF_FINAL :
   CMsgCREItemVoteSummaryResponse_ItemVoteSummary* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgCREItemVoteSummaryResponse_ItemVoteSummary>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgCREItemVoteSummaryResponse_ItemVoteSummary& from);
   void MergeFrom(const CMsgCREItemVoteSummaryResponse_ItemVoteSummary& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -12490,12 +11559,13 @@ class CMsgCREItemVoteSummaryResponse_ItemVoteSummary PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgCREItemVoteSummaryResponse_ItemVoteSummary* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -12508,13 +11578,7 @@ class CMsgCREItemVoteSummaryResponse_ItemVoteSummary PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -12611,7 +11675,7 @@ class CMsgCREItemVoteSummaryResponse_ItemVoteSummary PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgCREItemVoteSummaryResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgCREItemVoteSummaryResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgCREItemVoteSummaryResponse) */ {
  public:
   inline CMsgCREItemVoteSummaryResponse() : CMsgCREItemVoteSummaryResponse(nullptr) {}
   virtual ~CMsgCREItemVoteSummaryResponse();
@@ -12636,22 +11700,13 @@ class CMsgCREItemVoteSummaryResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgCREItemVoteSummaryResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -12688,8 +11743,8 @@ class CMsgCREItemVoteSummaryResponse PROTOBUF_FINAL :
   CMsgCREItemVoteSummaryResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgCREItemVoteSummaryResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgCREItemVoteSummaryResponse& from);
   void MergeFrom(const CMsgCREItemVoteSummaryResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -12699,12 +11754,13 @@ class CMsgCREItemVoteSummaryResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgCREItemVoteSummaryResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -12717,13 +11773,7 @@ class CMsgCREItemVoteSummaryResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -12782,7 +11832,7 @@ class CMsgCREItemVoteSummaryResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgCREUpdateUserPublishedItemVote PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgCREUpdateUserPublishedItemVote) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgCREUpdateUserPublishedItemVote) */ {
  public:
   inline CMsgCREUpdateUserPublishedItemVote() : CMsgCREUpdateUserPublishedItemVote(nullptr) {}
   virtual ~CMsgCREUpdateUserPublishedItemVote();
@@ -12807,22 +11857,13 @@ class CMsgCREUpdateUserPublishedItemVote PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgCREUpdateUserPublishedItemVote& default_instance() {
     return *internal_default_instance();
   }
@@ -12859,8 +11900,8 @@ class CMsgCREUpdateUserPublishedItemVote PROTOBUF_FINAL :
   CMsgCREUpdateUserPublishedItemVote* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgCREUpdateUserPublishedItemVote>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgCREUpdateUserPublishedItemVote& from);
   void MergeFrom(const CMsgCREUpdateUserPublishedItemVote& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -12870,12 +11911,13 @@ class CMsgCREUpdateUserPublishedItemVote PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgCREUpdateUserPublishedItemVote* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -12888,13 +11930,7 @@ class CMsgCREUpdateUserPublishedItemVote PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -12946,7 +11982,7 @@ class CMsgCREUpdateUserPublishedItemVote PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgCREUpdateUserPublishedItemVoteResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgCREUpdateUserPublishedItemVoteResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgCREUpdateUserPublishedItemVoteResponse) */ {
  public:
   inline CMsgCREUpdateUserPublishedItemVoteResponse() : CMsgCREUpdateUserPublishedItemVoteResponse(nullptr) {}
   virtual ~CMsgCREUpdateUserPublishedItemVoteResponse();
@@ -12971,22 +12007,13 @@ class CMsgCREUpdateUserPublishedItemVoteResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgCREUpdateUserPublishedItemVoteResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -13023,8 +12050,8 @@ class CMsgCREUpdateUserPublishedItemVoteResponse PROTOBUF_FINAL :
   CMsgCREUpdateUserPublishedItemVoteResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgCREUpdateUserPublishedItemVoteResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgCREUpdateUserPublishedItemVoteResponse& from);
   void MergeFrom(const CMsgCREUpdateUserPublishedItemVoteResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -13034,12 +12061,13 @@ class CMsgCREUpdateUserPublishedItemVoteResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgCREUpdateUserPublishedItemVoteResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -13052,13 +12080,7 @@ class CMsgCREUpdateUserPublishedItemVoteResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -13095,7 +12117,7 @@ class CMsgCREUpdateUserPublishedItemVoteResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgCREGetUserPublishedItemVoteDetails.PublishedFileId) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgCREGetUserPublishedItemVoteDetails.PublishedFileId) */ {
  public:
   inline CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId() : CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId(nullptr) {}
   virtual ~CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId();
@@ -13120,22 +12142,13 @@ class CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId& default_instance() {
     return *internal_default_instance();
   }
@@ -13172,8 +12185,8 @@ class CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId PROTOBUF_FINAL :
   CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId& from);
   void MergeFrom(const CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -13183,12 +12196,13 @@ class CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -13201,13 +12215,7 @@ class CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -13244,7 +12252,7 @@ class CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgCREGetUserPublishedItemVoteDetails PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgCREGetUserPublishedItemVoteDetails) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgCREGetUserPublishedItemVoteDetails) */ {
  public:
   inline CMsgCREGetUserPublishedItemVoteDetails() : CMsgCREGetUserPublishedItemVoteDetails(nullptr) {}
   virtual ~CMsgCREGetUserPublishedItemVoteDetails();
@@ -13269,22 +12277,13 @@ class CMsgCREGetUserPublishedItemVoteDetails PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgCREGetUserPublishedItemVoteDetails& default_instance() {
     return *internal_default_instance();
   }
@@ -13321,8 +12320,8 @@ class CMsgCREGetUserPublishedItemVoteDetails PROTOBUF_FINAL :
   CMsgCREGetUserPublishedItemVoteDetails* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgCREGetUserPublishedItemVoteDetails>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgCREGetUserPublishedItemVoteDetails& from);
   void MergeFrom(const CMsgCREGetUserPublishedItemVoteDetails& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -13332,12 +12331,13 @@ class CMsgCREGetUserPublishedItemVoteDetails PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgCREGetUserPublishedItemVoteDetails* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -13350,13 +12350,7 @@ class CMsgCREGetUserPublishedItemVoteDetails PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -13399,7 +12393,7 @@ class CMsgCREGetUserPublishedItemVoteDetails PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgCREGetUserPublishedItemVoteDetailsResponse.UserItemVoteDetail) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgCREGetUserPublishedItemVoteDetailsResponse.UserItemVoteDetail) */ {
  public:
   inline CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail() : CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail(nullptr) {}
   virtual ~CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail();
@@ -13424,22 +12418,13 @@ class CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail PROTOBUF
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail& default_instance() {
     return *internal_default_instance();
   }
@@ -13476,8 +12461,8 @@ class CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail PROTOBUF
   CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail& from);
   void MergeFrom(const CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -13487,12 +12472,13 @@ class CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail PROTOBUF
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -13505,13 +12491,7 @@ class CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail PROTOBUF
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -13563,7 +12543,7 @@ class CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail PROTOBUF
 // -------------------------------------------------------------------
 
 class CMsgCREGetUserPublishedItemVoteDetailsResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgCREGetUserPublishedItemVoteDetailsResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgCREGetUserPublishedItemVoteDetailsResponse) */ {
  public:
   inline CMsgCREGetUserPublishedItemVoteDetailsResponse() : CMsgCREGetUserPublishedItemVoteDetailsResponse(nullptr) {}
   virtual ~CMsgCREGetUserPublishedItemVoteDetailsResponse();
@@ -13588,22 +12568,13 @@ class CMsgCREGetUserPublishedItemVoteDetailsResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgCREGetUserPublishedItemVoteDetailsResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -13640,8 +12611,8 @@ class CMsgCREGetUserPublishedItemVoteDetailsResponse PROTOBUF_FINAL :
   CMsgCREGetUserPublishedItemVoteDetailsResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgCREGetUserPublishedItemVoteDetailsResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgCREGetUserPublishedItemVoteDetailsResponse& from);
   void MergeFrom(const CMsgCREGetUserPublishedItemVoteDetailsResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -13651,12 +12622,13 @@ class CMsgCREGetUserPublishedItemVoteDetailsResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgCREGetUserPublishedItemVoteDetailsResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -13669,13 +12641,7 @@ class CMsgCREGetUserPublishedItemVoteDetailsResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -13734,7 +12700,7 @@ class CMsgCREGetUserPublishedItemVoteDetailsResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgFSGetFollowerCount PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgFSGetFollowerCount) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgFSGetFollowerCount) */ {
  public:
   inline CMsgFSGetFollowerCount() : CMsgFSGetFollowerCount(nullptr) {}
   virtual ~CMsgFSGetFollowerCount();
@@ -13759,22 +12725,13 @@ class CMsgFSGetFollowerCount PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgFSGetFollowerCount& default_instance() {
     return *internal_default_instance();
   }
@@ -13811,8 +12768,8 @@ class CMsgFSGetFollowerCount PROTOBUF_FINAL :
   CMsgFSGetFollowerCount* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgFSGetFollowerCount>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgFSGetFollowerCount& from);
   void MergeFrom(const CMsgFSGetFollowerCount& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -13822,12 +12779,13 @@ class CMsgFSGetFollowerCount PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgFSGetFollowerCount* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -13840,13 +12798,7 @@ class CMsgFSGetFollowerCount PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -13883,7 +12835,7 @@ class CMsgFSGetFollowerCount PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgFSGetFollowerCountResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgFSGetFollowerCountResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgFSGetFollowerCountResponse) */ {
  public:
   inline CMsgFSGetFollowerCountResponse() : CMsgFSGetFollowerCountResponse(nullptr) {}
   virtual ~CMsgFSGetFollowerCountResponse();
@@ -13908,22 +12860,13 @@ class CMsgFSGetFollowerCountResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgFSGetFollowerCountResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -13960,8 +12903,8 @@ class CMsgFSGetFollowerCountResponse PROTOBUF_FINAL :
   CMsgFSGetFollowerCountResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgFSGetFollowerCountResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgFSGetFollowerCountResponse& from);
   void MergeFrom(const CMsgFSGetFollowerCountResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -13971,12 +12914,13 @@ class CMsgFSGetFollowerCountResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgFSGetFollowerCountResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -13989,13 +12933,7 @@ class CMsgFSGetFollowerCountResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -14047,7 +12985,7 @@ class CMsgFSGetFollowerCountResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgFSGetIsFollowing PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgFSGetIsFollowing) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgFSGetIsFollowing) */ {
  public:
   inline CMsgFSGetIsFollowing() : CMsgFSGetIsFollowing(nullptr) {}
   virtual ~CMsgFSGetIsFollowing();
@@ -14072,22 +13010,13 @@ class CMsgFSGetIsFollowing PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgFSGetIsFollowing& default_instance() {
     return *internal_default_instance();
   }
@@ -14124,8 +13053,8 @@ class CMsgFSGetIsFollowing PROTOBUF_FINAL :
   CMsgFSGetIsFollowing* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgFSGetIsFollowing>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgFSGetIsFollowing& from);
   void MergeFrom(const CMsgFSGetIsFollowing& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -14135,12 +13064,13 @@ class CMsgFSGetIsFollowing PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgFSGetIsFollowing* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -14153,13 +13083,7 @@ class CMsgFSGetIsFollowing PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -14196,7 +13120,7 @@ class CMsgFSGetIsFollowing PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgFSGetIsFollowingResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgFSGetIsFollowingResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgFSGetIsFollowingResponse) */ {
  public:
   inline CMsgFSGetIsFollowingResponse() : CMsgFSGetIsFollowingResponse(nullptr) {}
   virtual ~CMsgFSGetIsFollowingResponse();
@@ -14221,22 +13145,13 @@ class CMsgFSGetIsFollowingResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgFSGetIsFollowingResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -14273,8 +13188,8 @@ class CMsgFSGetIsFollowingResponse PROTOBUF_FINAL :
   CMsgFSGetIsFollowingResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgFSGetIsFollowingResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgFSGetIsFollowingResponse& from);
   void MergeFrom(const CMsgFSGetIsFollowingResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -14284,12 +13199,13 @@ class CMsgFSGetIsFollowingResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgFSGetIsFollowingResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -14302,13 +13218,7 @@ class CMsgFSGetIsFollowingResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -14360,7 +13270,7 @@ class CMsgFSGetIsFollowingResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgFSEnumerateFollowingList PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgFSEnumerateFollowingList) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgFSEnumerateFollowingList) */ {
  public:
   inline CMsgFSEnumerateFollowingList() : CMsgFSEnumerateFollowingList(nullptr) {}
   virtual ~CMsgFSEnumerateFollowingList();
@@ -14385,22 +13295,13 @@ class CMsgFSEnumerateFollowingList PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgFSEnumerateFollowingList& default_instance() {
     return *internal_default_instance();
   }
@@ -14437,8 +13338,8 @@ class CMsgFSEnumerateFollowingList PROTOBUF_FINAL :
   CMsgFSEnumerateFollowingList* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgFSEnumerateFollowingList>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgFSEnumerateFollowingList& from);
   void MergeFrom(const CMsgFSEnumerateFollowingList& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -14448,12 +13349,13 @@ class CMsgFSEnumerateFollowingList PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgFSEnumerateFollowingList* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -14466,13 +13368,7 @@ class CMsgFSEnumerateFollowingList PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -14509,7 +13405,7 @@ class CMsgFSEnumerateFollowingList PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgFSEnumerateFollowingListResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgFSEnumerateFollowingListResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgFSEnumerateFollowingListResponse) */ {
  public:
   inline CMsgFSEnumerateFollowingListResponse() : CMsgFSEnumerateFollowingListResponse(nullptr) {}
   virtual ~CMsgFSEnumerateFollowingListResponse();
@@ -14534,22 +13430,13 @@ class CMsgFSEnumerateFollowingListResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgFSEnumerateFollowingListResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -14586,8 +13473,8 @@ class CMsgFSEnumerateFollowingListResponse PROTOBUF_FINAL :
   CMsgFSEnumerateFollowingListResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgFSEnumerateFollowingListResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgFSEnumerateFollowingListResponse& from);
   void MergeFrom(const CMsgFSEnumerateFollowingListResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -14597,12 +13484,13 @@ class CMsgFSEnumerateFollowingListResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgFSEnumerateFollowingListResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -14615,13 +13503,7 @@ class CMsgFSEnumerateFollowingListResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -14697,7 +13579,7 @@ class CMsgFSEnumerateFollowingListResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgDPGetNumberOfCurrentPlayers PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgDPGetNumberOfCurrentPlayers) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgDPGetNumberOfCurrentPlayers) */ {
  public:
   inline CMsgDPGetNumberOfCurrentPlayers() : CMsgDPGetNumberOfCurrentPlayers(nullptr) {}
   virtual ~CMsgDPGetNumberOfCurrentPlayers();
@@ -14722,22 +13604,13 @@ class CMsgDPGetNumberOfCurrentPlayers PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgDPGetNumberOfCurrentPlayers& default_instance() {
     return *internal_default_instance();
   }
@@ -14774,8 +13647,8 @@ class CMsgDPGetNumberOfCurrentPlayers PROTOBUF_FINAL :
   CMsgDPGetNumberOfCurrentPlayers* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgDPGetNumberOfCurrentPlayers>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgDPGetNumberOfCurrentPlayers& from);
   void MergeFrom(const CMsgDPGetNumberOfCurrentPlayers& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -14785,12 +13658,13 @@ class CMsgDPGetNumberOfCurrentPlayers PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgDPGetNumberOfCurrentPlayers* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -14803,13 +13677,7 @@ class CMsgDPGetNumberOfCurrentPlayers PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -14846,7 +13714,7 @@ class CMsgDPGetNumberOfCurrentPlayers PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgDPGetNumberOfCurrentPlayersResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgDPGetNumberOfCurrentPlayersResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgDPGetNumberOfCurrentPlayersResponse) */ {
  public:
   inline CMsgDPGetNumberOfCurrentPlayersResponse() : CMsgDPGetNumberOfCurrentPlayersResponse(nullptr) {}
   virtual ~CMsgDPGetNumberOfCurrentPlayersResponse();
@@ -14871,22 +13739,13 @@ class CMsgDPGetNumberOfCurrentPlayersResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgDPGetNumberOfCurrentPlayersResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -14923,8 +13782,8 @@ class CMsgDPGetNumberOfCurrentPlayersResponse PROTOBUF_FINAL :
   CMsgDPGetNumberOfCurrentPlayersResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgDPGetNumberOfCurrentPlayersResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgDPGetNumberOfCurrentPlayersResponse& from);
   void MergeFrom(const CMsgDPGetNumberOfCurrentPlayersResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -14934,12 +13793,13 @@ class CMsgDPGetNumberOfCurrentPlayersResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgDPGetNumberOfCurrentPlayersResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -14952,13 +13812,7 @@ class CMsgDPGetNumberOfCurrentPlayersResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -15010,7 +13864,7 @@ class CMsgDPGetNumberOfCurrentPlayersResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientFriendUserStatusPublished PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientFriendUserStatusPublished) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientFriendUserStatusPublished) */ {
  public:
   inline CMsgClientFriendUserStatusPublished() : CMsgClientFriendUserStatusPublished(nullptr) {}
   virtual ~CMsgClientFriendUserStatusPublished();
@@ -15035,22 +13889,13 @@ class CMsgClientFriendUserStatusPublished PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientFriendUserStatusPublished& default_instance() {
     return *internal_default_instance();
   }
@@ -15087,8 +13932,8 @@ class CMsgClientFriendUserStatusPublished PROTOBUF_FINAL :
   CMsgClientFriendUserStatusPublished* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientFriendUserStatusPublished>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientFriendUserStatusPublished& from);
   void MergeFrom(const CMsgClientFriendUserStatusPublished& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -15098,12 +13943,13 @@ class CMsgClientFriendUserStatusPublished PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientFriendUserStatusPublished* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -15116,13 +13962,7 @@ class CMsgClientFriendUserStatusPublished PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -15196,7 +14036,7 @@ class CMsgClientFriendUserStatusPublished PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientServiceMethodLegacy PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientServiceMethodLegacy) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientServiceMethodLegacy) */ {
  public:
   inline CMsgClientServiceMethodLegacy() : CMsgClientServiceMethodLegacy(nullptr) {}
   virtual ~CMsgClientServiceMethodLegacy();
@@ -15221,22 +14061,13 @@ class CMsgClientServiceMethodLegacy PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientServiceMethodLegacy& default_instance() {
     return *internal_default_instance();
   }
@@ -15273,8 +14104,8 @@ class CMsgClientServiceMethodLegacy PROTOBUF_FINAL :
   CMsgClientServiceMethodLegacy* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientServiceMethodLegacy>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientServiceMethodLegacy& from);
   void MergeFrom(const CMsgClientServiceMethodLegacy& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -15284,12 +14115,13 @@ class CMsgClientServiceMethodLegacy PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientServiceMethodLegacy* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -15302,13 +14134,7 @@ class CMsgClientServiceMethodLegacy PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -15389,7 +14215,7 @@ class CMsgClientServiceMethodLegacy PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientServiceMethodLegacyResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientServiceMethodLegacyResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientServiceMethodLegacyResponse) */ {
  public:
   inline CMsgClientServiceMethodLegacyResponse() : CMsgClientServiceMethodLegacyResponse(nullptr) {}
   virtual ~CMsgClientServiceMethodLegacyResponse();
@@ -15414,22 +14240,13 @@ class CMsgClientServiceMethodLegacyResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientServiceMethodLegacyResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -15466,8 +14283,8 @@ class CMsgClientServiceMethodLegacyResponse PROTOBUF_FINAL :
   CMsgClientServiceMethodLegacyResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientServiceMethodLegacyResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientServiceMethodLegacyResponse& from);
   void MergeFrom(const CMsgClientServiceMethodLegacyResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -15477,12 +14294,13 @@ class CMsgClientServiceMethodLegacyResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientServiceMethodLegacyResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -15495,13 +14313,7 @@ class CMsgClientServiceMethodLegacyResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -15567,7 +14379,7 @@ class CMsgClientServiceMethodLegacyResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientUIMode PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientUIMode) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientUIMode) */ {
  public:
   inline CMsgClientUIMode() : CMsgClientUIMode(nullptr) {}
   virtual ~CMsgClientUIMode();
@@ -15592,22 +14404,13 @@ class CMsgClientUIMode PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientUIMode& default_instance() {
     return *internal_default_instance();
   }
@@ -15644,8 +14447,8 @@ class CMsgClientUIMode PROTOBUF_FINAL :
   CMsgClientUIMode* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientUIMode>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientUIMode& from);
   void MergeFrom(const CMsgClientUIMode& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -15655,12 +14458,13 @@ class CMsgClientUIMode PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientUIMode* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -15673,13 +14477,7 @@ class CMsgClientUIMode PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -15731,7 +14529,7 @@ class CMsgClientUIMode PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientVanityURLChangedNotification PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientVanityURLChangedNotification) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientVanityURLChangedNotification) */ {
  public:
   inline CMsgClientVanityURLChangedNotification() : CMsgClientVanityURLChangedNotification(nullptr) {}
   virtual ~CMsgClientVanityURLChangedNotification();
@@ -15756,22 +14554,13 @@ class CMsgClientVanityURLChangedNotification PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientVanityURLChangedNotification& default_instance() {
     return *internal_default_instance();
   }
@@ -15808,8 +14597,8 @@ class CMsgClientVanityURLChangedNotification PROTOBUF_FINAL :
   CMsgClientVanityURLChangedNotification* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientVanityURLChangedNotification>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientVanityURLChangedNotification& from);
   void MergeFrom(const CMsgClientVanityURLChangedNotification& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -15819,12 +14608,13 @@ class CMsgClientVanityURLChangedNotification PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientVanityURLChangedNotification* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -15837,13 +14627,7 @@ class CMsgClientVanityURLChangedNotification PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -15887,7 +14671,7 @@ class CMsgClientVanityURLChangedNotification PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientAuthorizeLocalDeviceRequest PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientAuthorizeLocalDeviceRequest) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientAuthorizeLocalDeviceRequest) */ {
  public:
   inline CMsgClientAuthorizeLocalDeviceRequest() : CMsgClientAuthorizeLocalDeviceRequest(nullptr) {}
   virtual ~CMsgClientAuthorizeLocalDeviceRequest();
@@ -15912,22 +14696,13 @@ class CMsgClientAuthorizeLocalDeviceRequest PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientAuthorizeLocalDeviceRequest& default_instance() {
     return *internal_default_instance();
   }
@@ -15964,8 +14739,8 @@ class CMsgClientAuthorizeLocalDeviceRequest PROTOBUF_FINAL :
   CMsgClientAuthorizeLocalDeviceRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientAuthorizeLocalDeviceRequest>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientAuthorizeLocalDeviceRequest& from);
   void MergeFrom(const CMsgClientAuthorizeLocalDeviceRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -15975,12 +14750,13 @@ class CMsgClientAuthorizeLocalDeviceRequest PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientAuthorizeLocalDeviceRequest* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -15993,13 +14769,7 @@ class CMsgClientAuthorizeLocalDeviceRequest PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -16073,7 +14843,7 @@ class CMsgClientAuthorizeLocalDeviceRequest PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientAuthorizeLocalDevice PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientAuthorizeLocalDevice) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientAuthorizeLocalDevice) */ {
  public:
   inline CMsgClientAuthorizeLocalDevice() : CMsgClientAuthorizeLocalDevice(nullptr) {}
   virtual ~CMsgClientAuthorizeLocalDevice();
@@ -16098,22 +14868,13 @@ class CMsgClientAuthorizeLocalDevice PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientAuthorizeLocalDevice& default_instance() {
     return *internal_default_instance();
   }
@@ -16150,8 +14911,8 @@ class CMsgClientAuthorizeLocalDevice PROTOBUF_FINAL :
   CMsgClientAuthorizeLocalDevice* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientAuthorizeLocalDevice>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientAuthorizeLocalDevice& from);
   void MergeFrom(const CMsgClientAuthorizeLocalDevice& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -16161,12 +14922,13 @@ class CMsgClientAuthorizeLocalDevice PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientAuthorizeLocalDevice* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -16179,13 +14941,7 @@ class CMsgClientAuthorizeLocalDevice PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -16252,7 +15008,7 @@ class CMsgClientAuthorizeLocalDevice PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientAuthorizeLocalDeviceNotification PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientAuthorizeLocalDeviceNotification) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientAuthorizeLocalDeviceNotification) */ {
  public:
   inline CMsgClientAuthorizeLocalDeviceNotification() : CMsgClientAuthorizeLocalDeviceNotification(nullptr) {}
   virtual ~CMsgClientAuthorizeLocalDeviceNotification();
@@ -16277,22 +15033,13 @@ class CMsgClientAuthorizeLocalDeviceNotification PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientAuthorizeLocalDeviceNotification& default_instance() {
     return *internal_default_instance();
   }
@@ -16329,8 +15076,8 @@ class CMsgClientAuthorizeLocalDeviceNotification PROTOBUF_FINAL :
   CMsgClientAuthorizeLocalDeviceNotification* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientAuthorizeLocalDeviceNotification>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientAuthorizeLocalDeviceNotification& from);
   void MergeFrom(const CMsgClientAuthorizeLocalDeviceNotification& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -16340,12 +15087,13 @@ class CMsgClientAuthorizeLocalDeviceNotification PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientAuthorizeLocalDeviceNotification* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -16358,13 +15106,7 @@ class CMsgClientAuthorizeLocalDeviceNotification PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -16431,7 +15173,7 @@ class CMsgClientAuthorizeLocalDeviceNotification PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientDeauthorizeDeviceRequest PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientDeauthorizeDeviceRequest) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientDeauthorizeDeviceRequest) */ {
  public:
   inline CMsgClientDeauthorizeDeviceRequest() : CMsgClientDeauthorizeDeviceRequest(nullptr) {}
   virtual ~CMsgClientDeauthorizeDeviceRequest();
@@ -16456,22 +15198,13 @@ class CMsgClientDeauthorizeDeviceRequest PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientDeauthorizeDeviceRequest& default_instance() {
     return *internal_default_instance();
   }
@@ -16508,8 +15241,8 @@ class CMsgClientDeauthorizeDeviceRequest PROTOBUF_FINAL :
   CMsgClientDeauthorizeDeviceRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientDeauthorizeDeviceRequest>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientDeauthorizeDeviceRequest& from);
   void MergeFrom(const CMsgClientDeauthorizeDeviceRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -16519,12 +15252,13 @@ class CMsgClientDeauthorizeDeviceRequest PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientDeauthorizeDeviceRequest* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -16537,13 +15271,7 @@ class CMsgClientDeauthorizeDeviceRequest PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -16595,7 +15323,7 @@ class CMsgClientDeauthorizeDeviceRequest PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientDeauthorizeDevice PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientDeauthorizeDevice) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientDeauthorizeDevice) */ {
  public:
   inline CMsgClientDeauthorizeDevice() : CMsgClientDeauthorizeDevice(nullptr) {}
   virtual ~CMsgClientDeauthorizeDevice();
@@ -16620,22 +15348,13 @@ class CMsgClientDeauthorizeDevice PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientDeauthorizeDevice& default_instance() {
     return *internal_default_instance();
   }
@@ -16672,8 +15391,8 @@ class CMsgClientDeauthorizeDevice PROTOBUF_FINAL :
   CMsgClientDeauthorizeDevice* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientDeauthorizeDevice>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientDeauthorizeDevice& from);
   void MergeFrom(const CMsgClientDeauthorizeDevice& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -16683,12 +15402,13 @@ class CMsgClientDeauthorizeDevice PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientDeauthorizeDevice* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -16701,13 +15421,7 @@ class CMsgClientDeauthorizeDevice PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -16759,7 +15473,7 @@ class CMsgClientDeauthorizeDevice PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientUseLocalDeviceAuthorizations_DeviceToken PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientUseLocalDeviceAuthorizations.DeviceToken) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientUseLocalDeviceAuthorizations.DeviceToken) */ {
  public:
   inline CMsgClientUseLocalDeviceAuthorizations_DeviceToken() : CMsgClientUseLocalDeviceAuthorizations_DeviceToken(nullptr) {}
   virtual ~CMsgClientUseLocalDeviceAuthorizations_DeviceToken();
@@ -16784,22 +15498,13 @@ class CMsgClientUseLocalDeviceAuthorizations_DeviceToken PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientUseLocalDeviceAuthorizations_DeviceToken& default_instance() {
     return *internal_default_instance();
   }
@@ -16836,8 +15541,8 @@ class CMsgClientUseLocalDeviceAuthorizations_DeviceToken PROTOBUF_FINAL :
   CMsgClientUseLocalDeviceAuthorizations_DeviceToken* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientUseLocalDeviceAuthorizations_DeviceToken>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientUseLocalDeviceAuthorizations_DeviceToken& from);
   void MergeFrom(const CMsgClientUseLocalDeviceAuthorizations_DeviceToken& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -16847,12 +15552,13 @@ class CMsgClientUseLocalDeviceAuthorizations_DeviceToken PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientUseLocalDeviceAuthorizations_DeviceToken* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -16865,13 +15571,7 @@ class CMsgClientUseLocalDeviceAuthorizations_DeviceToken PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -16923,7 +15623,7 @@ class CMsgClientUseLocalDeviceAuthorizations_DeviceToken PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientUseLocalDeviceAuthorizations PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientUseLocalDeviceAuthorizations) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientUseLocalDeviceAuthorizations) */ {
  public:
   inline CMsgClientUseLocalDeviceAuthorizations() : CMsgClientUseLocalDeviceAuthorizations(nullptr) {}
   virtual ~CMsgClientUseLocalDeviceAuthorizations();
@@ -16948,22 +15648,13 @@ class CMsgClientUseLocalDeviceAuthorizations PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientUseLocalDeviceAuthorizations& default_instance() {
     return *internal_default_instance();
   }
@@ -17000,8 +15691,8 @@ class CMsgClientUseLocalDeviceAuthorizations PROTOBUF_FINAL :
   CMsgClientUseLocalDeviceAuthorizations* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientUseLocalDeviceAuthorizations>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientUseLocalDeviceAuthorizations& from);
   void MergeFrom(const CMsgClientUseLocalDeviceAuthorizations& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -17011,12 +15702,13 @@ class CMsgClientUseLocalDeviceAuthorizations PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientUseLocalDeviceAuthorizations* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -17029,13 +15721,7 @@ class CMsgClientUseLocalDeviceAuthorizations PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -17102,7 +15788,7 @@ class CMsgClientUseLocalDeviceAuthorizations PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientGetAuthorizedDevices PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientGetAuthorizedDevices) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientGetAuthorizedDevices) */ {
  public:
   inline CMsgClientGetAuthorizedDevices() : CMsgClientGetAuthorizedDevices(nullptr) {}
   virtual ~CMsgClientGetAuthorizedDevices();
@@ -17127,22 +15813,13 @@ class CMsgClientGetAuthorizedDevices PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientGetAuthorizedDevices& default_instance() {
     return *internal_default_instance();
   }
@@ -17179,8 +15856,8 @@ class CMsgClientGetAuthorizedDevices PROTOBUF_FINAL :
   CMsgClientGetAuthorizedDevices* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientGetAuthorizedDevices>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientGetAuthorizedDevices& from);
   void MergeFrom(const CMsgClientGetAuthorizedDevices& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -17190,12 +15867,13 @@ class CMsgClientGetAuthorizedDevices PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientGetAuthorizedDevices* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -17208,13 +15886,7 @@ class CMsgClientGetAuthorizedDevices PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -17233,7 +15905,7 @@ class CMsgClientGetAuthorizedDevices PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientGetAuthorizedDevicesResponse.AuthorizedDevice) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientGetAuthorizedDevicesResponse.AuthorizedDevice) */ {
  public:
   inline CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice() : CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice(nullptr) {}
   virtual ~CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice();
@@ -17258,22 +15930,13 @@ class CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice& default_instance() {
     return *internal_default_instance();
   }
@@ -17310,8 +15973,8 @@ class CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice PROTOBUF_FINAL :
   CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice& from);
   void MergeFrom(const CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -17321,12 +15984,13 @@ class CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -17339,13 +16003,7 @@ class CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -17464,7 +16122,7 @@ class CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientGetAuthorizedDevicesResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientGetAuthorizedDevicesResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientGetAuthorizedDevicesResponse) */ {
  public:
   inline CMsgClientGetAuthorizedDevicesResponse() : CMsgClientGetAuthorizedDevicesResponse(nullptr) {}
   virtual ~CMsgClientGetAuthorizedDevicesResponse();
@@ -17489,22 +16147,13 @@ class CMsgClientGetAuthorizedDevicesResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientGetAuthorizedDevicesResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -17541,8 +16190,8 @@ class CMsgClientGetAuthorizedDevicesResponse PROTOBUF_FINAL :
   CMsgClientGetAuthorizedDevicesResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientGetAuthorizedDevicesResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientGetAuthorizedDevicesResponse& from);
   void MergeFrom(const CMsgClientGetAuthorizedDevicesResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -17552,12 +16201,13 @@ class CMsgClientGetAuthorizedDevicesResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientGetAuthorizedDevicesResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -17570,13 +16220,7 @@ class CMsgClientGetAuthorizedDevicesResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -17635,7 +16279,7 @@ class CMsgClientGetAuthorizedDevicesResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientSharedLibraryLockStatus_LockedLibrary PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientSharedLibraryLockStatus.LockedLibrary) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientSharedLibraryLockStatus.LockedLibrary) */ {
  public:
   inline CMsgClientSharedLibraryLockStatus_LockedLibrary() : CMsgClientSharedLibraryLockStatus_LockedLibrary(nullptr) {}
   virtual ~CMsgClientSharedLibraryLockStatus_LockedLibrary();
@@ -17660,22 +16304,13 @@ class CMsgClientSharedLibraryLockStatus_LockedLibrary PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientSharedLibraryLockStatus_LockedLibrary& default_instance() {
     return *internal_default_instance();
   }
@@ -17712,8 +16347,8 @@ class CMsgClientSharedLibraryLockStatus_LockedLibrary PROTOBUF_FINAL :
   CMsgClientSharedLibraryLockStatus_LockedLibrary* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientSharedLibraryLockStatus_LockedLibrary>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientSharedLibraryLockStatus_LockedLibrary& from);
   void MergeFrom(const CMsgClientSharedLibraryLockStatus_LockedLibrary& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -17723,12 +16358,13 @@ class CMsgClientSharedLibraryLockStatus_LockedLibrary PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientSharedLibraryLockStatus_LockedLibrary* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -17741,13 +16377,7 @@ class CMsgClientSharedLibraryLockStatus_LockedLibrary PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -17799,7 +16429,7 @@ class CMsgClientSharedLibraryLockStatus_LockedLibrary PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientSharedLibraryLockStatus PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientSharedLibraryLockStatus) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientSharedLibraryLockStatus) */ {
  public:
   inline CMsgClientSharedLibraryLockStatus() : CMsgClientSharedLibraryLockStatus(nullptr) {}
   virtual ~CMsgClientSharedLibraryLockStatus();
@@ -17824,22 +16454,13 @@ class CMsgClientSharedLibraryLockStatus PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientSharedLibraryLockStatus& default_instance() {
     return *internal_default_instance();
   }
@@ -17876,8 +16497,8 @@ class CMsgClientSharedLibraryLockStatus PROTOBUF_FINAL :
   CMsgClientSharedLibraryLockStatus* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientSharedLibraryLockStatus>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientSharedLibraryLockStatus& from);
   void MergeFrom(const CMsgClientSharedLibraryLockStatus& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -17887,12 +16508,13 @@ class CMsgClientSharedLibraryLockStatus PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientSharedLibraryLockStatus* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -17905,13 +16527,7 @@ class CMsgClientSharedLibraryLockStatus PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -17970,7 +16586,7 @@ class CMsgClientSharedLibraryLockStatus PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientSharedLibraryStopPlaying_StopApp PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientSharedLibraryStopPlaying.StopApp) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientSharedLibraryStopPlaying.StopApp) */ {
  public:
   inline CMsgClientSharedLibraryStopPlaying_StopApp() : CMsgClientSharedLibraryStopPlaying_StopApp(nullptr) {}
   virtual ~CMsgClientSharedLibraryStopPlaying_StopApp();
@@ -17995,22 +16611,13 @@ class CMsgClientSharedLibraryStopPlaying_StopApp PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientSharedLibraryStopPlaying_StopApp& default_instance() {
     return *internal_default_instance();
   }
@@ -18047,8 +16654,8 @@ class CMsgClientSharedLibraryStopPlaying_StopApp PROTOBUF_FINAL :
   CMsgClientSharedLibraryStopPlaying_StopApp* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientSharedLibraryStopPlaying_StopApp>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientSharedLibraryStopPlaying_StopApp& from);
   void MergeFrom(const CMsgClientSharedLibraryStopPlaying_StopApp& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -18058,12 +16665,13 @@ class CMsgClientSharedLibraryStopPlaying_StopApp PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientSharedLibraryStopPlaying_StopApp* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -18076,13 +16684,7 @@ class CMsgClientSharedLibraryStopPlaying_StopApp PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -18134,7 +16736,7 @@ class CMsgClientSharedLibraryStopPlaying_StopApp PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientSharedLibraryStopPlaying PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientSharedLibraryStopPlaying) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientSharedLibraryStopPlaying) */ {
  public:
   inline CMsgClientSharedLibraryStopPlaying() : CMsgClientSharedLibraryStopPlaying(nullptr) {}
   virtual ~CMsgClientSharedLibraryStopPlaying();
@@ -18159,22 +16761,13 @@ class CMsgClientSharedLibraryStopPlaying PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientSharedLibraryStopPlaying& default_instance() {
     return *internal_default_instance();
   }
@@ -18211,8 +16804,8 @@ class CMsgClientSharedLibraryStopPlaying PROTOBUF_FINAL :
   CMsgClientSharedLibraryStopPlaying* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientSharedLibraryStopPlaying>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientSharedLibraryStopPlaying& from);
   void MergeFrom(const CMsgClientSharedLibraryStopPlaying& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -18222,12 +16815,13 @@ class CMsgClientSharedLibraryStopPlaying PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientSharedLibraryStopPlaying* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -18240,13 +16834,7 @@ class CMsgClientSharedLibraryStopPlaying PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -18305,7 +16893,7 @@ class CMsgClientSharedLibraryStopPlaying PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientServiceCall PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientServiceCall) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientServiceCall) */ {
  public:
   inline CMsgClientServiceCall() : CMsgClientServiceCall(nullptr) {}
   virtual ~CMsgClientServiceCall();
@@ -18330,22 +16918,13 @@ class CMsgClientServiceCall PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientServiceCall& default_instance() {
     return *internal_default_instance();
   }
@@ -18382,8 +16961,8 @@ class CMsgClientServiceCall PROTOBUF_FINAL :
   CMsgClientServiceCall* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientServiceCall>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientServiceCall& from);
   void MergeFrom(const CMsgClientServiceCall& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -18393,12 +16972,13 @@ class CMsgClientServiceCall PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientServiceCall* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -18411,13 +16991,7 @@ class CMsgClientServiceCall PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -18625,7 +17199,7 @@ class CMsgClientServiceCall PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientServiceModule PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientServiceModule) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientServiceModule) */ {
  public:
   inline CMsgClientServiceModule() : CMsgClientServiceModule(nullptr) {}
   virtual ~CMsgClientServiceModule();
@@ -18650,22 +17224,13 @@ class CMsgClientServiceModule PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientServiceModule& default_instance() {
     return *internal_default_instance();
   }
@@ -18702,8 +17267,8 @@ class CMsgClientServiceModule PROTOBUF_FINAL :
   CMsgClientServiceModule* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientServiceModule>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientServiceModule& from);
   void MergeFrom(const CMsgClientServiceModule& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -18713,12 +17278,13 @@ class CMsgClientServiceModule PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientServiceModule* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -18731,13 +17297,7 @@ class CMsgClientServiceModule PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -18818,7 +17378,7 @@ class CMsgClientServiceModule PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientServiceCallResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientServiceCallResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientServiceCallResponse) */ {
  public:
   inline CMsgClientServiceCallResponse() : CMsgClientServiceCallResponse(nullptr) {}
   virtual ~CMsgClientServiceCallResponse();
@@ -18843,22 +17403,13 @@ class CMsgClientServiceCallResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientServiceCallResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -18895,8 +17446,8 @@ class CMsgClientServiceCallResponse PROTOBUF_FINAL :
   CMsgClientServiceCallResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientServiceCallResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientServiceCallResponse& from);
   void MergeFrom(const CMsgClientServiceCallResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -18906,12 +17457,13 @@ class CMsgClientServiceCallResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientServiceCallResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -18924,13 +17476,7 @@ class CMsgClientServiceCallResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -19330,7 +17876,7 @@ class CMsgClientServiceCallResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgAMUnlockH264 PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgAMUnlockH264) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgAMUnlockH264) */ {
  public:
   inline CMsgAMUnlockH264() : CMsgAMUnlockH264(nullptr) {}
   virtual ~CMsgAMUnlockH264();
@@ -19355,22 +17901,13 @@ class CMsgAMUnlockH264 PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgAMUnlockH264& default_instance() {
     return *internal_default_instance();
   }
@@ -19407,8 +17944,8 @@ class CMsgAMUnlockH264 PROTOBUF_FINAL :
   CMsgAMUnlockH264* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgAMUnlockH264>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgAMUnlockH264& from);
   void MergeFrom(const CMsgAMUnlockH264& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -19418,12 +17955,13 @@ class CMsgAMUnlockH264 PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgAMUnlockH264* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -19436,13 +17974,7 @@ class CMsgAMUnlockH264 PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -19509,7 +18041,7 @@ class CMsgAMUnlockH264 PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgAMUnlockH264Response PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgAMUnlockH264Response) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgAMUnlockH264Response) */ {
  public:
   inline CMsgAMUnlockH264Response() : CMsgAMUnlockH264Response(nullptr) {}
   virtual ~CMsgAMUnlockH264Response();
@@ -19534,22 +18066,13 @@ class CMsgAMUnlockH264Response PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgAMUnlockH264Response& default_instance() {
     return *internal_default_instance();
   }
@@ -19586,8 +18109,8 @@ class CMsgAMUnlockH264Response PROTOBUF_FINAL :
   CMsgAMUnlockH264Response* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgAMUnlockH264Response>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgAMUnlockH264Response& from);
   void MergeFrom(const CMsgAMUnlockH264Response& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -19597,12 +18120,13 @@ class CMsgAMUnlockH264Response PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgAMUnlockH264Response* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -19615,13 +18139,7 @@ class CMsgAMUnlockH264Response PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -19680,7 +18198,7 @@ class CMsgAMUnlockH264Response PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientPlayingSessionState PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientPlayingSessionState) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientPlayingSessionState) */ {
  public:
   inline CMsgClientPlayingSessionState() : CMsgClientPlayingSessionState(nullptr) {}
   virtual ~CMsgClientPlayingSessionState();
@@ -19705,22 +18223,13 @@ class CMsgClientPlayingSessionState PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientPlayingSessionState& default_instance() {
     return *internal_default_instance();
   }
@@ -19757,8 +18266,8 @@ class CMsgClientPlayingSessionState PROTOBUF_FINAL :
   CMsgClientPlayingSessionState* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientPlayingSessionState>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientPlayingSessionState& from);
   void MergeFrom(const CMsgClientPlayingSessionState& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -19768,12 +18277,13 @@ class CMsgClientPlayingSessionState PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientPlayingSessionState* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -19786,13 +18296,7 @@ class CMsgClientPlayingSessionState PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -19844,7 +18348,7 @@ class CMsgClientPlayingSessionState PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientKickPlayingSession PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientKickPlayingSession) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientKickPlayingSession) */ {
  public:
   inline CMsgClientKickPlayingSession() : CMsgClientKickPlayingSession(nullptr) {}
   virtual ~CMsgClientKickPlayingSession();
@@ -19869,22 +18373,13 @@ class CMsgClientKickPlayingSession PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientKickPlayingSession& default_instance() {
     return *internal_default_instance();
   }
@@ -19921,8 +18416,8 @@ class CMsgClientKickPlayingSession PROTOBUF_FINAL :
   CMsgClientKickPlayingSession* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientKickPlayingSession>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientKickPlayingSession& from);
   void MergeFrom(const CMsgClientKickPlayingSession& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -19932,12 +18427,13 @@ class CMsgClientKickPlayingSession PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientKickPlayingSession* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -19950,13 +18446,7 @@ class CMsgClientKickPlayingSession PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -19993,7 +18483,7 @@ class CMsgClientKickPlayingSession PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientVoiceCallPreAuthorize PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientVoiceCallPreAuthorize) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientVoiceCallPreAuthorize) */ {
  public:
   inline CMsgClientVoiceCallPreAuthorize() : CMsgClientVoiceCallPreAuthorize(nullptr) {}
   virtual ~CMsgClientVoiceCallPreAuthorize();
@@ -20018,22 +18508,13 @@ class CMsgClientVoiceCallPreAuthorize PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientVoiceCallPreAuthorize& default_instance() {
     return *internal_default_instance();
   }
@@ -20070,8 +18551,8 @@ class CMsgClientVoiceCallPreAuthorize PROTOBUF_FINAL :
   CMsgClientVoiceCallPreAuthorize* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientVoiceCallPreAuthorize>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientVoiceCallPreAuthorize& from);
   void MergeFrom(const CMsgClientVoiceCallPreAuthorize& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -20081,12 +18562,13 @@ class CMsgClientVoiceCallPreAuthorize PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientVoiceCallPreAuthorize* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -20099,13 +18581,7 @@ class CMsgClientVoiceCallPreAuthorize PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -20187,7 +18663,7 @@ class CMsgClientVoiceCallPreAuthorize PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientVoiceCallPreAuthorizeResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientVoiceCallPreAuthorizeResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientVoiceCallPreAuthorizeResponse) */ {
  public:
   inline CMsgClientVoiceCallPreAuthorizeResponse() : CMsgClientVoiceCallPreAuthorizeResponse(nullptr) {}
   virtual ~CMsgClientVoiceCallPreAuthorizeResponse();
@@ -20212,22 +18688,13 @@ class CMsgClientVoiceCallPreAuthorizeResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientVoiceCallPreAuthorizeResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -20264,8 +18731,8 @@ class CMsgClientVoiceCallPreAuthorizeResponse PROTOBUF_FINAL :
   CMsgClientVoiceCallPreAuthorizeResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientVoiceCallPreAuthorizeResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientVoiceCallPreAuthorizeResponse& from);
   void MergeFrom(const CMsgClientVoiceCallPreAuthorizeResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -20275,12 +18742,13 @@ class CMsgClientVoiceCallPreAuthorizeResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientVoiceCallPreAuthorizeResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -20293,13 +18761,7 @@ class CMsgClientVoiceCallPreAuthorizeResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -20381,7 +18843,7 @@ class CMsgClientVoiceCallPreAuthorizeResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgBadgeCraftedNotification PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgBadgeCraftedNotification) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgBadgeCraftedNotification) */ {
  public:
   inline CMsgBadgeCraftedNotification() : CMsgBadgeCraftedNotification(nullptr) {}
   virtual ~CMsgBadgeCraftedNotification();
@@ -20406,22 +18868,13 @@ class CMsgBadgeCraftedNotification PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgBadgeCraftedNotification& default_instance() {
     return *internal_default_instance();
   }
@@ -20458,8 +18911,8 @@ class CMsgBadgeCraftedNotification PROTOBUF_FINAL :
   CMsgBadgeCraftedNotification* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgBadgeCraftedNotification>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgBadgeCraftedNotification& from);
   void MergeFrom(const CMsgBadgeCraftedNotification& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -20469,12 +18922,13 @@ class CMsgBadgeCraftedNotification PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgBadgeCraftedNotification* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -20487,13 +18941,7 @@ class CMsgBadgeCraftedNotification PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -20545,7 +18993,7 @@ class CMsgBadgeCraftedNotification PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientStartPeerContentServer PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientStartPeerContentServer) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientStartPeerContentServer) */ {
  public:
   inline CMsgClientStartPeerContentServer() : CMsgClientStartPeerContentServer(nullptr) {}
   virtual ~CMsgClientStartPeerContentServer();
@@ -20570,22 +19018,13 @@ class CMsgClientStartPeerContentServer PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientStartPeerContentServer& default_instance() {
     return *internal_default_instance();
   }
@@ -20622,8 +19061,8 @@ class CMsgClientStartPeerContentServer PROTOBUF_FINAL :
   CMsgClientStartPeerContentServer* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientStartPeerContentServer>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientStartPeerContentServer& from);
   void MergeFrom(const CMsgClientStartPeerContentServer& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -20633,12 +19072,13 @@ class CMsgClientStartPeerContentServer PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientStartPeerContentServer* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -20651,13 +19091,7 @@ class CMsgClientStartPeerContentServer PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -20739,7 +19173,7 @@ class CMsgClientStartPeerContentServer PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientStartPeerContentServerResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientStartPeerContentServerResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientStartPeerContentServerResponse) */ {
  public:
   inline CMsgClientStartPeerContentServerResponse() : CMsgClientStartPeerContentServerResponse(nullptr) {}
   virtual ~CMsgClientStartPeerContentServerResponse();
@@ -20764,22 +19198,13 @@ class CMsgClientStartPeerContentServerResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientStartPeerContentServerResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -20816,8 +19241,8 @@ class CMsgClientStartPeerContentServerResponse PROTOBUF_FINAL :
   CMsgClientStartPeerContentServerResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientStartPeerContentServerResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientStartPeerContentServerResponse& from);
   void MergeFrom(const CMsgClientStartPeerContentServerResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -20827,12 +19252,13 @@ class CMsgClientStartPeerContentServerResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientStartPeerContentServerResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -20845,13 +19271,7 @@ class CMsgClientStartPeerContentServerResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -20942,7 +19362,7 @@ class CMsgClientStartPeerContentServerResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientGetPeerContentInfo PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientGetPeerContentInfo) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientGetPeerContentInfo) */ {
  public:
   inline CMsgClientGetPeerContentInfo() : CMsgClientGetPeerContentInfo(nullptr) {}
   virtual ~CMsgClientGetPeerContentInfo();
@@ -20967,22 +19387,13 @@ class CMsgClientGetPeerContentInfo PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientGetPeerContentInfo& default_instance() {
     return *internal_default_instance();
   }
@@ -21019,8 +19430,8 @@ class CMsgClientGetPeerContentInfo PROTOBUF_FINAL :
   CMsgClientGetPeerContentInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientGetPeerContentInfo>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientGetPeerContentInfo& from);
   void MergeFrom(const CMsgClientGetPeerContentInfo& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -21030,12 +19441,13 @@ class CMsgClientGetPeerContentInfo PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientGetPeerContentInfo* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -21048,13 +19460,7 @@ class CMsgClientGetPeerContentInfo PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -21121,7 +19527,7 @@ class CMsgClientGetPeerContentInfo PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientGetPeerContentInfoResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientGetPeerContentInfoResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientGetPeerContentInfoResponse) */ {
  public:
   inline CMsgClientGetPeerContentInfoResponse() : CMsgClientGetPeerContentInfoResponse(nullptr) {}
   virtual ~CMsgClientGetPeerContentInfoResponse();
@@ -21146,22 +19552,13 @@ class CMsgClientGetPeerContentInfoResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientGetPeerContentInfoResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -21198,8 +19595,8 @@ class CMsgClientGetPeerContentInfoResponse PROTOBUF_FINAL :
   CMsgClientGetPeerContentInfoResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientGetPeerContentInfoResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientGetPeerContentInfoResponse& from);
   void MergeFrom(const CMsgClientGetPeerContentInfoResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -21209,12 +19606,13 @@ class CMsgClientGetPeerContentInfoResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientGetPeerContentInfoResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -21227,13 +19625,7 @@ class CMsgClientGetPeerContentInfoResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -21294,7 +19686,7 @@ class CMsgClientGetPeerContentInfoResponse PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientPendingGameLaunch PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientPendingGameLaunch) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientPendingGameLaunch) */ {
  public:
   inline CMsgClientPendingGameLaunch() : CMsgClientPendingGameLaunch(nullptr) {}
   virtual ~CMsgClientPendingGameLaunch();
@@ -21319,22 +19711,13 @@ class CMsgClientPendingGameLaunch PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientPendingGameLaunch& default_instance() {
     return *internal_default_instance();
   }
@@ -21371,8 +19754,8 @@ class CMsgClientPendingGameLaunch PROTOBUF_FINAL :
   CMsgClientPendingGameLaunch* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientPendingGameLaunch>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientPendingGameLaunch& from);
   void MergeFrom(const CMsgClientPendingGameLaunch& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -21382,12 +19765,13 @@ class CMsgClientPendingGameLaunch PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientPendingGameLaunch* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -21400,13 +19784,7 @@ class CMsgClientPendingGameLaunch PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -21443,7 +19821,7 @@ class CMsgClientPendingGameLaunch PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class CMsgClientPendingGameLaunchResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CMsgClientPendingGameLaunchResponse) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:CMsgClientPendingGameLaunchResponse) */ {
  public:
   inline CMsgClientPendingGameLaunchResponse() : CMsgClientPendingGameLaunchResponse(nullptr) {}
   virtual ~CMsgClientPendingGameLaunchResponse();
@@ -21468,22 +19846,13 @@ class CMsgClientPendingGameLaunchResponse PROTOBUF_FINAL :
     return *this;
   }
 
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
   }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
   static const CMsgClientPendingGameLaunchResponse& default_instance() {
     return *internal_default_instance();
   }
@@ -21520,8 +19889,8 @@ class CMsgClientPendingGameLaunchResponse PROTOBUF_FINAL :
   CMsgClientPendingGameLaunchResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
     return CreateMaybeMessage<CMsgClientPendingGameLaunchResponse>(arena);
   }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
   void CopyFrom(const CMsgClientPendingGameLaunchResponse& from);
   void MergeFrom(const CMsgClientPendingGameLaunchResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
@@ -21531,12 +19900,13 @@ class CMsgClientPendingGameLaunchResponse PROTOBUF_FINAL :
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
   ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
       ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
   int GetCachedSize() const final { return _cached_size_.Get(); }
 
   private:
   inline void SharedCtor();
   inline void SharedDtor();
-  void SetCachedSize(int size) const final;
+  void SetCachedSize(int size) const;
   void InternalSwap(CMsgClientPendingGameLaunchResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
@@ -21549,13 +19919,7 @@ class CMsgClientPendingGameLaunchResponse PROTOBUF_FINAL :
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    return ::descriptor_table_steammessages_5fclientserver_5f2_2eproto_metadata_getter(kIndexInFileMessages);
-  }
-
-  public:
+  std::string GetTypeName() const final;
 
   // nested types ----------------------------------------------------
 
@@ -34997,10 +33361,6 @@ inline void CMsgClientPendingGameLaunchResponse::set_allocated_envkey(std::strin
 PROTOBUF_NAMESPACE_OPEN
 
 template <> struct is_proto_enum< ::CMsgGCClient_EFlag> : ::std::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::CMsgGCClient_EFlag>() {
-  return ::CMsgGCClient_EFlag_descriptor();
-}
 
 PROTOBUF_NAMESPACE_CLOSE
 

@@ -79,15 +79,6 @@ static const char* defaultConfig =
 "#Logs all calls to Steamworks (this makes the logfile huge! Only useful for debugging/analyzing\n"
 "ExtendedLogging: no";
 
-void CConfig::FakeGame_t::sanitizeTitle()
-{
-	//Bigger strings crash in libc.so.6. My guess is this is caused by steamclient.so being
-	//compiled with GCC 4.6.3, which uses a now deprecated ABI
-	if (title.size() > 15)
-	{
-		title = title.substr(0, 14);
-	}
-}
 
 std::string CConfig::getDir()
 {
@@ -234,7 +225,6 @@ bool CConfig::loadSettings()
 			};
 
 			g_pLog->debug("Idle status %s with AppId %u\n", idleStatus.title.c_str(), idleStatus.appId);
-			idleStatus.sanitizeTitle();
 		}
 		catch(...)
 		{
@@ -253,7 +243,6 @@ bool CConfig::loadSettings()
 			};
 
 			g_pLog->debug("Unowned status %s with AppId %u\n", unownedStatus.title.c_str(), unownedStatus.appId);
-			unownedStatus.sanitizeTitle();
 		}
 		catch(...)
 		{
