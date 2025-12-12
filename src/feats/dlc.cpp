@@ -1,5 +1,6 @@
 #include "dlc.hpp"
 
+#include "../sdk/CSteamEngine.hpp"
 #include "../sdk/CUser.hpp"
 #include "../sdk/IClientUtils.hpp"
 
@@ -18,7 +19,7 @@ bool DLC::shouldUnlockDlc(uint32_t appId)
 		return false;
 	}
 
-	if (g_pUser->checkAppOwnership(appId))
+	if (g_pSteamEngine->getUser(0)->checkAppOwnership(appId))
 	{
 		return false;
 	}

@@ -2,8 +2,8 @@
 
 #include "../config.hpp"
 
-#include "../sdk/CUser.hpp"
 #include "../sdk/CSteamEngine.hpp"
+#include "../sdk/CUser.hpp"
 #include "../sdk/IClientUtils.hpp"
 
 
@@ -15,7 +15,7 @@ uint32_t FakeAppIds::getFakeAppId(uint32_t appId)
 	{
 		return g_config.fakeAppIds[appId];
 	}
-	else if (g_config.fakeAppIds.contains(0) && !g_pUser->checkAppOwnership(appId))
+	else if (g_config.fakeAppIds.contains(0) && !g_pSteamEngine->getUser(0)->checkAppOwnership(appId))
 	{
 		return g_config.fakeAppIds[0];
 	}

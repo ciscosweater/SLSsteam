@@ -5,6 +5,7 @@
 
 #include "../sdk/CAppTicket.hpp"
 #include "../sdk/CProtoBufMsgBase.hpp"
+#include "../sdk/CSteamEngine.hpp"
 #include "../sdk/CUser.hpp"
 #include "../sdk/IClientUtils.hpp"
 #include "../sdk/EResult.hpp"
@@ -110,7 +111,7 @@ void Ticket::launchApp(uint32_t appId)
 		return;
 	}
 
-	g_pUser->updateAppOwnershipTicket(appId, reinterpret_cast<void*>(&ticket), ticket.getSize());
+	g_pSteamEngine->getUser(0)->updateAppOwnershipTicket(appId, reinterpret_cast<void*>(&ticket), ticket.getSize());
 	g_pLog->once("Force loaded AppOwnershipTicket for %i\n", appId);
 }
 

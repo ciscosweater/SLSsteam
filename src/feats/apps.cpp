@@ -1,6 +1,7 @@
 #include "apps.hpp"
 
 #include "../sdk/CAppOwnershipInfo.hpp"
+#include "../sdk/CSteamEngine.hpp"
 #include "../sdk/CUser.hpp"
 #include "../sdk/IClientApps.hpp"
 
@@ -119,16 +120,16 @@ void Apps::launchApp(uint32_t appId)
 
 bool Apps::shouldDisableCloud(uint32_t appId)
 {
-	return !g_pUser->checkAppOwnership(appId);
+	return !g_pSteamEngine->getUser(0)->checkAppOwnership(appId);
 }
 
 bool Apps::shouldDisableCDKey(uint32_t appId)
 {
-	return !g_pUser->checkAppOwnership(appId);
+	return !g_pSteamEngine->getUser(0)->checkAppOwnership(appId);
 }
 
 bool Apps::shouldDisableUpdates(uint32_t appId)
 {
 	//Using AdditionalApps here aswell so users can manually block updates
-	return g_config.isAddedAppId(appId) || !g_pUser->checkAppOwnership(appId);
+	return g_config.isAddedAppId(appId) || !g_pSteamEngine->getUser(0)->checkAppOwnership(appId);
 }
