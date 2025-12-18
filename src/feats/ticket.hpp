@@ -1,21 +1,16 @@
 #pragma once
 
-#include "../sdk/ECallback.hpp"
-
 #include <cstdint>
 #include <map>
 #include <string>
 
-class CAppTicket;
-class CEncryptedAppTicket;
-class CMsgAppOwnershipTicketResponse;
-
+class CMsgClientGetAppOwnershipTicketResponse;
 class CMsgClientRequestEncryptedAppTicketResponse;
 class CProtoBufMsgBase;
 
 namespace Ticket
 {
-	class SavedEncryptedTicket
+	class SavedTicket
 	{
 public:
 		uint32_t steamId;
@@ -24,23 +19,26 @@ public:
 
 	extern uint32_t oneTimeSteamIdSpoof;
 	extern uint32_t tempSteamIdSpoof;
-	extern std::map<uint32_t, CAppTicket> ticketMap;
-	extern std::map<uint32_t, SavedEncryptedTicket> encryptedTicketMap;
+	extern std::map<uint32_t, SavedTicket> ticketMap;
+	extern std::map<uint32_t, SavedTicket> encryptedTicketMap;
+
+	//TODO: Merge reading & saving for both ticket types into 1 function
 
 	std::string getTicketDir();
 
 	//TODO: Fill with error checks
 	std::string getTicketPath(uint32_t appId);
-	CAppTicket getCachedTicket(uint32_t appId);
-	bool saveTicketToCache(uint32_t appId, void* ticketData, uint32_t ticketSize);
+	SavedTicket getCachedTicket(uint32_t appId);
+	bool saveTicketToCache(CMsgClientGetAppOwnershipTicketResponse* resp);
 
-	void recvAppOwnershipTicketResponse(CMsgAppOwnershipTicketResponse* resp);
 	void launchApp(uint32_t appId);
 	void getTicketOwnershipExtendedData(uint32_t appId);
 
 	std::string getEncryptedTicketPath(uint32_t appId);
-	SavedEncryptedTicket getCachedEncryptedTicket(uint32_t appId);
+	SavedTicket getCachedEncryptedTicket(uint32_t appId);
 	bool saveEncryptedTicketToCache(CMsgClientRequestEncryptedAppTicketResponse* resp);
+
 	void recvEncryptedAppTicket(CMsgClientRequestEncryptedAppTicketResponse* msg);
+	void recvAppTicket(CMsgClientGetAppOwnershipTicketResponse* msg);
 	void recvMsg(CProtoBufMsgBase* msg);
 }

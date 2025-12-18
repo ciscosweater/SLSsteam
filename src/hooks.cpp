@@ -174,26 +174,15 @@ static void hkProtoBufMsgBase_New(CProtoBufMsgBase* pMsg, void* pSrc)
 	Hooks::CProtoBufMsgBase_New.tramp.fn(pMsg, pSrc);
 
 	//Safety first
-	if (!pMsg || !pSrc)
+	if (!pSrc)
 	{
 		return;
 	}
+
 	g_pLog->debug("Received ProtoBufMsg of type %u\n", pMsg->type);
 
 	Achievements::recvMessage(pMsg);
 	Ticket::recvMsg(pMsg);
-
-	switch(pMsg->type)
-	{
-		case EMSG_APPOWNERSHIPTICKET_RESPONSE:
-			{
-				const auto resp = reinterpret_cast<CMsgAppOwnershipTicketResponse*>(pMsg->body);
-				g_pLog->debug("AppOwnershipTicketResp %i -> %i\n", resp->appId, resp->result);
-
-				Ticket::recvAppOwnershipTicketResponse(resp);
-			}
-			break;
-	}
 }
 
 static uint32_t hkProtoBufMsgBase_Send(CProtoBufMsgBase* pMsg)
@@ -729,7 +718,7 @@ static uint32_t hkClientUser_GetSteamId(uint32_t steamId)
 		g_currentSteamId = steamId;
 	}
 
-	Ticket::SavedEncryptedTicket ticket = Ticket::getCachedEncryptedTicket(g_pClientUtils->getAppId());
+	Ticket::SavedTicket ticket = Ticket::getCachedEncryptedTicket(g_pClientUtils->getAppId());
 
 	if (ticket.steamId)
 	{
