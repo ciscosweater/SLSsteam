@@ -86,7 +86,6 @@ namespace Hooks
 	typedef uint32_t(*CSteamEngine_SetAppIdForCurrentPipe_t)(void*, uint32_t, bool);
 
 	typedef bool(*CUser_CheckAppOwnership_t)(void*, uint32_t, CAppOwnershipInfo*);
-	typedef bool(*CUser_GetEncryptedAppTicket_t)(void*, void*, uint32_t, uint32_t*);
 	typedef uint32_t(*CUser_GetSubscribedApps_t)(void*, uint32_t*, size_t, bool);
 
 	typedef bool(*IClientUser_BIsSubscribedApp_t)(void*, uint32_t);
@@ -116,7 +115,6 @@ namespace Hooks
 	extern DetourHook<CSteamEngine_SetAppIdForCurrentPipe_t> CSteamEngine_SetAppIdForCurrentPipe;
 
 	extern DetourHook<CUser_CheckAppOwnership_t> CUser_CheckAppOwnership;
-	extern DetourHook<CUser_GetEncryptedAppTicket_t> CUser_GetEncryptedAppTicket;
 	extern DetourHook<CUser_GetSubscribedApps_t> CUser_GetSubscribedApps;
 
 	extern DetourHook<IClientUser_BIsSubscribedApp_t> IClientUser_BIsSubscribedApp;

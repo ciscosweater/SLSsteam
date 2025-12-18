@@ -10,6 +10,11 @@
 #include "../sdk/IClientUtils.hpp"
 #include "../sdk/EResult.hpp"
 
+#include "base64/base64.hpp"
+#include "yaml-cpp/binary.h"
+#include "yaml-cpp/emitter.h"
+#include "yaml-cpp/emittermanip.h"
+
 #include <chrono>
 #include <cstring>
 #include <filesystem>
@@ -20,7 +25,7 @@
 uint32_t Ticket::oneTimeSteamIdSpoof = 0;
 uint32_t Ticket::tempSteamIdSpoof = 0;
 std::map<uint32_t, CAppTicket> Ticket::ticketMap = std::map<uint32_t, CAppTicket>();
-std::map<uint32_t, CEncryptedAppTicket> Ticket::encryptedTicketMap = std::map<uint32_t, CEncryptedAppTicket>();
+std::map<uint32_t, Ticket::SavedEncryptedTicket> Ticket::encryptedTicketMap = std::map<uint32_t, SavedEncryptedTicket>();
 
 std::string Ticket::getTicketDir()
 {
@@ -130,19 +135,19 @@ void Ticket::getTicketOwnershipExtendedData(uint32_t appId)
 std::string Ticket::getEncryptedTicketPath(uint32_t appId)
 {
 	std::stringstream ss;
-	ss << getTicketDir().c_str() << "/encryptedTicket_" << appId;
+	ss << getTicketDir().c_str() << "/encryptedTicket_" << appId << ".yaml";
 
 	return ss.str();
 }
 
-CEncryptedAppTicket Ticket::getCachedEncryptedTicket(uint32_t appId)
+Ticket::SavedEncryptedTicket Ticket::getCachedEncryptedTicket(uint32_t appId)
 {
 	if (encryptedTicketMap.contains(appId))
 	{
 		return encryptedTicketMap[appId];
 	}
 
-	CEncryptedAppTicket ticket {};
+	SavedEncryptedTicket ticket {};
 
 	const auto path = getEncryptedTicketPath(appId);
 	if (!std::filesystem::exists(path.c_str()))
@@ -154,106 +159,83 @@ CEncryptedAppTicket Ticket::getCachedEncryptedTicket(uint32_t appId)
 
 	g_pLog->debug("Reading encrypted ticket for %u\n", appId);
 
-	ifs.read(reinterpret_cast<char*>(&ticket), sizeof ticket);
+	auto node = YAML::LoadFile(path);
+	ticket.steamId = node["steamId"].as<uint32_t>();
+	ticket.ticket = std::string
+	(
+		//Can not get yaml-cpp to properly decode
+		//TODO: Investigate
+		//reinterpret_cast<const char*>
+		//(
+		//	&YAML::DecodeBase64(node["encryptedTicket"].as<std::string>()).at(0)
+		//)
+		base64::from_base64(node["encryptedTicket"].as<std::string>())
+	);
 	//g_pLog->debug("Ticket: %u, %u, %u\n", ticket.getSteamId(), ticket.getAppId(), ticket.getSize());
+	g_pLog->debug("Ticket: %u, %s\n", ticket.steamId, ticket.ticket.c_str());
 
 	encryptedTicketMap[appId] = ticket;
 
 	return ticket;
 }
 
-bool Ticket::saveEncryptedTicketToCache(uint32_t appId, uint32_t steamId, void* ticketData, uint32_t written)
+bool Ticket::saveEncryptedTicketToCache(CMsgClientRequestEncryptedAppTicketResponse* resp)
 {
-	CEncryptedAppTicket ticket {};
+	const uint32_t appId = resp->app_id();
+
 	g_pLog->debug("Saving encrypted ticket for %u...\n", appId);
 
-	ticket.steamId = steamId;
-	ticket.size = written;
-	memcpy(ticket.bytes, ticketData, written);
+	auto bytes = resp->SerializeAsString();
+
+	YAML::Emitter node;
+	node << YAML::BeginMap;
+	node << YAML::Key << "steamId";
+	node << YAML::Value << g_currentSteamId;
+	node << YAML::Key << "encryptedTicket";
+	//node << YAML::Value << YAML::EncodeBase64(reinterpret_cast<const unsigned char*>(bytes.c_str()), bytes.size());
+	node << YAML::Value << base64::to_base64(bytes);
+	node << YAML::EndMap;
 
 	const auto path = getEncryptedTicketPath(appId);
 	std::ofstream ofs(path.c_str(), std::ios::out);
 
-	ofs.write(reinterpret_cast<char*>(&ticket), sizeof(ticket));
+	ofs.write(node.c_str(), node.size());
 
 	g_pLog->once("Saved encrypted ticket for %u\n", appId);
 
+	//TODO: Skip copy
+	SavedEncryptedTicket ticket {};
+	ticket.steamId = g_currentSteamId;
+	ticket.ticket = bytes;
 	encryptedTicketMap[appId] = ticket;
 	
 	return true;
 }
 
-bool Ticket::getEncryptedAppTicket(void* ticketData, uint32_t ticketSize, uint32_t* bytesWritten)
+void Ticket::recvEncryptedAppTicket(CMsgClientRequestEncryptedAppTicketResponse* msg)
 {
-	if (!ticketData || !ticketSize || !bytesWritten)
+	if (msg->eresult() == ERESULT_OK)
 	{
-		//This shouldn't happen, but some games seem to do it for some reason (possible a pitfall idk)
-		return false;
+		saveEncryptedTicketToCache(msg);
+		return;
 	}
 
-	bool cached = false;
-
-	if (*bytesWritten)
+	SavedEncryptedTicket ticket = getCachedEncryptedTicket(msg->app_id());
+	if(!ticket.steamId)
 	{
-		saveEncryptedTicketToCache(g_pClientUtils->getAppId(), g_currentSteamId, ticketData, *bytesWritten);
-		cached = true;
+		return;
 	}
 
-	if (g_config.blockEncryptedAppTickets)
-	{
-		memset(ticketData, 0, ticketSize);
-		*bytesWritten = 0;
-	}
-
-	if (cached)
-	{
-		return false;
-	}
-
-	CEncryptedAppTicket ticket = Ticket::getCachedEncryptedTicket(g_pClientUtils->getAppId());
-	//TODO: Add isValid helper function to ticket or similiar
-	if (!ticket.size || !ticket.steamId)
-	{
-		return false;
-	}
-
-	if (ticket.size > ticketSize)
-	{
-		g_pLog->debug("Failed to use use cached AppTicket for %u (Allocated size < bytesWritten)!\n");
-		return false;
-	}
-
-	//We're running on the assumption that tickets won't be bigger than 0x1000 bytes
-	tempSteamIdSpoof = ticket.steamId;
-	memcpy(ticketData, ticket.bytes, ticketSize);
-	*bytesWritten = ticket.size;
-
-	return true;
+	msg->ParseFromString(ticket.ticket);
+	g_pLog->debug("Using encryptedTicket_%u from disk\n", msg->app_id());
 }
 
-bool Ticket::getAPICallResult(ECallbackType type, void* pCallback)
+void Ticket::recvMsg(CProtoBufMsgBase* msg)
 {
-	if (type != ECallbackType::RequestEncryptedAppOwnershipTicket)
+	switch(msg->type)
 	{
-		return false;
+		case EMSG_ENCRYPTED_APPTICKET_RESPONSE:
+			recvEncryptedAppTicket(reinterpret_cast<CMsgClientRequestEncryptedAppTicketResponse*>(msg->body));
+			break;
 	}
-
-	uint32_t* pResult = reinterpret_cast<uint32_t*>(pCallback);
-
-	if (*pResult == ERESULT_OK)
-	{
-		return false;
-	}
-
-	CEncryptedAppTicket ticket = getCachedEncryptedTicket(g_pClientUtils->getAppId());
-	if (!ticket.size || !ticket.steamId)
-	{
-		return false;
-	}
-
-	*pResult = ERESULT_OK;
-	g_pLog->debug("Spoofed RequestEncryptedAppOwnershipTicket callback!\n");
-
-	return true;
 }
-

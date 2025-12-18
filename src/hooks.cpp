@@ -181,6 +181,7 @@ static void hkProtoBufMsgBase_New(CProtoBufMsgBase* pMsg, void* pSrc)
 	g_pLog->debug("Received ProtoBufMsg of type %u\n", pMsg->type);
 
 	Achievements::recvMessage(pMsg);
+	Ticket::recvMsg(pMsg);
 
 	switch(pMsg->type)
 	{
@@ -276,11 +277,6 @@ static bool hkSteamEngine_GetAPICallResult(void* pSteamEngine, uint32_t callback
 		);
 	}
 
-	if (Ticket::getAPICallResult(static_cast<ECallbackType>(type), pCallback))
-	{
-		return true;
-	}
-
 	return ret;
 }
 
@@ -321,30 +317,6 @@ static bool hkUser_CheckAppOwnership(void* pClientUser, uint32_t appId, CAppOwne
 	);
 
 	if (Apps::checkAppOwnership(appId, pOwnershipInfo))
-	{
-		return true;
-	}
-
-	return ret;
-}
-
-static bool hkUser_GetEncryptedAppTicket(void* pClientUser, void* pTicket, uint32_t maxSize, uint32_t* pBytesWritten)
-{
-	const bool ret = Hooks::CUser_GetEncryptedAppTicket.tramp.fn(pClientUser, pTicket, maxSize, pBytesWritten);
-
-	g_pLog->debug
-	(
-		"%s(%p, %p, %u, %p) -> %i\n",
-
-		Hooks::CUser_GetEncryptedAppTicket.name.c_str(),
-		pClientUser,
-		pTicket,
-		maxSize,
-		pBytesWritten,
-		ret
-	);
-
-	if (Ticket::getEncryptedAppTicket(pTicket, maxSize, pBytesWritten))
 	{
 		return true;
 	}
@@ -757,9 +729,9 @@ static uint32_t hkClientUser_GetSteamId(uint32_t steamId)
 		g_currentSteamId = steamId;
 	}
 
-	CEncryptedAppTicket ticket = Ticket::getCachedEncryptedTicket(g_pClientUtils->getAppId());
+	Ticket::SavedEncryptedTicket ticket = Ticket::getCachedEncryptedTicket(g_pClientUtils->getAppId());
 
-	if (ticket.size && ticket.steamId)
+	if (ticket.steamId)
 	{
 		steamId = ticket.steamId;
 		Ticket::tempSteamIdSpoof = 0;
@@ -968,7 +940,6 @@ namespace Hooks
 	DetourHook<CSteamEngine_SetAppIdForCurrentPipe_t> CSteamEngine_SetAppIdForCurrentPipe;
 
 	DetourHook<CUser_CheckAppOwnership_t> CUser_CheckAppOwnership;
-	DetourHook<CUser_GetEncryptedAppTicket_t> CUser_GetEncryptedAppTicket;
 	DetourHook<CUser_GetSubscribedApps_t> CUser_GetSubscribedApps;
 
 	DetourHook<IClientUser_BIsSubscribedApp_t> IClientUser_BIsSubscribedApp;
@@ -1007,7 +978,6 @@ bool Hooks::setup()
 
 		&& CUser_CheckAppOwnership.setup(Patterns::CUser::CheckAppOwnership, &hkUser_CheckAppOwnership)
 		&& CUser_GetSubscribedApps.setup(Patterns::CUser::GetSubscribedApps, &hkUser_GetSubscribedApps)
-		&& CUser_GetEncryptedAppTicket.setup(Patterns::CUser::GetEncryptedAppTicket, hkUser_GetEncryptedAppTicket)
 
 		&& CSteamEngine_Init.setup(Patterns::CSteamEngine::Init, &hkSteamEngine_Init)
 		&& CSteamEngine_GetAPICallResult.setup(Patterns::CSteamEngine::GetAPICallResult, &hkSteamEngine_GetAPICallResult)
@@ -1052,7 +1022,6 @@ void Hooks::place()
 	CSteamEngine_SetAppIdForCurrentPipe.place();
 
 	CUser_CheckAppOwnership.place();
-	CUser_GetEncryptedAppTicket.place();
 	CUser_GetSubscribedApps.place();
 
 	IClientApps_PipeLoop.place();
@@ -1086,7 +1055,6 @@ void Hooks::remove()
 	CSteamEngine_SetAppIdForCurrentPipe.remove();
 
 	CUser_CheckAppOwnership.remove();
-	CUser_GetEncryptedAppTicket.remove();
 	CUser_GetSubscribedApps.remove();
 
 	IClientApps_PipeLoop.remove();

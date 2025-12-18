@@ -10,12 +10,22 @@ class CAppTicket;
 class CEncryptedAppTicket;
 class CMsgAppOwnershipTicketResponse;
 
+class CMsgClientRequestEncryptedAppTicketResponse;
+class CProtoBufMsgBase;
+
 namespace Ticket
 {
+	class SavedEncryptedTicket
+	{
+public:
+		uint32_t steamId;
+		std::string ticket;
+	};
+
 	extern uint32_t oneTimeSteamIdSpoof;
 	extern uint32_t tempSteamIdSpoof;
 	extern std::map<uint32_t, CAppTicket> ticketMap;
-	extern std::map<uint32_t, CEncryptedAppTicket> encryptedTicketMap;
+	extern std::map<uint32_t, SavedEncryptedTicket> encryptedTicketMap;
 
 	std::string getTicketDir();
 
@@ -28,11 +38,9 @@ namespace Ticket
 	void launchApp(uint32_t appId);
 	void getTicketOwnershipExtendedData(uint32_t appId);
 
-
 	std::string getEncryptedTicketPath(uint32_t appId);
-	CEncryptedAppTicket getCachedEncryptedTicket(uint32_t appId);
-	bool saveEncryptedTicketToCache(uint32_t appId, uint32_t steamId, void* ticketData, uint32_t written);
-
-	bool getEncryptedAppTicket(void* ticketData, uint32_t ticketSize, uint32_t* bytesWritten);
-	bool getAPICallResult(ECallbackType type, void* pCallback);
+	SavedEncryptedTicket getCachedEncryptedTicket(uint32_t appId);
+	bool saveEncryptedTicketToCache(CMsgClientRequestEncryptedAppTicketResponse* resp);
+	void recvEncryptedAppTicket(CMsgClientRequestEncryptedAppTicketResponse* msg);
+	void recvMsg(CProtoBufMsgBase* msg);
 }

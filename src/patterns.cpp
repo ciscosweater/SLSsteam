@@ -114,13 +114,6 @@ namespace Patterns
 			"E8 ? ? ? ? 88 45 ? 83 C4 10 84 C0 0F 84 ? ? ? ? 8B 45 ? 80 7D ? 00",
 			SigFollowMode::Relative
 		};
-		Pattern_t GetEncryptedAppTicket
-		{
-			"CUser::GetEncryptedAppTicket",
-			"8D 7A ? 83 EC 0C 57 E8 ? ? ? ? 83 C4 10",
-			SigFollowMode::PrologueUpwards,
-			std::vector<uint8_t> { 0x74, 0x8b, 0x53, 0x56, 0x57 }
-		};
 		Pattern_t GetSubscribedApps
 		{
 			"CUser::GetSubscribedApps",
