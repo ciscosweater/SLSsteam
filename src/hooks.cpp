@@ -228,6 +228,8 @@ static uint32_t hkProtoBufMsgBase_Send(CProtoBufMsgBase* pMsg)
 			break;
 	}
 
+	Apps::sendMsg(pMsg);
+
 	const uint32_t ret = Hooks::CProtoBufMsgBase_Send.tramp.fn(pMsg);
 	g_pLog->debug("Sending ProtoBufMsg of type %u\n", pMsg->type);
 

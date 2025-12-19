@@ -3,6 +3,7 @@
 #include "protobufs/steammessages_base.pb.h"
 #include "protobufs/encrypted_app_ticket.pb.h"
 #include "protobufs/steammessages_clientserver.pb.h"
+#include "protobufs/steammessages_clientserver_appinfo.pb.h"
 #include "protobufs/steammessages_clientserver_userstats.pb.h"
 
 #include <cstdint>
@@ -15,6 +16,8 @@ enum EMsgType : uint16_t
 	EMSG_APPOWNERSHIPTICKET_RESPONSE = 858,
 	EMSG_ENCRYPTED_APPTICKET_RESPONSE = 5527,
 	EMSG_GAMESPLAYED_WITH_DATABLOB = 5410,
+	EMSG_PICS_PRODUCTINFO_REQUEST = 8903,
+	EMSG_PICS_ACCESSTOKEN_RESPONSE = 8906,
 };
 
 enum EGameFlags

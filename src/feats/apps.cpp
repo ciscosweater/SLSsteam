@@ -1,6 +1,7 @@
 #include "apps.hpp"
 
 #include "../sdk/CAppOwnershipInfo.hpp"
+#include "../sdk/CProtoBufMsgBase.hpp"
 #include "../sdk/CSteamEngine.hpp"
 #include "../sdk/CUser.hpp"
 #include "../sdk/IClientApps.hpp"
@@ -132,4 +133,26 @@ bool Apps::shouldDisableUpdates(uint32_t appId)
 {
 	//Using AdditionalApps here aswell so users can manually block updates
 	return g_config.isAddedAppId(appId) || !g_pSteamEngine->getUser(0)->checkAppOwnership(appId);
+}
+
+void Apps::sendMsg(CProtoBufMsgBase *msg)
+{
+	switch(msg->type)
+	{
+		case EMSG_PICS_PRODUCTINFO_REQUEST:
+		{
+			const auto body = reinterpret_cast<CMsgClientPICSProductInfoRequest*>(msg->body);
+			const auto tokens = g_config.appTokens.get();
+
+			for(int i = 0; i < body->apps_size(); i++)
+			{
+				auto app = body->mutable_apps(i);
+				if (tokens.contains(app->appid()))
+				{
+					app->set_access_token(tokens.at(app->appid()));
+					g_pLog->debug("Used access token from config for %u\n", app->appid());
+				}
+			}
+		}
+	}
 }

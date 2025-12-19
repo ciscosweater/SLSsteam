@@ -44,6 +44,9 @@ AdditionalApps:
 #when the App you're playing is hit by Steams 64 DLC limit
 DlcData:
 
+#Used to retrieve ProductInfo from Steam servers for some games
+AppTokens:
+
 #Fake Steam being offline for specified AppIds. Same format as AppIds
 FakeOffline:
 
@@ -87,4 +90,3 @@ LogLevel: 2
 
 #Logs all calls to Steamworks (this makes the logfile huge! Only useful for debugging/analyzing
 ExtendedLogging: no
-

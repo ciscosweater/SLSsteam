@@ -5,6 +5,7 @@
 #include <map>
 
 class CAppOwnershipInfo;
+class CProtoBufMsgBase;
 
 namespace Apps
 {
@@ -21,4 +22,6 @@ namespace Apps
 	bool shouldDisableCloud(uint32_t appId);
 	bool shouldDisableCDKey(uint32_t appId);
 	bool shouldDisableUpdates(uint32_t appId);
+
+	void sendMsg(CProtoBufMsgBase* msg);
 };

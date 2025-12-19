@@ -141,34 +141,8 @@ bool CConfig::loadSettings()
 	addedAppIds = getList<uint32_t>(node, "AdditionalApps");
 	fakeOffline = getList<uint32_t>(node, "FakeOffline");
 
-	const auto fakeAppIdsNode = node["FakeAppIds"];
-	if (fakeAppIdsNode)
-	{
-		auto _fakeAppIds = fakeAppIds.empty();
-
-		for (const auto& node : fakeAppIdsNode)
-		{
-			try
-			{
-				uint32_t k = node.first.as<uint32_t>();
-				uint32_t v = node.second.as<uint32_t>();
-				_fakeAppIds[k] = v;
-
-				g_pLog->info("Added %u : %u to FakeAppIds\n", k, v);
-			}
-			catch(...)
-			{
-				g_pLog->warn("Failed to parse FakeAppIds!");
-				break;
-			}
-		}
-
-		fakeAppIds.set(_fakeAppIds);
-	}
-	else
-	{
-		g_pLog->warn("Missing FakeAppIds entry in config!");
-	}
+	fakeAppIds = getMap<uint32_t, uint32_t>(node, "FakeAppIds");
+	appTokens = getMap<uint32_t, uint64_t>(node, "AppTokens");
 
 	//Do not warn for these (yet?)
 	const auto idleStatusNode = node["IdleStatus"];

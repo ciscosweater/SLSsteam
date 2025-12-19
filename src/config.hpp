@@ -37,6 +37,7 @@ public:
 	MTVariable<std::unordered_set<uint32_t>> appIds;
 	MTVariable<std::unordered_set<uint32_t>> addedAppIds;
 	MTVariable<std::unordered_map<uint32_t, CDlcData>> dlcData;
+	MTVariable<std::unordered_map<uint32_t, uint64_t>> appTokens;
 	MTVariable<std::unordered_set<uint32_t>> fakeOffline;
 	MTVariable<std::unordered_map<uint32_t, uint32_t>> fakeAppIds;
 	MTVariable<FakeGame_t> idleStatus;
@@ -97,7 +98,7 @@ public:
 		const auto node = rootNode[name];
 		if (!node)
 		{
-			g_pLog->notify("Missing %s entry in config!", name);
+			g_pLog->notifyLong("Missing %s in configfile! Using default", name);
 			return list;
 		}
 
@@ -116,11 +117,50 @@ public:
 			}
 			catch(...)
 			{
-				g_pLog->notify("Failed to parse %s in %s!", subNode.as<std::string>().c_str(), name);
+				g_pLog->notify("Failed to parse %s!", name);
 			}
 		}
 
 		return list;
+	}
+
+	template<typename T, typename T2>
+	std::unordered_map<T, T2> getMap(YAML::Node& rootNode, const char* name)
+	{
+		auto map = std::unordered_map<T, T2>();
+
+		const auto node = rootNode[name];
+		if (!node)
+		{
+			g_pLog->notifyLong("Missing %s in configfile! Using default", name);
+			return map;
+		}
+
+		for(auto& subNode : node)
+		{
+			try
+			{
+				auto k = subNode.first.as<T>();
+				auto v = subNode.second.as<T2>();
+
+				map[k] = v;
+
+				if (std::is_same_v<T, uint32_t> && std::is_same_v<T, T2>)
+				{
+					g_pLog->debug("Added %u to %u in %s\n", k, v, name);
+				}
+				else if (std::is_same_v<T, uint32_t> && std::is_same_v<T2, uint64_t>)
+				{
+					g_pLog->debug("Added %u to %llu in %s\n", k, v, name);
+				}
+			}
+			catch(...)
+			{
+				g_pLog->notify("Failed to parse %s!", name);
+			}
+		}
+
+		return map;
 	}
 
 	bool isAddedAppId(uint32_t appId);
