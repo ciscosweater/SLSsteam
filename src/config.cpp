@@ -121,7 +121,6 @@ bool CConfig::loadSettings()
 	api = getSetting<bool>(node, "API", true);
 	extendedLogging = getSetting<bool>(node, "ExtendedLogging", false);
 	logLevel = getSetting<unsigned int>(node, "LogLevel", 2);
-	blockEncryptedAppTickets = getSetting<bool>(node, "BlockEncryptedAppTickets", false);
 
 	//TODO: Create smart logging function to log them automatically via getSetting
 	g_pLog->info("DisableFamilyShareLock: %i\n", disableFamilyLock.get());
@@ -135,7 +134,6 @@ bool CConfig::loadSettings()
 	g_pLog->info("API: %i\n", api.get());
 	g_pLog->info("ExtendedLogging: %i\n", extendedLogging.get());
 	g_pLog->info("LogLevel: %i\n", logLevel.get());
-	g_pLog->info("BlockEncryptedAppTickets: %i\n", blockEncryptedAppTickets.get());
 
 	appIds = getList<uint32_t>(node, "AppIds");
 	addedAppIds = getList<uint32_t>(node, "AdditionalApps");

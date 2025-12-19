@@ -44,7 +44,6 @@ public:
 	MTVariable<FakeGame_t> unownedStatus;
 
 	MTVariable<std::unordered_map<uint32_t, std::unordered_set<uint32_t>>> denuvoGames;
-	MTVariable<bool> blockEncryptedAppTickets;
 
 	MTVariable<bool> disableFamilyLock;
 	MTVariable<bool> useWhiteList;

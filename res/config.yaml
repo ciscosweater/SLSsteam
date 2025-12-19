@@ -57,10 +57,6 @@ FakeAppIds:
 #Blocks games from unlocking on wrong accounts
 DenuvoGames:
 
-#Pretends Steam never received an Encrypted AppTicket, so it
-#only gets saved to the cache instead of "being used up"
-BlockEncryptedAppTickets: no
-
 #Automatically disable SLSsteam when steamclient.so does not match a predefined file hash that is known to work
 #You should enable this if you're planing to use SLSsteam with Steam Deck's gamemode
 SafeMode: no
