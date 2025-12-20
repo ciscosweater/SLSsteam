@@ -33,14 +33,17 @@ bool Pattern_t::find()
 
 bool Patterns::init()
 {
+	bool found = true;
+
 	for(auto& pattern : patterns)
 	{
 		if (!pattern->find())
 		{
-			return false;
+			found = false;
 		}
 	}
-	return true;
+
+	return found;
 }
 
 using SigFollowMode = MemHlp::SigFollowMode;
