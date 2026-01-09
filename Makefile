@@ -97,3 +97,4 @@ rebuild: clean build
 all: clean build zips
 
 .PHONY: all build clean rebuild zips
+.NOTPARALLEL: clean rebuild zips
