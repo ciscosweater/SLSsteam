@@ -170,9 +170,23 @@ void Apps::sendGamesPlayed(CMsgClientGamesPlayed* msg)
 		//pMsg->send(); //Send original message first, otherwise Valve's backend might fuck up the order
 		//Only happens in owned games for some reason, so idk
 
+		// If playing a game and UnownedStatus is set, use the actual game's name
+		// for the status display, but only if Title is not already configured
+		std::string gameName = statusApp.title;
+		if (games && gameName.empty())
+		{
+			uint32_t playedAppId = msg->games_played(0).game_id();
+			std::string actualName = g_config.getAppName(playedAppId);
+			if (!actualName.empty())
+			{
+				gameName = actualName;
+				g_pLog->debug("Using game name '%s' for UnownedStatus\n", gameName.c_str());
+			}
+		}
+
 		auto game = msg->add_games_played();
 		game->set_game_id(statusApp.appId);
-		game->set_game_extra_info(statusApp.title);
+		game->set_game_extra_info(gameName);
 		game->set_game_flags(0);
 		//game->set_game_flags(EGAMEFLAG_MULTIPLAYER);
 	}

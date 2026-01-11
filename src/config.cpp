@@ -10,6 +10,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <filesystem>
+#include <fstream>
 #include <string>
 
 
@@ -80,6 +81,8 @@ bool CConfig::init()
 		watcher->start();
 	}
 
+	loadAppListJson(getDir() + "/applist.json");
+
 	loadSettings();
 	return true;
 }
@@ -109,7 +112,7 @@ bool CConfig::loadSettings()
 		g_pLog->notifyLong("Error parsing config.yaml! %s\nUsing defaults", pe.msg.c_str());
 		node = YAML::Node(); //Create empty node and let defaults kick in
 	}
-	
+
 	disableFamilyLock = getSetting<bool>(node, "DisableFamilyShareLock", true);
 	useWhiteList = getSetting<bool>(node, "UseWhitelist", false);
 	automaticFilter = getSetting<bool>(node, "AutoFilterList", true);
@@ -300,6 +303,62 @@ uint32_t CConfig::getDenuvoGameOwner(uint32_t appId)
 	}
 
 	return 0;
+}
+
+bool CConfig::loadAppListJson(const std::string& path)
+{
+	std::ifstream file(path);
+	if (!file.is_open())
+	{
+		g_pLog->warn("Failed to open applist.json at %s\n", path.c_str());
+		return false;
+	}
+
+	std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+	file.close();
+
+	try
+	{
+		auto node = YAML::Load(content);
+		if (!node.IsSequence())
+		{
+			g_pLog->warn("applist.json is not a valid array!\n");
+			return false;
+		}
+
+		appNameCache.clear();
+		for (const auto& app : node)
+		{
+			try
+			{
+				uint32_t appId = app["appid"].as<uint32_t>();
+				std::string name = app["name"].as<std::string>();
+				appNameCache[appId] = name;
+			}
+			catch (...)
+			{
+				// Skip invalid entries
+			}
+		}
+
+		g_pLog->info("Loaded %zu apps from applist.json\n", appNameCache.size());
+		return true;
+	}
+	catch (const YAML::Exception& e)
+	{
+		g_pLog->warn("Failed to parse applist.json: %s\n", e.what());
+		return false;
+	}
+}
+
+std::string CConfig::getAppName(uint32_t appId)
+{
+	auto it = appNameCache.find(appId);
+	if (it != appNameCache.end())
+	{
+		return it->second;
+	}
+	return "";
 }
 
 CConfig g_config = CConfig();
