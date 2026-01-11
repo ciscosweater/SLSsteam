@@ -59,6 +59,7 @@ namespace Patterns
 	namespace IClientAppManager
 	{
 		extern Pattern_t PipeLoop;
+		extern Pattern_t BCanRemotePlayTogether;
 	}
 
 	namespace IClientApps
