@@ -45,6 +45,8 @@ public:
 
 	MTVariable<std::unordered_map<uint32_t, std::unordered_set<uint32_t>>> denuvoGames;
 
+	std::unordered_map<uint32_t, std::string> appNameCache;
+
 	MTVariable<bool> disableFamilyLock;
 	MTVariable<bool> useWhiteList;
 	MTVariable<bool> automaticFilter;
@@ -167,6 +169,9 @@ public:
 
 	bool shouldExcludeAppId(uint32_t appId);
 	uint32_t getDenuvoGameOwner(uint32_t appId);
+
+	bool loadAppListJson(const std::string& path);
+	std::string getAppName(uint32_t appId);
 };
 
 extern CConfig g_config;
