@@ -292,6 +292,21 @@ static uint32_t hkUser_GetSubscribedApps(void* pClientUser, uint32_t* pAppList, 
 	return count;
 }
 
+static bool hkClientAppManager_BCanRemotePlayTogether(void* pClientAppManager, uint32_t appId)
+{
+	const bool ret = Hooks::IClientAppManager_BCanRemotePlayTogether.tramp.fn(pClientAppManager, appId);
+	g_pLog->debug
+	(
+		"%s(%p, %u) -> %u\n",
+		Hooks::IClientAppManager_BCanRemotePlayTogether.name.c_str(),
+		pClientAppManager,
+		appId,
+		ret
+	);
+
+	return true;
+}
+
 static void* hkClientAppManager_LaunchApp(void* pClientAppManager, uint32_t* pAppId, void* a2, void* a3, void* a4)
 {
 	if (pAppId)
@@ -897,6 +912,8 @@ namespace Hooks
 	DetourHook<CUser_CheckAppOwnership_t> CUser_CheckAppOwnership;
 	DetourHook<CUser_GetSubscribedApps_t> CUser_GetSubscribedApps;
 
+	DetourHook<IClientAppManager_BCanRemotePlayTogether_t> IClientAppManager_BCanRemotePlayTogether;
+
 	DetourHook<IClientUser_BIsSubscribedApp_t> IClientUser_BIsSubscribedApp;
 	DetourHook<IClientUser_BLoggedOn_t> IClientUser_BLoggedOn;
 	DetourHook<IClientUser_BUpdateAppOwnershipTicket_t> IClientUser_BUpdateAppOwnershipTicket;
@@ -937,6 +954,8 @@ bool Hooks::setup()
 		&& CSteamEngine_Init.setup(Patterns::CSteamEngine::Init, &hkSteamEngine_Init)
 		&& CSteamEngine_GetAPICallResult.setup(Patterns::CSteamEngine::GetAPICallResult, &hkSteamEngine_GetAPICallResult)
 		&& CSteamEngine_SetAppIdForCurrentPipe.setup(Patterns::CSteamEngine::SetAppIdForCurrentPipe, &hkSteamEngine_SetAppIdForCurrentPipe)
+
+		&& IClientAppManager_BCanRemotePlayTogether.setup(Patterns::IClientAppManager::BCanRemotePlayTogether, hkClientAppManager_BCanRemotePlayTogether)
 
 		&& IClientApps_PipeLoop.setup(Patterns::IClientApps::PipeLoop, hkClientApps_PipeLoop)
 		&& IClientAppManager_PipeLoop.setup(Patterns::IClientAppManager::PipeLoop, hkClientAppManager_PipeLoop)
@@ -980,6 +999,8 @@ void Hooks::place()
 	CUser_CheckAppOwnership.place();
 	CUser_GetSubscribedApps.place();
 
+	IClientAppManager_BCanRemotePlayTogether.place();
+
 	IClientApps_PipeLoop.place();
 	IClientAppManager_PipeLoop.place();
 	IClientRemoteStorage_PipeLoop.place();
@@ -1012,6 +1033,8 @@ void Hooks::remove()
 
 	CUser_CheckAppOwnership.remove();
 	CUser_GetSubscribedApps.remove();
+
+	IClientAppManager_BCanRemotePlayTogether.remove();
 
 	IClientApps_PipeLoop.remove();
 	IClientAppManager_PipeLoop.remove();
