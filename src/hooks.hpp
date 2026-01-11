@@ -151,6 +151,12 @@ namespace Hooks
 
 	extern lm_address_t IClientUser_GetSteamId;
 
+	typedef void(*ControllerConfig_AddToConfigCacheHandler_t)(void*, int, int, void*, void*);
+	typedef void(*ControllerConfig_QueueControllerActivation_t)(void*, int, int, int, int, int);
+
+	extern DetourHook<ControllerConfig_AddToConfigCacheHandler_t> ControllerConfig_AddToConfigCacheHandler;
+	extern DetourHook<ControllerConfig_QueueControllerActivation_t> ControllerConfig_QueueControllerActivation;
+
 	bool setup();
 	void place();
 	void remove();

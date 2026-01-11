@@ -757,9 +757,9 @@ static void hkClientUser_PipeLoop(void* pClientUser, void* a1, void* a2, void* a
 	//Hooks::IClientUser_PipeLoop.remove();
 	//Hooks::IClientUser_PipeLoop.originalFn.fn(pClientUser, a1, a2, a3);
 	
-	//FakeAppIds::pipeLoop(false);
+	FakeAppIds::pipeLoop(false);
 	Hooks::IClientUser_PipeLoop.tramp.fn(pClientUser, a1, a2, a3);
-	//FakeAppIds::pipeLoop(true);
+	FakeAppIds::pipeLoop(true);
 }
 
 static void hkClientUserStats_PipeLoop(void* pClientUserStats, void* a1, void* a2, void* a3)
@@ -767,6 +767,36 @@ static void hkClientUserStats_PipeLoop(void* pClientUserStats, void* a1, void* a
 	FakeAppIds::pipeLoop(false);
 	Hooks::IClientUserStats_PipeLoop.tramp.fn(pClientUserStats, a1, a2, a3);
 	FakeAppIds::pipeLoop(true);
+}
+
+static void hkControllerConfig_AddToConfigCacheHandler(void* param1, int controllerIdx, int appId, void* param4, void* param5)
+{
+	int originalAppId = appId;
+	uint32_t fakeAppId = FakeAppIds::getFakeAppId(appId);
+
+	if (fakeAppId && fakeAppId != (uint32_t)appId)
+	{
+		appId = (int)fakeAppId;
+		g_pLog->debug("[ControllerConfig] AddToConfigCache: Spoofing AppId %d -> %d for controller %d\n",
+			originalAppId, appId, controllerIdx);
+	}
+
+	return Hooks::ControllerConfig_AddToConfigCacheHandler.tramp.fn(param1, controllerIdx, appId, param4, param5);
+}
+
+static void hkControllerConfig_QueueControllerActivation(void* param1, int controllerIdx, int appId, int param4, int param5, int param6)
+{
+	int originalAppId = appId;
+	uint32_t fakeAppId = FakeAppIds::getFakeAppId(appId);
+
+	if (fakeAppId && fakeAppId != (uint32_t)appId)
+	{
+		appId = (int)fakeAppId;
+		g_pLog->debug("[ControllerConfig] QueueActivation: Spoofing AppId %d -> %d for controller %d\n",
+			originalAppId, appId, controllerIdx);
+	}
+
+	return Hooks::ControllerConfig_QueueControllerActivation.tramp.fn(param1, controllerIdx, appId, param4, param5, param6);
 }
 
 static void patchRetn(lm_address_t address)
@@ -933,6 +963,9 @@ namespace Hooks
 
 	VFTHook<IClientUtils_GetOfflineMode_t> IClientUtils_GetOfflineMode("IClientUtils::GetOfflineMode");
 
+	DetourHook<ControllerConfig_AddToConfigCacheHandler_t> ControllerConfig_AddToConfigCacheHandler("ControllerConfig::AddToConfigCacheHandler");
+	DetourHook<ControllerConfig_QueueControllerActivation_t> ControllerConfig_QueueControllerActivation("ControllerConfig::QueueControllerActivation");
+
 	lm_address_t IClientUser_GetSteamId;
 }
 
@@ -971,7 +1004,10 @@ bool Hooks::setup()
 		&& IClientUser_BUpdateAppOwnershipTicket.setup(Patterns::IClientUser::BUpdateAppOwnershipTicket, hkClientUser_BUpdateOwnershipTicket)
 		&& IClientUser_GetAppOwnershipTicketExtendedData.setup(Patterns::IClientUser::GetAppOwnershipTicketExtendedData, hkClientUser_GetAppOwnershipTicketExtendedData)
 		&& IClientUser_IsUserSubscribedAppInTicket.setup(Patterns::IClientUser::IsUserSubscribedAppInTicket, &hkClientUser_IsUserSubscribedAppInTicket)
-		&& IClientUser_RequiresLegacyCDKey.setup(Patterns::IClientUser::RequiresLegacyCDKey, hkClientUser_RequiresLegacyCDKey);
+		&& IClientUser_RequiresLegacyCDKey.setup(Patterns::IClientUser::RequiresLegacyCDKey, hkClientUser_RequiresLegacyCDKey)
+
+		&& ControllerConfig_AddToConfigCacheHandler.setup(Patterns::ControllerConfig::AddToConfigCacheHandler, &hkControllerConfig_AddToConfigCacheHandler)
+		&& ControllerConfig_QueueControllerActivation.setup(Patterns::ControllerConfig::QueueControllerActivation, &hkControllerConfig_QueueControllerActivation);
 
 	Hooks::place();
 	//This is unnecessary but I'll keep this for now in case I wanna improve error checks
@@ -1016,6 +1052,9 @@ void Hooks::place()
 	IClientUser_IsUserSubscribedAppInTicket.place();
 	IClientUser_RequiresLegacyCDKey.place();
 
+	ControllerConfig_AddToConfigCacheHandler.place();
+	ControllerConfig_QueueControllerActivation.place();
+
 	createAndPlaceSteamIdHook();
 }
 
@@ -1050,6 +1089,9 @@ void Hooks::remove()
 	IClientUser_GetAppOwnershipTicketExtendedData.remove();
 	IClientUser_IsUserSubscribedAppInTicket.remove();
 	IClientUser_RequiresLegacyCDKey.remove();
+
+	ControllerConfig_AddToConfigCacheHandler.remove();
+	ControllerConfig_QueueControllerActivation.remove();
 
 	//VFT Hooks
 	IClientAppManager_BIsDlcEnabled.remove();

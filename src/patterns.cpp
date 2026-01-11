@@ -291,6 +291,22 @@ namespace Patterns
 		};
 	}
 
+	namespace ControllerConfig
+	{
+		Pattern_t AddToConfigCacheHandler
+		{
+			"ControllerConfig::AddToConfigCacheHandler",
+			"55 57 56 53 E8 ? ? ? ? 81 C3 ? ? ? ? 83 EC 4C 8B 44 24 6C 8B 54 24 78 8B 74 24 60",
+			SigFollowMode::None
+		};
+		Pattern_t QueueControllerActivation
+		{
+			"ControllerConfig::QueueControllerActivation",
+			"55 57 56 53 E8 ? ? ? ? 81 C3 ? ? ? ? 83 EC 7C 8B 84 24 9C 00 00 00",
+			SigFollowMode::None
+		};
+	}
+
 	std::vector<Pattern_t*> patterns;
 }
 
