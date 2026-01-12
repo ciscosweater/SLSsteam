@@ -757,9 +757,9 @@ static void hkClientUser_PipeLoop(void* pClientUser, void* a1, void* a2, void* a
 	//Hooks::IClientUser_PipeLoop.remove();
 	//Hooks::IClientUser_PipeLoop.originalFn.fn(pClientUser, a1, a2, a3);
 	
-	FakeAppIds::pipeLoop(false);
+	//FakeAppIds::pipeLoop(false);
 	Hooks::IClientUser_PipeLoop.tramp.fn(pClientUser, a1, a2, a3);
-	FakeAppIds::pipeLoop(true);
+	//FakeAppIds::pipeLoop(true);
 }
 
 static void hkClientUserStats_PipeLoop(void* pClientUserStats, void* a1, void* a2, void* a3)
