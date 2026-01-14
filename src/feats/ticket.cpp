@@ -1,5 +1,7 @@
 #include "ticket.hpp"
 
+#include "fakeappid.hpp"
+
 #include "../config.hpp"
 #include "../globals.hpp"
 
@@ -142,12 +144,21 @@ std::string Ticket::getEncryptedTicketPath(uint32_t appId)
 
 Ticket::SavedTicket Ticket::getCachedEncryptedTicket(uint32_t appId)
 {
+	const uint32_t realAppId = FakeAppIds::getRealAppId();
+	const uint32_t fakeAppId = FakeAppIds::getFakeAppId(realAppId);
+
+	SavedTicket ticket {};
+
+	if (realAppId && fakeAppId && realAppId != fakeAppId)
+	{
+		g_pLog->once("Returning empty cached encrypted ticket for %u because it's set to %u\n", realAppId, fakeAppId);
+		return ticket;
+	}
+
 	if (encryptedTicketMap.contains(appId))
 	{
 		return encryptedTicketMap[appId];
 	}
-
-	SavedTicket ticket {};
 
 	const auto path = getEncryptedTicketPath(appId);
 	if (!std::filesystem::exists(path.c_str()))
