@@ -87,6 +87,23 @@ namespace Patterns
 		};
 	};
 
+	namespace CSteamController
+	{
+		Pattern_t AddToConfigCacheHandler
+		{
+			"CSteamController::AddToConfigCacheHandler",
+			"83 EC 08 FF 74 24 ? FF 74 24 ? FF 74 24 ? FF 74 24 ? FF 74 24 ? FF 74 24 ? FF 74 24 ? 8B 44 24 ? 83 C0 08",
+			SigFollowMode::PrologueUpwards,
+			std::vector<uint8_t> { 0xe8, 0x53 }
+		};
+		Pattern_t QueueControllerActivation
+		{
+			"CSteamController::QueueControllerActivation",
+			"57 56 53 8B 5C 24 ? 8B 74 24 ? 83 EC 08 8B 7C 24",
+			SigFollowMode::None,
+		};
+	}
+
 	namespace CSteamEngine
 	{
 		Pattern_t Init
@@ -288,22 +305,6 @@ namespace Patterns
 			"IClientUtils::m_PipeIndex",
 			"8B 91 ? ? ? ? 83 F8 FF 74 ? 8B 89 ? ? ? ? EB ? ? ? ? 8B 00 83 F8 FF 74 ? 8D 04 ? 8D 04 ? 3B 50",
 			SigFollowMode::None,
-		};
-	}
-
-	namespace ControllerConfig
-	{
-		Pattern_t AddToConfigCacheHandler
-		{
-			"ControllerConfig::AddToConfigCacheHandler",
-			"55 57 56 53 E8 ? ? ? ? 81 C3 ? ? ? ? 83 EC 4C 8B 44 24 6C 8B 54 24 78 8B 74 24 60",
-			SigFollowMode::None
-		};
-		Pattern_t QueueControllerActivation
-		{
-			"ControllerConfig::QueueControllerActivation",
-			"55 57 56 53 E8 ? ? ? ? 81 C3 ? ? ? ? 83 EC 7C 8B 84 24 9C 00 00 00",
-			SigFollowMode::None
 		};
 	}
 

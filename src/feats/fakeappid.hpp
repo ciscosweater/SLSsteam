@@ -12,4 +12,6 @@ namespace FakeAppIds
 
 	void setAppIdForCurrentPipe(uint32_t& appId);
 	void pipeLoop(bool post);
+
+	void overwriteAppIdIfNecessary(uint32_t& appId);
 }

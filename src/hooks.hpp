@@ -82,6 +82,9 @@ namespace Hooks
 	typedef void(*CProtoBufMsgBase_New_t)(CProtoBufMsgBase*, void*);
 	typedef uint32_t(*CProtoBufMsgBase_Send_t)(CProtoBufMsgBase*);
 
+	typedef void(*CSteamController_AddToConfigCacheHandler_t)(void*, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t);
+	typedef void(*CSteamController_QueueControllerActivation_t)(void*, uint32_t, uint32_t, uint8_t);
+
 	typedef void(*CSteamEngine_Init_t)(void*);
 	typedef bool(*CSteamEngine_GetAPICallResult_t)(void*, uint32_t, uint32_t, void*, uint32_t, uint32_t, bool*);
 	typedef uint32_t(*CSteamEngine_SetAppIdForCurrentPipe_t)(void*, uint32_t, bool);
@@ -103,6 +106,9 @@ namespace Hooks
 
 	extern DetourHook<CProtoBufMsgBase_New_t> CProtoBufMsgBase_New;
 	extern DetourHook<CProtoBufMsgBase_Send_t> CProtoBufMsgBase_Send;
+
+	extern DetourHook<CSteamController_AddToConfigCacheHandler_t> CSteamController_AddToConfigCacheHandler;
+	extern DetourHook<CSteamController_QueueControllerActivation_t> CSteamController_QueueControllerActivation;
 
 	extern DetourHook<IClientAppManager_PipeLoop_t> IClientAppManager_PipeLoop;
 	extern DetourHook<IClientApps_PipeLoop_t> IClientApps_PipeLoop;
@@ -150,12 +156,6 @@ namespace Hooks
 	extern VFTHook<IClientUtils_GetOfflineMode_t> IClientUtils_GetOfflineMode;
 
 	extern lm_address_t IClientUser_GetSteamId;
-
-	typedef void(*ControllerConfig_AddToConfigCacheHandler_t)(void*, int, int, void*, void*);
-	typedef void(*ControllerConfig_QueueControllerActivation_t)(void*, int, int, int, int, int);
-
-	extern DetourHook<ControllerConfig_AddToConfigCacheHandler_t> ControllerConfig_AddToConfigCacheHandler;
-	extern DetourHook<ControllerConfig_QueueControllerActivation_t> ControllerConfig_QueueControllerActivation;
 
 	bool setup();
 	void place();

@@ -73,3 +73,23 @@ void FakeAppIds::pipeLoop(bool post)
 	g_pLog->debug("Setting AppId to %u in pipe %p\n", appId, *g_pClientUtils->getPipeIndex());
 	g_pSteamEngine->setAppIdForCurrentPipe(appId);
 }
+
+void FakeAppIds::overwriteAppIdIfNecessary(uint32_t& appId)
+{
+	//Don't use getRealAppid here! Returns 0
+	const uint32_t fake = getFakeAppId(appId);
+
+	if (!appId || !fake || appId == fake)
+	{
+		return;
+	}
+
+	//Exclude Steam Big Picture mode & Steam Controller Configs - Desktop. Causes issues with SteamInput
+	if(appId == 769 || appId == 413080)
+	{
+		return;
+	}
+
+	g_pLog->debug("FakeAppIds::overwriteAppIdIfNecessary overwriting %u with %u\n", appId, fake);
+	appId = fake;
+}
