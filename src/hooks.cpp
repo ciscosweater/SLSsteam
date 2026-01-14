@@ -743,14 +743,6 @@ static uint32_t hkClientUser_GetSteamId(uint32_t steamId)
 	if (ticket.steamId)
 	{
 		steamId = ticket.steamId;
-		Ticket::tempSteamIdSpoof = 0;
-	}
-	else if (Ticket::tempSteamIdSpoof)
-	{
-		//We need to do it like this, since getAppId returns 0 (Steam Client)
-		//when activating a Ticket for the first time. So we just spoof the whole Steam Client
-		//until that is done, even if it's very hacky
-		steamId = Ticket::tempSteamIdSpoof;
 	}
 	else if (Ticket::oneTimeSteamIdSpoof)
 	{
