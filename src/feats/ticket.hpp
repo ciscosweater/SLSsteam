@@ -18,7 +18,6 @@ public:
 	};
 
 	extern uint32_t oneTimeSteamIdSpoof;
-	extern uint32_t tempSteamIdSpoof;
 	extern std::map<uint32_t, SavedTicket> ticketMap;
 	extern std::map<uint32_t, SavedTicket> encryptedTicketMap;
 
