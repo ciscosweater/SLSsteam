@@ -227,35 +227,42 @@ namespace TicketGrabber
         {
             SendGamesPlayed(appId);
 
-            var ticket = await Apps.GetAppOwnershipTicket((uint)appId);
-            if (ticket.Result != EResult.OK)
+            try
             {
-                Console.WriteLine($"Failed GetAppOwnershipTicket! ({ticket.Result})");
-                Environment.Exit(1);
+                var ticket = await Apps.GetAppOwnershipTicket((uint)appId);
+                if (ticket.Result != EResult.OK)
+                {
+                    Console.WriteLine($"Failed GetAppOwnershipTicket! ({ticket.Result})");
+                    Environment.Exit(1);
+                }
+                Console.WriteLine("AppOwnershipTicket received!");
+                //Current ticket sizes in SLSsteam
+                storeTicket("ticket", ticket.Ticket);
+
+
+                var encryptedTicket = await RequestEncryptedAppTicket(appId);
+                if (ticket.Result != EResult.OK)
+                {
+                    Console.WriteLine($"Failed RequestEncryptedAppTicket! ({ticket.Result})");
+                    Environment.Exit(1);
+                }
+                Console.WriteLine("EncryptedAppTicket received!");
+
+                using (var ms = new MemoryStream())
+                {
+                    //Shitty workaround for "Proto contract not found""
+                    var tc = new CMsgClientRequestEncryptedAppTicketResponse();
+                    tc.app_id = encryptedTicket.AppID;
+                    tc.eresult = (int)encryptedTicket.Result;
+                    tc.encrypted_app_ticket = encryptedTicket.Ticket;
+
+                    Serializer.Serialize(ms, tc);
+                    storeTicket("encryptedTicket", ms.ToArray());
+                }
             }
-            Console.WriteLine("AppOwnershipTicket received!");
-
-            var encryptedTicket = await RequestEncryptedAppTicket(appId);
-            if (ticket.Result != EResult.OK)
+            catch (Exception exc)
             {
-                Console.WriteLine($"Failed RequestEncryptedAppTicket! ({ticket.Result})");
-                Environment.Exit(1);
-            }
-            Console.WriteLine("EncryptedAppTicket received!");
-
-            //Current ticket sizes in SLSsteam
-            storeTicket("ticket", ticket.Ticket);
-
-            using (var ms = new MemoryStream())
-            {
-                //Shitty workaround for "Proto contract not found""
-                var tc = new CMsgClientRequestEncryptedAppTicketResponse();
-                tc.app_id = encryptedTicket.AppID;
-                tc.eresult = (int)encryptedTicket.Result;
-                tc.encrypted_app_ticket = encryptedTicket.Ticket;
-
-                Serializer.Serialize(ms, tc);
-                storeTicket("encryptedTicket", ms.ToArray());
+                Console.WriteLine($"Failed to receive both tickets! {exc.ToString()}");
             }
 
             finished = true;
