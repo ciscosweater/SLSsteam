@@ -30,7 +30,7 @@ ifeq ($(shell type mold &> /dev/null && echo "found"),found)
 	LDFLAGS += -fuse-ld=mold
 endif
 
-audit-libs: bin/SLSsteam.so bin/library-inject.so
+audit-libs: bin/SLSsteam.so bin/library-inject.so tools/ticket-grabber/bin/Release/net9.0/linux-x64/publish/ticket-grabber
 
 bin/SLSsteam.so: $(objs) $(libs)
 	@mkdir -p bin
@@ -40,6 +40,9 @@ bin/library-inject.so: tools/library-inject/main.cpp tools/library-inject/build.
 	sh tools/library-inject/build.sh
 	@mkdir -p bin
 	cp tools/library-inject/library-inject.so bin/library-inject.so
+
+tools/ticket-grabber/bin/Release/net9.0/linux-x64/publish/ticket-grabber:
+	sh tools/ticket-grabber/build.sh
 
 -include $(deps)
 obj/update.o: src/update.cpp res/version.txt
@@ -59,7 +62,7 @@ obj/%.o : src/%.cpp
 	$(CXX) $(CXXFLAGS) -isysteminclude -MMD -MP -c $< -o $@
 
 clean:
-	rm -rvf "obj/" "bin/" "zips/"
+	rm -rvf "obj/" "bin/" "zips/" "tools/ticket-grabber/bin"
 
 install:
 	sh setup.sh

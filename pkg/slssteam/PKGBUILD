@@ -32,9 +32,6 @@ validpgpkeys=("63AB8F4BF8A62EEEB8D8C7584410F8CF7129B2D6")
 build() {
 	cd "$srcdir/SLSsteam-$pkgver"
 	make
-
-	cd "$srcdir/SLSsteam-$pkgver/tools/ticket-grabber"
-	./build.sh
 }
 
 package() {

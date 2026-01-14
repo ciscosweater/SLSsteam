@@ -38,9 +38,6 @@ pkgver() {
 build() {
 	cd "$srcdir/SLSsteam"
 	make
-
-	cd "$srcdir/SLSsteam/tools/ticket-grabber"
-	./build.sh
 }
 
 package() {
