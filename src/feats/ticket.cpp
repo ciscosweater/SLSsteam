@@ -143,7 +143,7 @@ std::string Ticket::getEncryptedTicketPath(uint32_t appId)
 
 Ticket::SavedTicket Ticket::getCachedEncryptedTicket(uint32_t appId)
 {
-	const uint32_t realAppId = FakeAppIds::getRealAppId();
+	const uint32_t realAppId = FakeAppIds::getRealAppIdForCurrentPipe();
 	const uint32_t fakeAppId = FakeAppIds::getFakeAppId(realAppId);
 
 	SavedTicket ticket {};

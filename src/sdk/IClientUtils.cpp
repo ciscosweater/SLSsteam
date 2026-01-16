@@ -1,5 +1,6 @@
 #include "IClientUtils.hpp"
 
+#include "../hooks.hpp"
 #include "../memhlp.hpp"
 #include "../patterns.hpp"
 #include "../vftableinfo.hpp"
@@ -18,7 +19,7 @@ uint32_t* IClientUtils::getPipeIndex()
 
 uint32_t IClientUtils::getAppId()
 {
-	return MemHlp::callVFunc<uint32_t(*)(void*)>(VFTIndexes::IClientUtils::GetAppId, this);
+	return Hooks::IClientUtils_GetAppId.originalFn.fn(this);
 }
 
 IClientUtils* g_pClientUtils;

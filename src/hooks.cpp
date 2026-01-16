@@ -195,7 +195,7 @@ static uint32_t hkProtoBufMsgBase_Send(CProtoBufMsgBase* pMsg)
 
 static void hkSteamController_AddToConfigCacheHandler(void* pSteamController, uint32_t controllerIdx, uint32_t appId, uint32_t a3, uint32_t a4, uint32_t a5, uint32_t a6, uint32_t a7)
 {
-	FakeAppIds::overwriteAppIdIfNecessary(appId);
+	FakeAppIds::overwriteControllerAppIdIfNecessary(appId);
 
 	g_pLog->debug
 	(
@@ -217,7 +217,7 @@ static void hkSteamController_AddToConfigCacheHandler(void* pSteamController, ui
 
 static void hkSteamController_QueueControllerActivation(void* pSteamController, uint32_t controllerIdx, uint32_t appId, uint8_t a3)
 {
-	FakeAppIds::overwriteAppIdIfNecessary(appId);
+	FakeAppIds::overwriteControllerAppIdIfNecessary(appId);
 
 	g_pLog->debug
 	(
@@ -363,6 +363,7 @@ static void* hkClientAppManager_LaunchApp(void* pClientAppManager, uint32_t* pAp
 			a4
 		);
 
+		FakeAppIds::launchedApp = *pAppId;
 		Ticket::launchApp(*pAppId);
 	}
 
@@ -466,6 +467,8 @@ static unsigned int hkClientApps_GetDLCCount(void* pClientApps, uint32_t appId)
 		appId,
 		count
 	);
+	
+	appId = FakeAppIds::getRealAppIdForCurrentPipe();
 
 	const uint32_t override = DLC::getDlcCount(appId);
 	if (override)
@@ -478,6 +481,8 @@ static unsigned int hkClientApps_GetDLCCount(void* pClientApps, uint32_t appId)
 
 static bool hkClientApps_GetDLCDataByIndex(void* pClientApps, uint32_t appId, int dlcIndex, uint32_t* pDlcId, bool* pIsAvailable, char* pChDlcName, size_t dlcNameLen)
 {
+	appId = FakeAppIds::getRealAppIdForCurrentPipe();
+
 	//Preserve original call to populate stuff
 	const bool ret = DLC::getDlcDataByIndex(appId, dlcIndex, pDlcId, pIsAvailable, pChDlcName, dlcNameLen)
 		|| Hooks::IClientApps_GetDLCDataByIndex.originalFn.fn(pClientApps, appId, dlcIndex, pDlcId, pIsAvailable, pChDlcName, dlcNameLen);
@@ -572,18 +577,29 @@ static void hkClientRemoteStorage_PipeLoop(void* pClientRemoteStorage, void* a1,
 		hooked = true;
 	}
 	
-	FakeAppIds::pipeLoop(false);
 	Hooks::IClientRemoteStorage_PipeLoop.tramp.fn(pClientRemoteStorage, a1, a2, a3);
-	FakeAppIds::pipeLoop(true);
 }
 
-static void hkClientUGC_PipeLoop(void* pClientUGC, void* a1, void* a2, void* a3)
+static uint32_t hkClientUtils_GetAppId(void* pClientUtils)
 {
-	FakeAppIds::pipeLoop(false);
-	Hooks::IClientUGC_PipeLoop.tramp.fn(pClientUGC, a1, a2, a3);
-	FakeAppIds::pipeLoop(true);
+	uint32_t appId = Hooks::IClientUtils_GetAppId.originalFn.fn(pClientUtils);
 
-	//g_pLog->debug("IClientUGC::PipeLoop in %u for %u\n", *g_pClientUtils->getPipeIndex(), g_pClientUtils->getAppId());
+	g_pLog->debug
+	(
+		"%s(%p) -> %u\n",
+
+		Hooks::IClientUtils_GetAppId.name.c_str(),
+		pClientUtils,
+		appId
+	);
+
+	const uint32_t real = FakeAppIds::getRealAppIdForCurrentPipe(false);
+	if(real)
+	{
+		return real;
+	}
+
+	return appId;
 }
 
 static bool hkClientUtils_GetOfflineMode(void* pClientUtils)
@@ -608,7 +624,10 @@ static void hkClientUtils_PipeLoop(void* pClientUtils, void* a1, void* a2, void*
 		std::shared_ptr<lm_vmt_t> vft = std::make_shared<lm_vmt_t>();
 		LM_VmtNew(*reinterpret_cast<lm_address_t**>(pClientUtils), vft.get());
 
+		Hooks::IClientUtils_GetAppId.setup(vft, VFTIndexes::IClientUtils::GetAppId, hkClientUtils_GetAppId);
 		Hooks::IClientUtils_GetOfflineMode.setup(vft, VFTIndexes::IClientUtils::GetOfflineMode, hkClientUtils_GetOfflineMode);
+
+		Hooks::IClientUtils_GetAppId.place();
 		Hooks::IClientUtils_GetOfflineMode.place();
 
 		g_pLog->debug("IClientUtils->vft at %p\n", vft->vtable);
@@ -929,7 +948,6 @@ namespace Hooks
 	DetourHook<IClientApps_PipeLoop_t> IClientApps_PipeLoop;
 	DetourHook<IClientControllerSerialized_PipeLoop_t> IClientControllerSerialized_PipeLoop;
 	DetourHook<IClientRemoteStorage_PipeLoop_t> IClientRemoteStorage_PipeLoop;
-	DetourHook<IClientUGC_PipeLoop_t> IClientUGC_PipeLoop;
 	DetourHook<IClientUtils_PipeLoop_t> IClientUtils_PipeLoop;
 	DetourHook<IClientUser_PipeLoop_t> IClientUser_PipeLoop;
 	DetourHook<IClientUserStats_PipeLoop_t> IClientUserStats_PipeLoop;
@@ -966,6 +984,7 @@ namespace Hooks
 
 	VFTHook<IClientRemoteStorage_IsCloudEnabledForApp_t> IClientRemoteStorage_IsCloudEnabledForApp("IClientRemoteStorage::IsCloudEnabledForApp");
 
+	VFTHook<IClientUtils_GetAppId_t> IClientUtils_GetAppId("IClientUtils::GetAppId");
 	VFTHook<IClientUtils_GetOfflineMode_t> IClientUtils_GetOfflineMode("IClientUtils::GetOfflineMode");
 
 	lm_address_t IClientUser_GetSteamId;
@@ -999,7 +1018,6 @@ bool Hooks::setup()
 		&& IClientAppManager_PipeLoop.setup(Patterns::IClientAppManager::PipeLoop, hkClientAppManager_PipeLoop)
 		&& IClientControllerSerialized_PipeLoop.setup(Patterns::IClientControllerSerialized::PipeLoop, hkClientControllerSerialized_PipeLoop)
 		&& IClientRemoteStorage_PipeLoop.setup(Patterns::IClientRemoteStorage::PipeLoop, hkClientRemoteStorage_PipeLoop)
-		&& IClientUGC_PipeLoop.setup(Patterns::IClientUGC::PipeLoop, hkClientUGC_PipeLoop)
 		&& IClientUtils_PipeLoop.setup(Patterns::IClientUtils::PipeLoop, hkClientUtils_PipeLoop)
 		&& IClientUser_PipeLoop.setup(Patterns::IClientUser::PipeLoop, hkClientUser_PipeLoop)
 		&& IClientUserStats_PipeLoop.setup(Patterns::IClientUserStats::PipeLoop, hkClientUserStats_PipeLoop)
@@ -1035,6 +1053,7 @@ void Hooks::place()
 
 	CSteamEngine_Init.place();
 	CSteamEngine_GetAPICallResult.place();
+	IClientUtils_GetAppId.place();
 	CSteamEngine_SetAppIdForCurrentPipe.place();
 
 	CUser_CheckAppOwnership.place();
@@ -1046,7 +1065,6 @@ void Hooks::place()
 	IClientAppManager_PipeLoop.place();
 	IClientRemoteStorage_PipeLoop.place();
 	IClientUtils_PipeLoop.place();
-	IClientUGC_PipeLoop.place();
 	IClientUser_PipeLoop.place();
 	IClientUserStats_PipeLoop.place();
 
@@ -1073,6 +1091,7 @@ void Hooks::remove()
 
 	CSteamEngine_Init.remove();
 	CSteamEngine_GetAPICallResult.remove();
+	IClientUtils_GetAppId.remove();
 	CSteamEngine_SetAppIdForCurrentPipe.remove();
 
 	CUser_CheckAppOwnership.remove();
@@ -1084,7 +1103,6 @@ void Hooks::remove()
 	IClientAppManager_PipeLoop.remove();
 	IClientRemoteStorage_PipeLoop.remove();
 	IClientUtils_PipeLoop.remove();
-	IClientUGC_PipeLoop.remove();
 	IClientUser_PipeLoop.remove();
 	IClientUserStats_PipeLoop.remove();
 
@@ -1105,6 +1123,8 @@ void Hooks::remove()
 	IClientApps_GetDLCCount.remove();
 
 	IClientRemoteStorage_IsCloudEnabledForApp.remove();
+
+	IClientUtils_GetAppId.remove();
 	
 	//TODO: Remove jmp
 	if (hkNakedGetSteamId != LM_ADDRESS_BAD)

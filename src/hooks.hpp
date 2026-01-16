@@ -74,7 +74,6 @@ namespace Hooks
 	typedef void(*IClientApps_PipeLoop_t)(void*, void*, void*, void*);
 	typedef void(*IClientControllerSerialized_PipeLoop_t)(void*, void*, void*, void*);
 	typedef void(*IClientRemoteStorage_PipeLoop_t)(void*, void*, void*, void*);
-	typedef void(*IClientUGC_PipeLoop_t)(void*, void*, void*, void*);
 	typedef void(*IClientUtils_PipeLoop_t)(void*, void*, void*, void*);
 	typedef void(*IClientUser_PipeLoop_t)(void*, void*, void*, void*);
 	typedef void(*IClientUserStats_PipeLoop_t)(void*, void*, void*, void*);
@@ -114,7 +113,6 @@ namespace Hooks
 	extern DetourHook<IClientApps_PipeLoop_t> IClientApps_PipeLoop;
 	extern DetourHook<IClientControllerSerialized_PipeLoop_t> IClientControllerSerialized_PipeLoop;
 	extern DetourHook<IClientRemoteStorage_PipeLoop_t> IClientRemoteStorage_PipeLoop;
-	extern DetourHook<IClientUGC_PipeLoop_t> IClientUGC_PipeLoop;
 	extern DetourHook<IClientUtils_PipeLoop_t> IClientUtils_PipeLoop;
 	extern DetourHook<IClientUser_PipeLoop_t> IClientUser_PipeLoop;
 	extern DetourHook<IClientUserStats_PipeLoop_t> IClientUserStats_PipeLoop;
@@ -142,6 +140,7 @@ namespace Hooks
 	typedef unsigned int(*IClientApps_GetDLCCount_t)(void*, uint32_t);
 	typedef bool(*IClientApps_GetDLCDataByIndex_t)(void*, uint32_t, int, uint32_t*, bool*, char*, size_t);
 	typedef bool(*IClientRemoteStorage_IsCloudEnabledForApp_t)(void*, uint32_t);
+	typedef uint32_t(*IClientUtils_GetAppId_t)(void*);
 
 	extern VFTHook<IClientAppManager_BIsDlcEnabled_t> IClientAppManager_BIsDlcEnabled;
 	extern VFTHook<IClientAppManager_GetAppUpdateInfo_t> IClientAppManager_GetAppUpdateInfo;
@@ -153,6 +152,7 @@ namespace Hooks
 
 	extern VFTHook<IClientRemoteStorage_IsCloudEnabledForApp_t> IClientRemoteStorage_IsCloudEnabledForApp;
 
+	extern VFTHook<IClientUtils_GetAppId_t> IClientUtils_GetAppId;
 	extern VFTHook<IClientUtils_GetOfflineMode_t> IClientUtils_GetOfflineMode;
 
 	extern lm_address_t IClientUser_GetSteamId;

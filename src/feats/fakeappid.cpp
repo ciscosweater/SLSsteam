@@ -6,7 +6,7 @@
 #include "../sdk/CUser.hpp"
 #include "../sdk/IClientUtils.hpp"
 
-
+uint32_t FakeAppIds::launchedApp = 0;
 std::unordered_map<uint32_t, uint32_t> FakeAppIds::fakeAppIdMap = std::unordered_map<uint32_t, uint32_t>();
 
 uint32_t FakeAppIds::getFakeAppId(uint32_t appId)
@@ -25,7 +25,7 @@ uint32_t FakeAppIds::getFakeAppId(uint32_t appId)
 	return 0;
 }
 
-uint32_t FakeAppIds::getRealAppId()
+uint32_t FakeAppIds::getRealAppIdForCurrentPipe(bool fallback)
 {
 	uint32_t hPipe = *g_pClientUtils->getPipeIndex();
 	if (fakeAppIdMap.contains(hPipe))
@@ -33,11 +33,23 @@ uint32_t FakeAppIds::getRealAppId()
 		return fakeAppIdMap[hPipe];
 	}
 
-	return g_pClientUtils->getAppId();
+	if (fallback)
+	{
+		return g_pClientUtils->getAppId();
+	}
+
+	return 0;
 }
 
 void FakeAppIds::setAppIdForCurrentPipe(uint32_t& appId)
 {
+	if (launchedApp != appId)
+	{
+		return;
+	}
+
+	launchedApp = 0;
+
 	//Keep track of every AppId, for various reasons
 	fakeAppIdMap[*g_pClientUtils->getPipeIndex()] = appId;
 
@@ -57,7 +69,7 @@ void FakeAppIds::setAppIdForCurrentPipe(uint32_t& appId)
 
 void FakeAppIds::pipeLoop(bool post)
 {
-	uint32_t appId = getRealAppId();
+	uint32_t appId = getRealAppIdForCurrentPipe();
 	uint32_t fakeAppId = getFakeAppId(appId);
 
 	if (!appId || !fakeAppId || appId == fakeAppId)
@@ -74,7 +86,7 @@ void FakeAppIds::pipeLoop(bool post)
 	g_pSteamEngine->setAppIdForCurrentPipe(appId);
 }
 
-void FakeAppIds::overwriteAppIdIfNecessary(uint32_t& appId)
+void FakeAppIds::overwriteControllerAppIdIfNecessary(uint32_t& appId)
 {
 	//Don't use getRealAppid here! Returns 0
 	const uint32_t fake = getFakeAppId(appId);
