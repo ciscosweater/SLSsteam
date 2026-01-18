@@ -9,6 +9,8 @@
 class CAppOwnershipInfo;
 class CProtoBufMsgBase;
 
+struct gameserverdetails_t;
+
 struct Pattern_t;
 
 template<typename T>
@@ -88,6 +90,9 @@ namespace Hooks
 	typedef bool(*CSteamEngine_GetAPICallResult_t)(void*, uint32_t, uint32_t, void*, uint32_t, uint32_t, bool*);
 	typedef uint32_t(*CSteamEngine_SetAppIdForCurrentPipe_t)(void*, uint32_t, bool);
 
+	typedef gameserverdetails_t*(*CSteamMatchmakingServers_GetServerDetails_t)(void*, uint32_t, uint32_t);
+	typedef uint32_t(*CSteamMatchmakingServers_RequestInternetServerList_t)(void*, uint32_t, uint32_t, uint32_t, uint32_t);
+
 	typedef uint32_t(*CUser_CheckAppOwnership_t)(void*, uint32_t, CAppOwnershipInfo*);
 	typedef uint32_t(*CUser_GetSubscribedApps_t)(void*, uint32_t*, uint32_t, uint8_t);
 	typedef bool(*IClientAppManager_BCanRemotePlayTogether_t)(void*, uint32_t);
@@ -108,6 +113,9 @@ namespace Hooks
 
 	extern DetourHook<CSteamController_AddToConfigCacheHandler_t> CSteamController_AddToConfigCacheHandler;
 	extern DetourHook<CSteamController_QueueControllerActivation_t> CSteamController_QueueControllerActivation;
+
+	extern DetourHook<CSteamMatchmakingServers_GetServerDetails_t> CSteamMatchmakingServers_GetServerDetails;
+	extern DetourHook<CSteamMatchmakingServers_RequestInternetServerList_t> CSteamMatchmakingServers_RequestInternetServerList;
 
 	extern DetourHook<IClientAppManager_PipeLoop_t> IClientAppManager_PipeLoop;
 	extern DetourHook<IClientApps_PipeLoop_t> IClientApps_PipeLoop;

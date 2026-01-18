@@ -10,6 +10,7 @@
 #include "sdk/CAppOwnershipInfo.hpp"
 #include "sdk/CProtoBufMsgBase.hpp"
 #include "sdk/CSteamEngine.hpp"
+#include "sdk/CSteamMatchmakingServers.hpp"
 #include "sdk/CUser.hpp"
 #include "sdk/EResult.hpp"
 #include "sdk/IClientUser.hpp"
@@ -285,6 +286,53 @@ static uint32_t hkSteamEngine_SetAppIdForCurrentPipe(void* pSteamEngine, uint32_
 	);
 
 	return ret;
+}
+
+static gameserverdetails_t* hkSteamMatchmakingServers_GetServerDetails(void* pSteamMatchmakingServers, uint32_t handle, uint32_t serverIdx)
+{
+	gameserverdetails_t* ret = Hooks::CSteamMatchmakingServers_GetServerDetails.tramp.fn(pSteamMatchmakingServers, handle, serverIdx);
+
+	g_pLog->debug
+	(
+		"%s(%p, %p, %u) -> %p\n",
+
+		Hooks::CSteamMatchmakingServers_GetServerDetails.name.c_str(),
+		pSteamMatchmakingServers,
+		handle,
+		serverIdx,
+		ret
+	);
+
+	if(ret)
+	{
+		FakeAppIds::getServerDetails(handle, *ret);
+	}
+
+	return ret;
+}
+
+static uint32_t hkSteamMatchmakingServers_RequestInternetServerList(void* pSteamMatchmakingServers, uint32_t appId, uint32_t a2, uint32_t a3, uint32_t a4)
+{
+	const uint32_t fake = FakeAppIds::requestInternetServerList(appId);
+
+	uint32_t handle = Hooks::CSteamMatchmakingServers_RequestInternetServerList.tramp.fn(pSteamMatchmakingServers, fake ? fake : appId, a2, a3, a4);
+
+	g_pLog->debug
+	(
+		"%s(%p, %u, %p, %p, %p)->%p\n",
+
+		Hooks::CSteamMatchmakingServers_RequestInternetServerList.name.c_str(),
+		pSteamMatchmakingServers,
+		appId,
+		a2,
+		a3,
+		a4,
+		handle
+	);
+
+	FakeAppIds::fakeAppIdMapServer[handle] = appId;
+
+	return handle;
 }
 
 __attribute__((hot))
@@ -958,6 +1006,9 @@ namespace Hooks
 	DetourHook<CSteamController_AddToConfigCacheHandler_t> CSteamController_AddToConfigCacheHandler;
 	DetourHook<CSteamController_QueueControllerActivation_t> CSteamController_QueueControllerActivation;
 
+	DetourHook<CSteamMatchmakingServers_GetServerDetails_t> CSteamMatchmakingServers_GetServerDetails;
+	DetourHook<CSteamMatchmakingServers_RequestInternetServerList_t> CSteamMatchmakingServers_RequestInternetServerList;
+
 	DetourHook<CSteamEngine_Init_t> CSteamEngine_Init;
 	DetourHook<CSteamEngine_GetAPICallResult_t> CSteamEngine_GetAPICallResult;
 	DetourHook<CSteamEngine_SetAppIdForCurrentPipe_t> CSteamEngine_SetAppIdForCurrentPipe;
@@ -1004,6 +1055,9 @@ bool Hooks::setup()
 
 		&& CSteamController_AddToConfigCacheHandler.setup(Patterns::CSteamController::AddToConfigCacheHandler, &hkSteamController_AddToConfigCacheHandler)
 		&& CSteamController_QueueControllerActivation.setup(Patterns::CSteamController::QueueControllerActivation, &hkSteamController_QueueControllerActivation)
+
+		&& CSteamMatchmakingServers_GetServerDetails.setup(Patterns::CSteamMatchmakingServers::GetServerDetails, &hkSteamMatchmakingServers_GetServerDetails)
+		&& CSteamMatchmakingServers_RequestInternetServerList.setup(Patterns::CSteamMatchmakingServers::RequestInternetServerList, &hkSteamMatchmakingServers_RequestInternetServerList)
 
 		&& CUser_CheckAppOwnership.setup(Patterns::CUser::CheckAppOwnership, &hkUser_CheckAppOwnership)
 		&& CUser_GetSubscribedApps.setup(Patterns::CUser::GetSubscribedApps, &hkUser_GetSubscribedApps)
@@ -1053,8 +1107,10 @@ void Hooks::place()
 
 	CSteamEngine_Init.place();
 	CSteamEngine_GetAPICallResult.place();
-	IClientUtils_GetAppId.place();
 	CSteamEngine_SetAppIdForCurrentPipe.place();
+
+	CSteamMatchmakingServers_GetServerDetails.place();
+	CSteamMatchmakingServers_RequestInternetServerList.place();
 
 	CUser_CheckAppOwnership.place();
 	CUser_GetSubscribedApps.place();
@@ -1091,8 +1147,10 @@ void Hooks::remove()
 
 	CSteamEngine_Init.remove();
 	CSteamEngine_GetAPICallResult.remove();
-	IClientUtils_GetAppId.remove();
 	CSteamEngine_SetAppIdForCurrentPipe.remove();
+
+	CSteamMatchmakingServers_GetServerDetails.remove();
+	CSteamMatchmakingServers_RequestInternetServerList.remove();
 
 	CUser_CheckAppOwnership.remove();
 	CUser_GetSubscribedApps.remove();

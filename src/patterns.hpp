@@ -54,6 +54,12 @@ namespace Patterns
 		extern Pattern_t Offset_User;
 	}
 
+	namespace CSteamMatchmakingServers
+	{
+		extern Pattern_t GetServerDetails;
+		extern Pattern_t RequestInternetServerList;
+	}
+
 	namespace CUser
 	{
 		//TODO: Order & Convert old patterns
