@@ -194,46 +194,6 @@ static uint32_t hkProtoBufMsgBase_Send(CProtoBufMsgBase* pMsg)
 	return ret;
 }
 
-static void hkSteamController_AddToConfigCacheHandler(void* pSteamController, uint32_t controllerIdx, uint32_t appId, uint32_t a3, uint32_t a4, uint32_t a5, uint32_t a6, uint32_t a7)
-{
-	FakeAppIds::overwriteControllerAppIdIfNecessary(appId);
-
-	g_pLog->debug
-	(
-		"%s(%p, %u, %u, %u, %u, %u, %u, %u)\n",
-
-		Hooks::CSteamController_AddToConfigCacheHandler.name.c_str(),
-		pSteamController,
-		controllerIdx,
-		appId,
-		a3,
-		a4,
-		a5,
-		a6,
-		a7
-	);
-
-	return Hooks::CSteamController_AddToConfigCacheHandler.tramp.fn(pSteamController, controllerIdx, appId, a3, a4, a5, a6, a7);
-}
-
-static void hkSteamController_QueueControllerActivation(void* pSteamController, uint32_t controllerIdx, uint32_t appId, uint8_t a3)
-{
-	FakeAppIds::overwriteControllerAppIdIfNecessary(appId);
-
-	g_pLog->debug
-	(
-		"%s(%p, %u, %u, %u, %u, %u)\n",
-
-		Hooks::CSteamController_QueueControllerActivation.name.c_str(),
-		pSteamController,
-		controllerIdx,
-		appId,
-		a3
-	);
-
-	Hooks::CSteamController_QueueControllerActivation.tramp.fn(pSteamController, controllerIdx, appId, a3);
-}
-
 static void hkSteamEngine_Init(void* pSteamEngine)
 {
 	Hooks::CSteamEngine_Init.tramp.fn(pSteamEngine);
@@ -577,13 +537,6 @@ static void hkClientApps_PipeLoop(void* pClientApps, void* a1, void* a2, void* a
 	}
 
 	Hooks::IClientApps_PipeLoop.tramp.fn(pClientApps, a1, a2, a3);
-}
-
-static void hkClientControllerSerialized_PipeLoop(void* pClientControllerSerialized, void* a1, void* a2, void* a3)
-{
-	FakeAppIds::pipeLoop(false);
-	Hooks::IClientControllerSerialized_PipeLoop.tramp.fn(pClientControllerSerialized, a1, a2, a3);
-	FakeAppIds::pipeLoop(true);
 }
 
 static bool hkClientRemoteStorage_IsCloudEnabledForApp(void* pClientRemoteStorage, uint32_t appId)
@@ -994,7 +947,6 @@ namespace Hooks
 
 	DetourHook<IClientAppManager_PipeLoop_t> IClientAppManager_PipeLoop;
 	DetourHook<IClientApps_PipeLoop_t> IClientApps_PipeLoop;
-	DetourHook<IClientControllerSerialized_PipeLoop_t> IClientControllerSerialized_PipeLoop;
 	DetourHook<IClientRemoteStorage_PipeLoop_t> IClientRemoteStorage_PipeLoop;
 	DetourHook<IClientUtils_PipeLoop_t> IClientUtils_PipeLoop;
 	DetourHook<IClientUser_PipeLoop_t> IClientUser_PipeLoop;
@@ -1002,9 +954,6 @@ namespace Hooks
 
 	DetourHook<CProtoBufMsgBase_New_t> CProtoBufMsgBase_New;
 	DetourHook<CProtoBufMsgBase_Send_t> CProtoBufMsgBase_Send;
-
-	DetourHook<CSteamController_AddToConfigCacheHandler_t> CSteamController_AddToConfigCacheHandler;
-	DetourHook<CSteamController_QueueControllerActivation_t> CSteamController_QueueControllerActivation;
 
 	DetourHook<CSteamMatchmakingServers_GetServerDetails_t> CSteamMatchmakingServers_GetServerDetails;
 	DetourHook<CSteamMatchmakingServers_RequestInternetServerList_t> CSteamMatchmakingServers_RequestInternetServerList;
@@ -1053,9 +1002,6 @@ bool Hooks::setup()
 		&& CProtoBufMsgBase_New.setup(Patterns::CProtoBufMsgBase::New, &hkProtoBufMsgBase_New)
 		&& CProtoBufMsgBase_Send.setup(Patterns::CProtoBufMsgBase::Send, &hkProtoBufMsgBase_Send)
 
-		&& CSteamController_AddToConfigCacheHandler.setup(Patterns::CSteamController::AddToConfigCacheHandler, &hkSteamController_AddToConfigCacheHandler)
-		&& CSteamController_QueueControllerActivation.setup(Patterns::CSteamController::QueueControllerActivation, &hkSteamController_QueueControllerActivation)
-
 		&& CSteamMatchmakingServers_GetServerDetails.setup(Patterns::CSteamMatchmakingServers::GetServerDetails, &hkSteamMatchmakingServers_GetServerDetails)
 		&& CSteamMatchmakingServers_RequestInternetServerList.setup(Patterns::CSteamMatchmakingServers::RequestInternetServerList, &hkSteamMatchmakingServers_RequestInternetServerList)
 
@@ -1070,7 +1016,6 @@ bool Hooks::setup()
 
 		&& IClientApps_PipeLoop.setup(Patterns::IClientApps::PipeLoop, hkClientApps_PipeLoop)
 		&& IClientAppManager_PipeLoop.setup(Patterns::IClientAppManager::PipeLoop, hkClientAppManager_PipeLoop)
-		&& IClientControllerSerialized_PipeLoop.setup(Patterns::IClientControllerSerialized::PipeLoop, hkClientControllerSerialized_PipeLoop)
 		&& IClientRemoteStorage_PipeLoop.setup(Patterns::IClientRemoteStorage::PipeLoop, hkClientRemoteStorage_PipeLoop)
 		&& IClientUtils_PipeLoop.setup(Patterns::IClientUtils::PipeLoop, hkClientUtils_PipeLoop)
 		&& IClientUser_PipeLoop.setup(Patterns::IClientUser::PipeLoop, hkClientUser_PipeLoop)
@@ -1101,9 +1046,6 @@ void Hooks::place()
 
 	CProtoBufMsgBase_New.place();
 	CProtoBufMsgBase_Send.place();
-
-	CSteamController_AddToConfigCacheHandler.place();
-	CSteamController_QueueControllerActivation.place();
 
 	CSteamEngine_Init.place();
 	CSteamEngine_GetAPICallResult.place();
@@ -1141,9 +1083,6 @@ void Hooks::remove()
 
 	CProtoBufMsgBase_New.remove();
 	CProtoBufMsgBase_Send.remove();
-
-	CSteamController_AddToConfigCacheHandler.remove();
-	CSteamController_QueueControllerActivation.remove();
 
 	CSteamEngine_Init.remove();
 	CSteamEngine_GetAPICallResult.remove();

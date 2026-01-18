@@ -38,13 +38,6 @@ namespace Patterns
 		extern Pattern_t Send;
 	};
 
-	//Controller config IPC handlers - intercept AppId from game process
-	namespace CSteamController
-	{
-		extern Pattern_t AddToConfigCacheHandler;
-		extern Pattern_t QueueControllerActivation;
-	}
-
 	namespace CSteamEngine
 	{
 		extern Pattern_t Init;
@@ -80,17 +73,7 @@ namespace Patterns
 		extern Pattern_t PipeLoop;
 	}
 
-	namespace IClientControllerSerialized
-	{
-		extern Pattern_t PipeLoop;
-	}
-
 	namespace IClientRemoteStorage
-	{
-		extern Pattern_t PipeLoop;
-	}
-
-	namespace IClientUGC
 	{
 		extern Pattern_t PipeLoop;
 	}

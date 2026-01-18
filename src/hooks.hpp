@@ -74,7 +74,6 @@ namespace Hooks
 
 	typedef void(*IClientAppManager_PipeLoop_t)(void*, void*, void*, void*);
 	typedef void(*IClientApps_PipeLoop_t)(void*, void*, void*, void*);
-	typedef void(*IClientControllerSerialized_PipeLoop_t)(void*, void*, void*, void*);
 	typedef void(*IClientRemoteStorage_PipeLoop_t)(void*, void*, void*, void*);
 	typedef void(*IClientUtils_PipeLoop_t)(void*, void*, void*, void*);
 	typedef void(*IClientUser_PipeLoop_t)(void*, void*, void*, void*);
@@ -82,9 +81,6 @@ namespace Hooks
 
 	typedef void(*CProtoBufMsgBase_New_t)(CProtoBufMsgBase*, void*);
 	typedef uint32_t(*CProtoBufMsgBase_Send_t)(CProtoBufMsgBase*);
-
-	typedef void(*CSteamController_AddToConfigCacheHandler_t)(void*, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t);
-	typedef void(*CSteamController_QueueControllerActivation_t)(void*, uint32_t, uint32_t, uint8_t);
 
 	typedef void(*CSteamEngine_Init_t)(void*);
 	typedef bool(*CSteamEngine_GetAPICallResult_t)(void*, uint32_t, uint32_t, void*, uint32_t, uint32_t, bool*);
@@ -111,15 +107,11 @@ namespace Hooks
 	extern DetourHook<CProtoBufMsgBase_New_t> CProtoBufMsgBase_New;
 	extern DetourHook<CProtoBufMsgBase_Send_t> CProtoBufMsgBase_Send;
 
-	extern DetourHook<CSteamController_AddToConfigCacheHandler_t> CSteamController_AddToConfigCacheHandler;
-	extern DetourHook<CSteamController_QueueControllerActivation_t> CSteamController_QueueControllerActivation;
-
 	extern DetourHook<CSteamMatchmakingServers_GetServerDetails_t> CSteamMatchmakingServers_GetServerDetails;
 	extern DetourHook<CSteamMatchmakingServers_RequestInternetServerList_t> CSteamMatchmakingServers_RequestInternetServerList;
 
 	extern DetourHook<IClientAppManager_PipeLoop_t> IClientAppManager_PipeLoop;
 	extern DetourHook<IClientApps_PipeLoop_t> IClientApps_PipeLoop;
-	extern DetourHook<IClientControllerSerialized_PipeLoop_t> IClientControllerSerialized_PipeLoop;
 	extern DetourHook<IClientRemoteStorage_PipeLoop_t> IClientRemoteStorage_PipeLoop;
 	extern DetourHook<IClientUtils_PipeLoop_t> IClientUtils_PipeLoop;
 	extern DetourHook<IClientUser_PipeLoop_t> IClientUser_PipeLoop;

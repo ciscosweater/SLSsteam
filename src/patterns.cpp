@@ -87,23 +87,6 @@ namespace Patterns
 		};
 	};
 
-	namespace CSteamController
-	{
-		Pattern_t AddToConfigCacheHandler
-		{
-			"CSteamController::AddToConfigCacheHandler",
-			"83 EC 08 FF 74 24 ? FF 74 24 ? FF 74 24 ? FF 74 24 ? FF 74 24 ? FF 74 24 ? FF 74 24 ? 8B 44 24 ? 83 C0 08",
-			SigFollowMode::PrologueUpwards,
-			std::vector<uint8_t> { 0xe8, 0x53 }
-		};
-		Pattern_t QueueControllerActivation
-		{
-			"CSteamController::QueueControllerActivation",
-			"57 56 53 8B 5C 24 ? 8B 74 24 ? 83 EC 08 8B 7C 24",
-			SigFollowMode::None,
-		};
-	}
-
 	namespace CSteamEngine
 	{
 		Pattern_t Init
@@ -207,17 +190,6 @@ namespace Patterns
 		};
 	}
 
-	namespace IClientControllerSerialized
-	{
-		Pattern_t PipeLoop
-		{
-			"IClientControllerSerialized::PipeLoop",
-			"FF B5 ? ? ? ? 50 8D 83 ? ? ? ? 68 58 15 00 00",
-			SigFollowMode::PrologueUpwards,
-			std::vector<uint8_t> { 0x56, 0x57, 0xe5, 0x89, 0x55 }
-		};
-	}
-
 	namespace IClientRemoteStorage
 	{
 		Pattern_t PipeLoop
@@ -284,17 +256,6 @@ namespace Patterns
 			"C3 ? ? ? ? ? 8B 44 24 ? 83 C4 1C 89 F9 89 F2 5B 5E 5F 5D 2D 94 18 00 00",
 			SigFollowMode::PrologueUpwards,
 			std::vector<uint8_t> { 0x53, 0x56, 0x57, 0x55 }
-		};
-	}
-
-	namespace IClientUGC
-	{
-		Pattern_t PipeLoop
-		{
-			"IClientUGC::PipeLoop",
-			"FF B5 ? ? ? ? 50 8D 86 ? ? ? ? 68 76 11 00 00",
-			SigFollowMode::PrologueUpwards,
-			std::vector<uint8_t> { 0x56, 0x57, 0xe5, 0x89, 0x55 }
 		};
 	}
 
