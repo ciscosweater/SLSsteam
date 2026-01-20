@@ -15,6 +15,7 @@ Check out the [Installation](https://github.com/AceSLS/SLSsteam/wiki/Installatio
 ## Hall of Fame aka Credits
 
 Contributors:
+- [Parasitic-Hollow](https://github.com/Parasitic-Hollow/): Fixing gamepad issues caused by FakeAppIds
 - [amione](https://github.com/xamionex/): Creating the SLSsteam banner & logo the instant he found out I was looking around for one <3
 - [DeveloperMikey](https://github.com/DeveloperMikey): Added Nix support 
 - thismanq: Informing me that DisableFamilyShareLockForOthers is possible
