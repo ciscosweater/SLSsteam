@@ -20,9 +20,6 @@ namespace FakeAppIds
 	void setAppIdForCurrentPipe(uint32_t& appId);
 	void pipeLoop(bool post);
 
-	//Gamepad fix
-	void overwriteControllerAppIdIfNecessary(uint32_t& appId);
-
 	//Serverbrowser
 	void getServerDetails(uint32_t handle, gameserverdetails_t& details);
 	uint32_t requestInternetServerList(uint32_t appId);
