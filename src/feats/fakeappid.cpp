@@ -72,7 +72,7 @@ void FakeAppIds::setAppIdForCurrentPipe(uint32_t& appId)
 
 void FakeAppIds::pipeLoop(bool post)
 {
-	uint32_t appId = getRealAppIdForCurrentPipe();
+	uint32_t appId = getRealAppIdForCurrentPipe(false);
 	uint32_t fakeAppId = getFakeAppId(appId);
 
 	if (!appId || !fakeAppId || appId == fakeAppId)
