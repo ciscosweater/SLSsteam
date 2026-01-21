@@ -371,7 +371,6 @@ static void* hkClientAppManager_LaunchApp(void* pClientAppManager, uint32_t* pAp
 			a4
 		);
 
-		FakeAppIds::launchedApp = *pAppId;
 		Ticket::launchApp(*pAppId);
 	}
 
@@ -599,6 +598,7 @@ static uint32_t hkClientUtils_GetAppId(void* pClientUtils)
 	const uint32_t real = FakeAppIds::getRealAppIdForCurrentPipe(false);
 	if(real)
 	{
+		g_pLog->debug("Overwriting appId with %u\n", real);
 		return real;
 	}
 
