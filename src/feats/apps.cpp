@@ -134,6 +134,8 @@ bool Apps::shouldDisableUpdates(uint32_t appId)
 
 void Apps::sendGamesPlayed(CMsgClientGamesPlayed* msg)
 {
+	bool owned = false;
+
 	for(int i = 0; i < msg->games_played_size(); i++)
 	{
 		auto game = msg->mutable_games_played(i);
@@ -143,12 +145,22 @@ void Apps::sendGamesPlayed(CMsgClientGamesPlayed* msg)
 			continue;
 		}
 
+		if(!owned && g_pSteamEngine->getUser(0)->checkAppOwnership(game->game_id()))
+		{
+			owned = true;
+		}
+
 		if (g_config.disableFamilyLock.get())
 		{
 			game->set_owner_id(1);
 		}
 
 		g_pLog->debug("Playing game %llu with flags %u\n", game->game_id(), game->game_flags());
+	}
+
+	if (owned)
+	{
+		return;
 	}
 
 	const int games = msg->games_played_size();
