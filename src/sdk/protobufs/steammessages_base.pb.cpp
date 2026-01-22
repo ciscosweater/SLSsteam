@@ -468,6 +468,34 @@ struct UserContentDescriptorPreferencesDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UserContentDescriptorPreferencesDefaultTypeInternal _UserContentDescriptorPreferences_default_instance_;
+constexpr UserSystemInformation::UserSystemInformation(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : manufacturer_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , model_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , dx_video_card_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , os_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , cpu_vendor_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , cpu_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , dx_driver_version_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , dx_driver_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , adapter_description_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , driver_version_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , driver_date_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , dx_vendorid_(0)
+  , dx_deviceid_(0)
+  , system_ram_(PROTOBUF_ULONGLONG(0))
+  , num_gpu_(0u)
+  , gaming_device_type_(0u)
+  , vram_size_(0u){}
+struct UserSystemInformationDefaultTypeInternal {
+  constexpr UserSystemInformationDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~UserSystemInformationDefaultTypeInternal() {}
+  union {
+    UserSystemInformation _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UserSystemInformationDefaultTypeInternal _UserSystemInformation_default_instance_;
 bool CMsgProtoBufHeader_ESessionDisposition_IsValid(int value) {
   switch (value) {
     case 0:
@@ -10904,6 +10932,773 @@ std::string UserContentDescriptorPreferences::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class UserSystemInformation::_Internal {
+ public:
+  using HasBits = decltype(std::declval<UserSystemInformation>()._has_bits_);
+  static void set_has_manufacturer(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_model(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_dx_video_card(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_dx_vendorid(HasBits* has_bits) {
+    (*has_bits)[0] |= 2048u;
+  }
+  static void set_has_dx_deviceid(HasBits* has_bits) {
+    (*has_bits)[0] |= 4096u;
+  }
+  static void set_has_num_gpu(HasBits* has_bits) {
+    (*has_bits)[0] |= 16384u;
+  }
+  static void set_has_system_ram(HasBits* has_bits) {
+    (*has_bits)[0] |= 8192u;
+  }
+  static void set_has_os(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_cpu_vendor(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_cpu_name(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
+  static void set_has_gaming_device_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 32768u;
+  }
+  static void set_has_dx_driver_version(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
+  }
+  static void set_has_dx_driver_name(HasBits* has_bits) {
+    (*has_bits)[0] |= 128u;
+  }
+  static void set_has_adapter_description(HasBits* has_bits) {
+    (*has_bits)[0] |= 256u;
+  }
+  static void set_has_driver_version(HasBits* has_bits) {
+    (*has_bits)[0] |= 512u;
+  }
+  static void set_has_driver_date(HasBits* has_bits) {
+    (*has_bits)[0] |= 1024u;
+  }
+  static void set_has_vram_size(HasBits* has_bits) {
+    (*has_bits)[0] |= 65536u;
+  }
+};
+
+UserSystemInformation::UserSystemInformation(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:UserSystemInformation)
+}
+UserSystemInformation::UserSystemInformation(const UserSystemInformation& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  manufacturer_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_manufacturer()) {
+    manufacturer_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_manufacturer(), 
+      GetArena());
+  }
+  model_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_model()) {
+    model_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_model(), 
+      GetArena());
+  }
+  dx_video_card_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_dx_video_card()) {
+    dx_video_card_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_dx_video_card(), 
+      GetArena());
+  }
+  os_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_os()) {
+    os_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_os(), 
+      GetArena());
+  }
+  cpu_vendor_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_cpu_vendor()) {
+    cpu_vendor_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_cpu_vendor(), 
+      GetArena());
+  }
+  cpu_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_cpu_name()) {
+    cpu_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_cpu_name(), 
+      GetArena());
+  }
+  dx_driver_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_dx_driver_version()) {
+    dx_driver_version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_dx_driver_version(), 
+      GetArena());
+  }
+  dx_driver_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_dx_driver_name()) {
+    dx_driver_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_dx_driver_name(), 
+      GetArena());
+  }
+  adapter_description_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_adapter_description()) {
+    adapter_description_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_adapter_description(), 
+      GetArena());
+  }
+  driver_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_driver_version()) {
+    driver_version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_driver_version(), 
+      GetArena());
+  }
+  driver_date_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_driver_date()) {
+    driver_date_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_driver_date(), 
+      GetArena());
+  }
+  ::memcpy(&dx_vendorid_, &from.dx_vendorid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&vram_size_) -
+    reinterpret_cast<char*>(&dx_vendorid_)) + sizeof(vram_size_));
+  // @@protoc_insertion_point(copy_constructor:UserSystemInformation)
+}
+
+void UserSystemInformation::SharedCtor() {
+manufacturer_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+model_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+dx_video_card_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+os_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+cpu_vendor_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+cpu_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+dx_driver_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+dx_driver_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+adapter_description_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+driver_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+driver_date_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&dx_vendorid_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&vram_size_) -
+    reinterpret_cast<char*>(&dx_vendorid_)) + sizeof(vram_size_));
+}
+
+UserSystemInformation::~UserSystemInformation() {
+  // @@protoc_insertion_point(destructor:UserSystemInformation)
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+void UserSystemInformation::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  manufacturer_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  model_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  dx_video_card_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  os_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  cpu_vendor_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  cpu_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  dx_driver_version_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  dx_driver_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  adapter_description_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  driver_version_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  driver_date_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void UserSystemInformation::ArenaDtor(void* object) {
+  UserSystemInformation* _this = reinterpret_cast< UserSystemInformation* >(object);
+  (void)_this;
+}
+void UserSystemInformation::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void UserSystemInformation::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void UserSystemInformation::Clear() {
+// @@protoc_insertion_point(message_clear_start:UserSystemInformation)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x000000ffu) {
+    if (cached_has_bits & 0x00000001u) {
+      manufacturer_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      model_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      dx_video_card_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000008u) {
+      os_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000010u) {
+      cpu_vendor_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000020u) {
+      cpu_name_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000040u) {
+      dx_driver_version_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000080u) {
+      dx_driver_name_.ClearNonDefaultToEmpty();
+    }
+  }
+  if (cached_has_bits & 0x00000700u) {
+    if (cached_has_bits & 0x00000100u) {
+      adapter_description_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000200u) {
+      driver_version_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000400u) {
+      driver_date_.ClearNonDefaultToEmpty();
+    }
+  }
+  if (cached_has_bits & 0x0000f800u) {
+    ::memset(&dx_vendorid_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&gaming_device_type_) -
+        reinterpret_cast<char*>(&dx_vendorid_)) + sizeof(gaming_device_type_));
+  }
+  vram_size_ = 0u;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* UserSystemInformation::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // optional string manufacturer = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_manufacturer();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional string model = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_model();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional string dx_video_card = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          auto str = _internal_mutable_dx_video_card();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional int32 dx_vendorid = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
+          _Internal::set_has_dx_vendorid(&has_bits);
+          dx_vendorid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional int32 dx_deviceid = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
+          _Internal::set_has_dx_deviceid(&has_bits);
+          dx_deviceid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional uint32 num_gpu = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
+          _Internal::set_has_num_gpu(&has_bits);
+          num_gpu_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional uint64 system_ram = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
+          _Internal::set_has_system_ram(&has_bits);
+          system_ram_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional string os = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 66)) {
+          auto str = _internal_mutable_os();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional string cpu_vendor = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 74)) {
+          auto str = _internal_mutable_cpu_vendor();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional string cpu_name = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
+          auto str = _internal_mutable_cpu_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional uint32 gaming_device_type = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 88)) {
+          _Internal::set_has_gaming_device_type(&has_bits);
+          gaming_device_type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional string dx_driver_version = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 98)) {
+          auto str = _internal_mutable_dx_driver_version();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional string dx_driver_name = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 106)) {
+          auto str = _internal_mutable_dx_driver_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional string adapter_description = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 114)) {
+          auto str = _internal_mutable_adapter_description();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional string driver_version = 15;
+      case 15:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 122)) {
+          auto str = _internal_mutable_driver_version();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional string driver_date = 16;
+      case 16:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 130)) {
+          auto str = _internal_mutable_driver_date();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional uint32 vram_size = 17;
+      case 17:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 136)) {
+          _Internal::set_has_vram_size(&has_bits);
+          vram_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<std::string>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* UserSystemInformation::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:UserSystemInformation)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string manufacturer = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_manufacturer(), target);
+  }
+
+  // optional string model = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_model(), target);
+  }
+
+  // optional string dx_video_card = 3;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_dx_video_card(), target);
+  }
+
+  // optional int32 dx_vendorid = 4;
+  if (cached_has_bits & 0x00000800u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_dx_vendorid(), target);
+  }
+
+  // optional int32 dx_deviceid = 5;
+  if (cached_has_bits & 0x00001000u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(5, this->_internal_dx_deviceid(), target);
+  }
+
+  // optional uint32 num_gpu = 6;
+  if (cached_has_bits & 0x00004000u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(6, this->_internal_num_gpu(), target);
+  }
+
+  // optional uint64 system_ram = 7;
+  if (cached_has_bits & 0x00002000u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(7, this->_internal_system_ram(), target);
+  }
+
+  // optional string os = 8;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->WriteStringMaybeAliased(
+        8, this->_internal_os(), target);
+  }
+
+  // optional string cpu_vendor = 9;
+  if (cached_has_bits & 0x00000010u) {
+    target = stream->WriteStringMaybeAliased(
+        9, this->_internal_cpu_vendor(), target);
+  }
+
+  // optional string cpu_name = 10;
+  if (cached_has_bits & 0x00000020u) {
+    target = stream->WriteStringMaybeAliased(
+        10, this->_internal_cpu_name(), target);
+  }
+
+  // optional uint32 gaming_device_type = 11;
+  if (cached_has_bits & 0x00008000u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(11, this->_internal_gaming_device_type(), target);
+  }
+
+  // optional string dx_driver_version = 12;
+  if (cached_has_bits & 0x00000040u) {
+    target = stream->WriteStringMaybeAliased(
+        12, this->_internal_dx_driver_version(), target);
+  }
+
+  // optional string dx_driver_name = 13;
+  if (cached_has_bits & 0x00000080u) {
+    target = stream->WriteStringMaybeAliased(
+        13, this->_internal_dx_driver_name(), target);
+  }
+
+  // optional string adapter_description = 14;
+  if (cached_has_bits & 0x00000100u) {
+    target = stream->WriteStringMaybeAliased(
+        14, this->_internal_adapter_description(), target);
+  }
+
+  // optional string driver_version = 15;
+  if (cached_has_bits & 0x00000200u) {
+    target = stream->WriteStringMaybeAliased(
+        15, this->_internal_driver_version(), target);
+  }
+
+  // optional string driver_date = 16;
+  if (cached_has_bits & 0x00000400u) {
+    target = stream->WriteStringMaybeAliased(
+        16, this->_internal_driver_date(), target);
+  }
+
+  // optional uint32 vram_size = 17;
+  if (cached_has_bits & 0x00010000u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(17, this->_internal_vram_size(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:UserSystemInformation)
+  return target;
+}
+
+size_t UserSystemInformation::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:UserSystemInformation)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x000000ffu) {
+    // optional string manufacturer = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_manufacturer());
+    }
+
+    // optional string model = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_model());
+    }
+
+    // optional string dx_video_card = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_dx_video_card());
+    }
+
+    // optional string os = 8;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_os());
+    }
+
+    // optional string cpu_vendor = 9;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_cpu_vendor());
+    }
+
+    // optional string cpu_name = 10;
+    if (cached_has_bits & 0x00000020u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_cpu_name());
+    }
+
+    // optional string dx_driver_version = 12;
+    if (cached_has_bits & 0x00000040u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_dx_driver_version());
+    }
+
+    // optional string dx_driver_name = 13;
+    if (cached_has_bits & 0x00000080u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_dx_driver_name());
+    }
+
+  }
+  if (cached_has_bits & 0x0000ff00u) {
+    // optional string adapter_description = 14;
+    if (cached_has_bits & 0x00000100u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_adapter_description());
+    }
+
+    // optional string driver_version = 15;
+    if (cached_has_bits & 0x00000200u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_driver_version());
+    }
+
+    // optional string driver_date = 16;
+    if (cached_has_bits & 0x00000400u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_driver_date());
+    }
+
+    // optional int32 dx_vendorid = 4;
+    if (cached_has_bits & 0x00000800u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+          this->_internal_dx_vendorid());
+    }
+
+    // optional int32 dx_deviceid = 5;
+    if (cached_has_bits & 0x00001000u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+          this->_internal_dx_deviceid());
+    }
+
+    // optional uint64 system_ram = 7;
+    if (cached_has_bits & 0x00002000u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+          this->_internal_system_ram());
+    }
+
+    // optional uint32 num_gpu = 6;
+    if (cached_has_bits & 0x00004000u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+          this->_internal_num_gpu());
+    }
+
+    // optional uint32 gaming_device_type = 11;
+    if (cached_has_bits & 0x00008000u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+          this->_internal_gaming_device_type());
+    }
+
+  }
+  // optional uint32 vram_size = 17;
+  if (cached_has_bits & 0x00010000u) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+        this->_internal_vram_size());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void UserSystemInformation::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const UserSystemInformation*>(
+      &from));
+}
+
+void UserSystemInformation::MergeFrom(const UserSystemInformation& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:UserSystemInformation)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x000000ffu) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_manufacturer(from._internal_manufacturer());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_set_model(from._internal_model());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _internal_set_dx_video_card(from._internal_dx_video_card());
+    }
+    if (cached_has_bits & 0x00000008u) {
+      _internal_set_os(from._internal_os());
+    }
+    if (cached_has_bits & 0x00000010u) {
+      _internal_set_cpu_vendor(from._internal_cpu_vendor());
+    }
+    if (cached_has_bits & 0x00000020u) {
+      _internal_set_cpu_name(from._internal_cpu_name());
+    }
+    if (cached_has_bits & 0x00000040u) {
+      _internal_set_dx_driver_version(from._internal_dx_driver_version());
+    }
+    if (cached_has_bits & 0x00000080u) {
+      _internal_set_dx_driver_name(from._internal_dx_driver_name());
+    }
+  }
+  if (cached_has_bits & 0x0000ff00u) {
+    if (cached_has_bits & 0x00000100u) {
+      _internal_set_adapter_description(from._internal_adapter_description());
+    }
+    if (cached_has_bits & 0x00000200u) {
+      _internal_set_driver_version(from._internal_driver_version());
+    }
+    if (cached_has_bits & 0x00000400u) {
+      _internal_set_driver_date(from._internal_driver_date());
+    }
+    if (cached_has_bits & 0x00000800u) {
+      dx_vendorid_ = from.dx_vendorid_;
+    }
+    if (cached_has_bits & 0x00001000u) {
+      dx_deviceid_ = from.dx_deviceid_;
+    }
+    if (cached_has_bits & 0x00002000u) {
+      system_ram_ = from.system_ram_;
+    }
+    if (cached_has_bits & 0x00004000u) {
+      num_gpu_ = from.num_gpu_;
+    }
+    if (cached_has_bits & 0x00008000u) {
+      gaming_device_type_ = from.gaming_device_type_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  if (cached_has_bits & 0x00010000u) {
+    _internal_set_vram_size(from._internal_vram_size());
+  }
+}
+
+void UserSystemInformation::CopyFrom(const UserSystemInformation& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:UserSystemInformation)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UserSystemInformation::IsInitialized() const {
+  return true;
+}
+
+void UserSystemInformation::InternalSwap(UserSystemInformation* other) {
+  using std::swap;
+  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  manufacturer_.Swap(&other->manufacturer_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  model_.Swap(&other->model_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  dx_video_card_.Swap(&other->dx_video_card_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  os_.Swap(&other->os_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  cpu_vendor_.Swap(&other->cpu_vendor_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  cpu_name_.Swap(&other->cpu_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  dx_driver_version_.Swap(&other->dx_driver_version_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  dx_driver_name_.Swap(&other->dx_driver_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  adapter_description_.Swap(&other->adapter_description_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  driver_version_.Swap(&other->driver_version_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  driver_date_.Swap(&other->driver_date_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(UserSystemInformation, vram_size_)
+      + sizeof(UserSystemInformation::vram_size_)
+      - PROTOBUF_FIELD_OFFSET(UserSystemInformation, dx_vendorid_)>(
+          reinterpret_cast<char*>(&dx_vendorid_),
+          reinterpret_cast<char*>(&other->dx_vendorid_));
+}
+
+std::string UserSystemInformation::GetTypeName() const {
+  return "UserSystemInformation";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::CMsgIPAddress* Arena::CreateMaybeMessage< ::CMsgIPAddress >(Arena* arena) {
@@ -10974,6 +11769,9 @@ template<> PROTOBUF_NOINLINE ::UserContentDescriptorPreferences_ContentDescripto
 }
 template<> PROTOBUF_NOINLINE ::UserContentDescriptorPreferences* Arena::CreateMaybeMessage< ::UserContentDescriptorPreferences >(Arena* arena) {
   return Arena::CreateMessageInternal< ::UserContentDescriptorPreferences >(arena);
+}
+template<> PROTOBUF_NOINLINE ::UserSystemInformation* Arena::CreateMaybeMessage< ::UserSystemInformation >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::UserSystemInformation >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

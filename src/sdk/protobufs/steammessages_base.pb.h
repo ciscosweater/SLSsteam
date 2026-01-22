@@ -46,7 +46,7 @@ struct TableStruct_steammessages_5fbase_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[23]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[24]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -121,6 +121,9 @@ extern UserContentDescriptorPreferencesDefaultTypeInternal _UserContentDescripto
 class UserContentDescriptorPreferences_ContentDescriptor;
 struct UserContentDescriptorPreferences_ContentDescriptorDefaultTypeInternal;
 extern UserContentDescriptorPreferences_ContentDescriptorDefaultTypeInternal _UserContentDescriptorPreferences_ContentDescriptor_default_instance_;
+class UserSystemInformation;
+struct UserSystemInformationDefaultTypeInternal;
+extern UserSystemInformationDefaultTypeInternal _UserSystemInformation_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::CBilling_Address* Arena::CreateMaybeMessage<::CBilling_Address>(Arena*);
 template<> ::CCDDBAppDetailCommon* Arena::CreateMaybeMessage<::CCDDBAppDetailCommon>(Arena*);
@@ -145,6 +148,7 @@ template<> ::CMsgProtobufWrapped* Arena::CreateMaybeMessage<::CMsgProtobufWrappe
 template<> ::CPackageReservationStatus* Arena::CreateMaybeMessage<::CPackageReservationStatus>(Arena*);
 template<> ::UserContentDescriptorPreferences* Arena::CreateMaybeMessage<::UserContentDescriptorPreferences>(Arena*);
 template<> ::UserContentDescriptorPreferences_ContentDescriptor* Arena::CreateMaybeMessage<::UserContentDescriptorPreferences_ContentDescriptor>(Arena*);
+template<> ::UserSystemInformation* Arena::CreateMaybeMessage<::UserSystemInformation>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
 enum CMsgProtoBufHeader_ESessionDisposition : int {
@@ -6520,6 +6524,458 @@ class UserContentDescriptorPreferences PROTOBUF_FINAL :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::UserContentDescriptorPreferences_ContentDescriptor > content_descriptors_to_exclude_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_steammessages_5fbase_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UserSystemInformation PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:UserSystemInformation) */ {
+ public:
+  inline UserSystemInformation() : UserSystemInformation(nullptr) {}
+  virtual ~UserSystemInformation();
+  explicit constexpr UserSystemInformation(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UserSystemInformation(const UserSystemInformation& from);
+  UserSystemInformation(UserSystemInformation&& from) noexcept
+    : UserSystemInformation() {
+    *this = ::std::move(from);
+  }
+
+  inline UserSystemInformation& operator=(const UserSystemInformation& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UserSystemInformation& operator=(UserSystemInformation&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const UserSystemInformation& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UserSystemInformation* internal_default_instance() {
+    return reinterpret_cast<const UserSystemInformation*>(
+               &_UserSystemInformation_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    23;
+
+  friend void swap(UserSystemInformation& a, UserSystemInformation& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UserSystemInformation* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UserSystemInformation* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline UserSystemInformation* New() const final {
+    return CreateMaybeMessage<UserSystemInformation>(nullptr);
+  }
+
+  UserSystemInformation* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<UserSystemInformation>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)
+    final;
+  void CopyFrom(const UserSystemInformation& from);
+  void MergeFrom(const UserSystemInformation& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  void DiscardUnknownFields();
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(UserSystemInformation* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "UserSystemInformation";
+  }
+  protected:
+  explicit UserSystemInformation(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kManufacturerFieldNumber = 1,
+    kModelFieldNumber = 2,
+    kDxVideoCardFieldNumber = 3,
+    kOsFieldNumber = 8,
+    kCpuVendorFieldNumber = 9,
+    kCpuNameFieldNumber = 10,
+    kDxDriverVersionFieldNumber = 12,
+    kDxDriverNameFieldNumber = 13,
+    kAdapterDescriptionFieldNumber = 14,
+    kDriverVersionFieldNumber = 15,
+    kDriverDateFieldNumber = 16,
+    kDxVendoridFieldNumber = 4,
+    kDxDeviceidFieldNumber = 5,
+    kSystemRamFieldNumber = 7,
+    kNumGpuFieldNumber = 6,
+    kGamingDeviceTypeFieldNumber = 11,
+    kVramSizeFieldNumber = 17,
+  };
+  // optional string manufacturer = 1;
+  bool has_manufacturer() const;
+  private:
+  bool _internal_has_manufacturer() const;
+  public:
+  void clear_manufacturer();
+  const std::string& manufacturer() const;
+  void set_manufacturer(const std::string& value);
+  void set_manufacturer(std::string&& value);
+  void set_manufacturer(const char* value);
+  void set_manufacturer(const char* value, size_t size);
+  std::string* mutable_manufacturer();
+  std::string* release_manufacturer();
+  void set_allocated_manufacturer(std::string* manufacturer);
+  private:
+  const std::string& _internal_manufacturer() const;
+  void _internal_set_manufacturer(const std::string& value);
+  std::string* _internal_mutable_manufacturer();
+  public:
+
+  // optional string model = 2;
+  bool has_model() const;
+  private:
+  bool _internal_has_model() const;
+  public:
+  void clear_model();
+  const std::string& model() const;
+  void set_model(const std::string& value);
+  void set_model(std::string&& value);
+  void set_model(const char* value);
+  void set_model(const char* value, size_t size);
+  std::string* mutable_model();
+  std::string* release_model();
+  void set_allocated_model(std::string* model);
+  private:
+  const std::string& _internal_model() const;
+  void _internal_set_model(const std::string& value);
+  std::string* _internal_mutable_model();
+  public:
+
+  // optional string dx_video_card = 3;
+  bool has_dx_video_card() const;
+  private:
+  bool _internal_has_dx_video_card() const;
+  public:
+  void clear_dx_video_card();
+  const std::string& dx_video_card() const;
+  void set_dx_video_card(const std::string& value);
+  void set_dx_video_card(std::string&& value);
+  void set_dx_video_card(const char* value);
+  void set_dx_video_card(const char* value, size_t size);
+  std::string* mutable_dx_video_card();
+  std::string* release_dx_video_card();
+  void set_allocated_dx_video_card(std::string* dx_video_card);
+  private:
+  const std::string& _internal_dx_video_card() const;
+  void _internal_set_dx_video_card(const std::string& value);
+  std::string* _internal_mutable_dx_video_card();
+  public:
+
+  // optional string os = 8;
+  bool has_os() const;
+  private:
+  bool _internal_has_os() const;
+  public:
+  void clear_os();
+  const std::string& os() const;
+  void set_os(const std::string& value);
+  void set_os(std::string&& value);
+  void set_os(const char* value);
+  void set_os(const char* value, size_t size);
+  std::string* mutable_os();
+  std::string* release_os();
+  void set_allocated_os(std::string* os);
+  private:
+  const std::string& _internal_os() const;
+  void _internal_set_os(const std::string& value);
+  std::string* _internal_mutable_os();
+  public:
+
+  // optional string cpu_vendor = 9;
+  bool has_cpu_vendor() const;
+  private:
+  bool _internal_has_cpu_vendor() const;
+  public:
+  void clear_cpu_vendor();
+  const std::string& cpu_vendor() const;
+  void set_cpu_vendor(const std::string& value);
+  void set_cpu_vendor(std::string&& value);
+  void set_cpu_vendor(const char* value);
+  void set_cpu_vendor(const char* value, size_t size);
+  std::string* mutable_cpu_vendor();
+  std::string* release_cpu_vendor();
+  void set_allocated_cpu_vendor(std::string* cpu_vendor);
+  private:
+  const std::string& _internal_cpu_vendor() const;
+  void _internal_set_cpu_vendor(const std::string& value);
+  std::string* _internal_mutable_cpu_vendor();
+  public:
+
+  // optional string cpu_name = 10;
+  bool has_cpu_name() const;
+  private:
+  bool _internal_has_cpu_name() const;
+  public:
+  void clear_cpu_name();
+  const std::string& cpu_name() const;
+  void set_cpu_name(const std::string& value);
+  void set_cpu_name(std::string&& value);
+  void set_cpu_name(const char* value);
+  void set_cpu_name(const char* value, size_t size);
+  std::string* mutable_cpu_name();
+  std::string* release_cpu_name();
+  void set_allocated_cpu_name(std::string* cpu_name);
+  private:
+  const std::string& _internal_cpu_name() const;
+  void _internal_set_cpu_name(const std::string& value);
+  std::string* _internal_mutable_cpu_name();
+  public:
+
+  // optional string dx_driver_version = 12;
+  bool has_dx_driver_version() const;
+  private:
+  bool _internal_has_dx_driver_version() const;
+  public:
+  void clear_dx_driver_version();
+  const std::string& dx_driver_version() const;
+  void set_dx_driver_version(const std::string& value);
+  void set_dx_driver_version(std::string&& value);
+  void set_dx_driver_version(const char* value);
+  void set_dx_driver_version(const char* value, size_t size);
+  std::string* mutable_dx_driver_version();
+  std::string* release_dx_driver_version();
+  void set_allocated_dx_driver_version(std::string* dx_driver_version);
+  private:
+  const std::string& _internal_dx_driver_version() const;
+  void _internal_set_dx_driver_version(const std::string& value);
+  std::string* _internal_mutable_dx_driver_version();
+  public:
+
+  // optional string dx_driver_name = 13;
+  bool has_dx_driver_name() const;
+  private:
+  bool _internal_has_dx_driver_name() const;
+  public:
+  void clear_dx_driver_name();
+  const std::string& dx_driver_name() const;
+  void set_dx_driver_name(const std::string& value);
+  void set_dx_driver_name(std::string&& value);
+  void set_dx_driver_name(const char* value);
+  void set_dx_driver_name(const char* value, size_t size);
+  std::string* mutable_dx_driver_name();
+  std::string* release_dx_driver_name();
+  void set_allocated_dx_driver_name(std::string* dx_driver_name);
+  private:
+  const std::string& _internal_dx_driver_name() const;
+  void _internal_set_dx_driver_name(const std::string& value);
+  std::string* _internal_mutable_dx_driver_name();
+  public:
+
+  // optional string adapter_description = 14;
+  bool has_adapter_description() const;
+  private:
+  bool _internal_has_adapter_description() const;
+  public:
+  void clear_adapter_description();
+  const std::string& adapter_description() const;
+  void set_adapter_description(const std::string& value);
+  void set_adapter_description(std::string&& value);
+  void set_adapter_description(const char* value);
+  void set_adapter_description(const char* value, size_t size);
+  std::string* mutable_adapter_description();
+  std::string* release_adapter_description();
+  void set_allocated_adapter_description(std::string* adapter_description);
+  private:
+  const std::string& _internal_adapter_description() const;
+  void _internal_set_adapter_description(const std::string& value);
+  std::string* _internal_mutable_adapter_description();
+  public:
+
+  // optional string driver_version = 15;
+  bool has_driver_version() const;
+  private:
+  bool _internal_has_driver_version() const;
+  public:
+  void clear_driver_version();
+  const std::string& driver_version() const;
+  void set_driver_version(const std::string& value);
+  void set_driver_version(std::string&& value);
+  void set_driver_version(const char* value);
+  void set_driver_version(const char* value, size_t size);
+  std::string* mutable_driver_version();
+  std::string* release_driver_version();
+  void set_allocated_driver_version(std::string* driver_version);
+  private:
+  const std::string& _internal_driver_version() const;
+  void _internal_set_driver_version(const std::string& value);
+  std::string* _internal_mutable_driver_version();
+  public:
+
+  // optional string driver_date = 16;
+  bool has_driver_date() const;
+  private:
+  bool _internal_has_driver_date() const;
+  public:
+  void clear_driver_date();
+  const std::string& driver_date() const;
+  void set_driver_date(const std::string& value);
+  void set_driver_date(std::string&& value);
+  void set_driver_date(const char* value);
+  void set_driver_date(const char* value, size_t size);
+  std::string* mutable_driver_date();
+  std::string* release_driver_date();
+  void set_allocated_driver_date(std::string* driver_date);
+  private:
+  const std::string& _internal_driver_date() const;
+  void _internal_set_driver_date(const std::string& value);
+  std::string* _internal_mutable_driver_date();
+  public:
+
+  // optional int32 dx_vendorid = 4;
+  bool has_dx_vendorid() const;
+  private:
+  bool _internal_has_dx_vendorid() const;
+  public:
+  void clear_dx_vendorid();
+  ::PROTOBUF_NAMESPACE_ID::int32 dx_vendorid() const;
+  void set_dx_vendorid(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_dx_vendorid() const;
+  void _internal_set_dx_vendorid(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // optional int32 dx_deviceid = 5;
+  bool has_dx_deviceid() const;
+  private:
+  bool _internal_has_dx_deviceid() const;
+  public:
+  void clear_dx_deviceid();
+  ::PROTOBUF_NAMESPACE_ID::int32 dx_deviceid() const;
+  void set_dx_deviceid(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_dx_deviceid() const;
+  void _internal_set_dx_deviceid(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // optional uint64 system_ram = 7;
+  bool has_system_ram() const;
+  private:
+  bool _internal_has_system_ram() const;
+  public:
+  void clear_system_ram();
+  ::PROTOBUF_NAMESPACE_ID::uint64 system_ram() const;
+  void set_system_ram(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_system_ram() const;
+  void _internal_set_system_ram(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // optional uint32 num_gpu = 6;
+  bool has_num_gpu() const;
+  private:
+  bool _internal_has_num_gpu() const;
+  public:
+  void clear_num_gpu();
+  ::PROTOBUF_NAMESPACE_ID::uint32 num_gpu() const;
+  void set_num_gpu(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_num_gpu() const;
+  void _internal_set_num_gpu(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // optional uint32 gaming_device_type = 11;
+  bool has_gaming_device_type() const;
+  private:
+  bool _internal_has_gaming_device_type() const;
+  public:
+  void clear_gaming_device_type();
+  ::PROTOBUF_NAMESPACE_ID::uint32 gaming_device_type() const;
+  void set_gaming_device_type(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_gaming_device_type() const;
+  void _internal_set_gaming_device_type(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // optional uint32 vram_size = 17;
+  bool has_vram_size() const;
+  private:
+  bool _internal_has_vram_size() const;
+  public:
+  void clear_vram_size();
+  ::PROTOBUF_NAMESPACE_ID::uint32 vram_size() const;
+  void set_vram_size(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_vram_size() const;
+  void _internal_set_vram_size(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:UserSystemInformation)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr manufacturer_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr model_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dx_video_card_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr os_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr cpu_vendor_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr cpu_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dx_driver_version_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dx_driver_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr adapter_description_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr driver_version_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr driver_date_;
+  ::PROTOBUF_NAMESPACE_ID::int32 dx_vendorid_;
+  ::PROTOBUF_NAMESPACE_ID::int32 dx_deviceid_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 system_ram_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 num_gpu_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 gaming_device_type_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 vram_size_;
   friend struct ::TableStruct_steammessages_5fbase_2eproto;
 };
 // ===================================================================
@@ -14776,9 +15232,986 @@ UserContentDescriptorPreferences::content_descriptors_to_exclude() const {
   return content_descriptors_to_exclude_;
 }
 
+// -------------------------------------------------------------------
+
+// UserSystemInformation
+
+// optional string manufacturer = 1;
+inline bool UserSystemInformation::_internal_has_manufacturer() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_manufacturer() const {
+  return _internal_has_manufacturer();
+}
+inline void UserSystemInformation::clear_manufacturer() {
+  manufacturer_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& UserSystemInformation::manufacturer() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.manufacturer)
+  return _internal_manufacturer();
+}
+inline void UserSystemInformation::set_manufacturer(const std::string& value) {
+  _internal_set_manufacturer(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.manufacturer)
+}
+inline std::string* UserSystemInformation::mutable_manufacturer() {
+  // @@protoc_insertion_point(field_mutable:UserSystemInformation.manufacturer)
+  return _internal_mutable_manufacturer();
+}
+inline const std::string& UserSystemInformation::_internal_manufacturer() const {
+  return manufacturer_.Get();
+}
+inline void UserSystemInformation::_internal_set_manufacturer(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  manufacturer_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void UserSystemInformation::set_manufacturer(std::string&& value) {
+  _has_bits_[0] |= 0x00000001u;
+  manufacturer_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:UserSystemInformation.manufacturer)
+}
+inline void UserSystemInformation::set_manufacturer(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000001u;
+  manufacturer_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:UserSystemInformation.manufacturer)
+}
+inline void UserSystemInformation::set_manufacturer(const char* value,
+    size_t size) {
+  _has_bits_[0] |= 0x00000001u;
+  manufacturer_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:UserSystemInformation.manufacturer)
+}
+inline std::string* UserSystemInformation::_internal_mutable_manufacturer() {
+  _has_bits_[0] |= 0x00000001u;
+  return manufacturer_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* UserSystemInformation::release_manufacturer() {
+  // @@protoc_insertion_point(field_release:UserSystemInformation.manufacturer)
+  if (!_internal_has_manufacturer()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  return manufacturer_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void UserSystemInformation::set_allocated_manufacturer(std::string* manufacturer) {
+  if (manufacturer != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  manufacturer_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), manufacturer,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:UserSystemInformation.manufacturer)
+}
+
+// optional string model = 2;
+inline bool UserSystemInformation::_internal_has_model() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_model() const {
+  return _internal_has_model();
+}
+inline void UserSystemInformation::clear_model() {
+  model_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& UserSystemInformation::model() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.model)
+  return _internal_model();
+}
+inline void UserSystemInformation::set_model(const std::string& value) {
+  _internal_set_model(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.model)
+}
+inline std::string* UserSystemInformation::mutable_model() {
+  // @@protoc_insertion_point(field_mutable:UserSystemInformation.model)
+  return _internal_mutable_model();
+}
+inline const std::string& UserSystemInformation::_internal_model() const {
+  return model_.Get();
+}
+inline void UserSystemInformation::_internal_set_model(const std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  model_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void UserSystemInformation::set_model(std::string&& value) {
+  _has_bits_[0] |= 0x00000002u;
+  model_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:UserSystemInformation.model)
+}
+inline void UserSystemInformation::set_model(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000002u;
+  model_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:UserSystemInformation.model)
+}
+inline void UserSystemInformation::set_model(const char* value,
+    size_t size) {
+  _has_bits_[0] |= 0x00000002u;
+  model_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:UserSystemInformation.model)
+}
+inline std::string* UserSystemInformation::_internal_mutable_model() {
+  _has_bits_[0] |= 0x00000002u;
+  return model_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* UserSystemInformation::release_model() {
+  // @@protoc_insertion_point(field_release:UserSystemInformation.model)
+  if (!_internal_has_model()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  return model_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void UserSystemInformation::set_allocated_model(std::string* model) {
+  if (model != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  model_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), model,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:UserSystemInformation.model)
+}
+
+// optional string dx_video_card = 3;
+inline bool UserSystemInformation::_internal_has_dx_video_card() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_dx_video_card() const {
+  return _internal_has_dx_video_card();
+}
+inline void UserSystemInformation::clear_dx_video_card() {
+  dx_video_card_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& UserSystemInformation::dx_video_card() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.dx_video_card)
+  return _internal_dx_video_card();
+}
+inline void UserSystemInformation::set_dx_video_card(const std::string& value) {
+  _internal_set_dx_video_card(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.dx_video_card)
+}
+inline std::string* UserSystemInformation::mutable_dx_video_card() {
+  // @@protoc_insertion_point(field_mutable:UserSystemInformation.dx_video_card)
+  return _internal_mutable_dx_video_card();
+}
+inline const std::string& UserSystemInformation::_internal_dx_video_card() const {
+  return dx_video_card_.Get();
+}
+inline void UserSystemInformation::_internal_set_dx_video_card(const std::string& value) {
+  _has_bits_[0] |= 0x00000004u;
+  dx_video_card_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void UserSystemInformation::set_dx_video_card(std::string&& value) {
+  _has_bits_[0] |= 0x00000004u;
+  dx_video_card_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:UserSystemInformation.dx_video_card)
+}
+inline void UserSystemInformation::set_dx_video_card(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000004u;
+  dx_video_card_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:UserSystemInformation.dx_video_card)
+}
+inline void UserSystemInformation::set_dx_video_card(const char* value,
+    size_t size) {
+  _has_bits_[0] |= 0x00000004u;
+  dx_video_card_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:UserSystemInformation.dx_video_card)
+}
+inline std::string* UserSystemInformation::_internal_mutable_dx_video_card() {
+  _has_bits_[0] |= 0x00000004u;
+  return dx_video_card_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* UserSystemInformation::release_dx_video_card() {
+  // @@protoc_insertion_point(field_release:UserSystemInformation.dx_video_card)
+  if (!_internal_has_dx_video_card()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000004u;
+  return dx_video_card_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void UserSystemInformation::set_allocated_dx_video_card(std::string* dx_video_card) {
+  if (dx_video_card != nullptr) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  dx_video_card_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), dx_video_card,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:UserSystemInformation.dx_video_card)
+}
+
+// optional int32 dx_vendorid = 4;
+inline bool UserSystemInformation::_internal_has_dx_vendorid() const {
+  bool value = (_has_bits_[0] & 0x00000800u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_dx_vendorid() const {
+  return _internal_has_dx_vendorid();
+}
+inline void UserSystemInformation::clear_dx_vendorid() {
+  dx_vendorid_ = 0;
+  _has_bits_[0] &= ~0x00000800u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 UserSystemInformation::_internal_dx_vendorid() const {
+  return dx_vendorid_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 UserSystemInformation::dx_vendorid() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.dx_vendorid)
+  return _internal_dx_vendorid();
+}
+inline void UserSystemInformation::_internal_set_dx_vendorid(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _has_bits_[0] |= 0x00000800u;
+  dx_vendorid_ = value;
+}
+inline void UserSystemInformation::set_dx_vendorid(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_dx_vendorid(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.dx_vendorid)
+}
+
+// optional int32 dx_deviceid = 5;
+inline bool UserSystemInformation::_internal_has_dx_deviceid() const {
+  bool value = (_has_bits_[0] & 0x00001000u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_dx_deviceid() const {
+  return _internal_has_dx_deviceid();
+}
+inline void UserSystemInformation::clear_dx_deviceid() {
+  dx_deviceid_ = 0;
+  _has_bits_[0] &= ~0x00001000u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 UserSystemInformation::_internal_dx_deviceid() const {
+  return dx_deviceid_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 UserSystemInformation::dx_deviceid() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.dx_deviceid)
+  return _internal_dx_deviceid();
+}
+inline void UserSystemInformation::_internal_set_dx_deviceid(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _has_bits_[0] |= 0x00001000u;
+  dx_deviceid_ = value;
+}
+inline void UserSystemInformation::set_dx_deviceid(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_dx_deviceid(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.dx_deviceid)
+}
+
+// optional uint32 num_gpu = 6;
+inline bool UserSystemInformation::_internal_has_num_gpu() const {
+  bool value = (_has_bits_[0] & 0x00004000u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_num_gpu() const {
+  return _internal_has_num_gpu();
+}
+inline void UserSystemInformation::clear_num_gpu() {
+  num_gpu_ = 0u;
+  _has_bits_[0] &= ~0x00004000u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 UserSystemInformation::_internal_num_gpu() const {
+  return num_gpu_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 UserSystemInformation::num_gpu() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.num_gpu)
+  return _internal_num_gpu();
+}
+inline void UserSystemInformation::_internal_set_num_gpu(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _has_bits_[0] |= 0x00004000u;
+  num_gpu_ = value;
+}
+inline void UserSystemInformation::set_num_gpu(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_num_gpu(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.num_gpu)
+}
+
+// optional uint64 system_ram = 7;
+inline bool UserSystemInformation::_internal_has_system_ram() const {
+  bool value = (_has_bits_[0] & 0x00002000u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_system_ram() const {
+  return _internal_has_system_ram();
+}
+inline void UserSystemInformation::clear_system_ram() {
+  system_ram_ = PROTOBUF_ULONGLONG(0);
+  _has_bits_[0] &= ~0x00002000u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 UserSystemInformation::_internal_system_ram() const {
+  return system_ram_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 UserSystemInformation::system_ram() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.system_ram)
+  return _internal_system_ram();
+}
+inline void UserSystemInformation::_internal_set_system_ram(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _has_bits_[0] |= 0x00002000u;
+  system_ram_ = value;
+}
+inline void UserSystemInformation::set_system_ram(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_system_ram(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.system_ram)
+}
+
+// optional string os = 8;
+inline bool UserSystemInformation::_internal_has_os() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_os() const {
+  return _internal_has_os();
+}
+inline void UserSystemInformation::clear_os() {
+  os_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline const std::string& UserSystemInformation::os() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.os)
+  return _internal_os();
+}
+inline void UserSystemInformation::set_os(const std::string& value) {
+  _internal_set_os(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.os)
+}
+inline std::string* UserSystemInformation::mutable_os() {
+  // @@protoc_insertion_point(field_mutable:UserSystemInformation.os)
+  return _internal_mutable_os();
+}
+inline const std::string& UserSystemInformation::_internal_os() const {
+  return os_.Get();
+}
+inline void UserSystemInformation::_internal_set_os(const std::string& value) {
+  _has_bits_[0] |= 0x00000008u;
+  os_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void UserSystemInformation::set_os(std::string&& value) {
+  _has_bits_[0] |= 0x00000008u;
+  os_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:UserSystemInformation.os)
+}
+inline void UserSystemInformation::set_os(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000008u;
+  os_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:UserSystemInformation.os)
+}
+inline void UserSystemInformation::set_os(const char* value,
+    size_t size) {
+  _has_bits_[0] |= 0x00000008u;
+  os_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:UserSystemInformation.os)
+}
+inline std::string* UserSystemInformation::_internal_mutable_os() {
+  _has_bits_[0] |= 0x00000008u;
+  return os_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* UserSystemInformation::release_os() {
+  // @@protoc_insertion_point(field_release:UserSystemInformation.os)
+  if (!_internal_has_os()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000008u;
+  return os_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void UserSystemInformation::set_allocated_os(std::string* os) {
+  if (os != nullptr) {
+    _has_bits_[0] |= 0x00000008u;
+  } else {
+    _has_bits_[0] &= ~0x00000008u;
+  }
+  os_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), os,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:UserSystemInformation.os)
+}
+
+// optional string cpu_vendor = 9;
+inline bool UserSystemInformation::_internal_has_cpu_vendor() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_cpu_vendor() const {
+  return _internal_has_cpu_vendor();
+}
+inline void UserSystemInformation::clear_cpu_vendor() {
+  cpu_vendor_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline const std::string& UserSystemInformation::cpu_vendor() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.cpu_vendor)
+  return _internal_cpu_vendor();
+}
+inline void UserSystemInformation::set_cpu_vendor(const std::string& value) {
+  _internal_set_cpu_vendor(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.cpu_vendor)
+}
+inline std::string* UserSystemInformation::mutable_cpu_vendor() {
+  // @@protoc_insertion_point(field_mutable:UserSystemInformation.cpu_vendor)
+  return _internal_mutable_cpu_vendor();
+}
+inline const std::string& UserSystemInformation::_internal_cpu_vendor() const {
+  return cpu_vendor_.Get();
+}
+inline void UserSystemInformation::_internal_set_cpu_vendor(const std::string& value) {
+  _has_bits_[0] |= 0x00000010u;
+  cpu_vendor_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void UserSystemInformation::set_cpu_vendor(std::string&& value) {
+  _has_bits_[0] |= 0x00000010u;
+  cpu_vendor_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:UserSystemInformation.cpu_vendor)
+}
+inline void UserSystemInformation::set_cpu_vendor(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000010u;
+  cpu_vendor_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:UserSystemInformation.cpu_vendor)
+}
+inline void UserSystemInformation::set_cpu_vendor(const char* value,
+    size_t size) {
+  _has_bits_[0] |= 0x00000010u;
+  cpu_vendor_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:UserSystemInformation.cpu_vendor)
+}
+inline std::string* UserSystemInformation::_internal_mutable_cpu_vendor() {
+  _has_bits_[0] |= 0x00000010u;
+  return cpu_vendor_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* UserSystemInformation::release_cpu_vendor() {
+  // @@protoc_insertion_point(field_release:UserSystemInformation.cpu_vendor)
+  if (!_internal_has_cpu_vendor()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000010u;
+  return cpu_vendor_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void UserSystemInformation::set_allocated_cpu_vendor(std::string* cpu_vendor) {
+  if (cpu_vendor != nullptr) {
+    _has_bits_[0] |= 0x00000010u;
+  } else {
+    _has_bits_[0] &= ~0x00000010u;
+  }
+  cpu_vendor_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), cpu_vendor,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:UserSystemInformation.cpu_vendor)
+}
+
+// optional string cpu_name = 10;
+inline bool UserSystemInformation::_internal_has_cpu_name() const {
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_cpu_name() const {
+  return _internal_has_cpu_name();
+}
+inline void UserSystemInformation::clear_cpu_name() {
+  cpu_name_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline const std::string& UserSystemInformation::cpu_name() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.cpu_name)
+  return _internal_cpu_name();
+}
+inline void UserSystemInformation::set_cpu_name(const std::string& value) {
+  _internal_set_cpu_name(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.cpu_name)
+}
+inline std::string* UserSystemInformation::mutable_cpu_name() {
+  // @@protoc_insertion_point(field_mutable:UserSystemInformation.cpu_name)
+  return _internal_mutable_cpu_name();
+}
+inline const std::string& UserSystemInformation::_internal_cpu_name() const {
+  return cpu_name_.Get();
+}
+inline void UserSystemInformation::_internal_set_cpu_name(const std::string& value) {
+  _has_bits_[0] |= 0x00000020u;
+  cpu_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void UserSystemInformation::set_cpu_name(std::string&& value) {
+  _has_bits_[0] |= 0x00000020u;
+  cpu_name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:UserSystemInformation.cpu_name)
+}
+inline void UserSystemInformation::set_cpu_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000020u;
+  cpu_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:UserSystemInformation.cpu_name)
+}
+inline void UserSystemInformation::set_cpu_name(const char* value,
+    size_t size) {
+  _has_bits_[0] |= 0x00000020u;
+  cpu_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:UserSystemInformation.cpu_name)
+}
+inline std::string* UserSystemInformation::_internal_mutable_cpu_name() {
+  _has_bits_[0] |= 0x00000020u;
+  return cpu_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* UserSystemInformation::release_cpu_name() {
+  // @@protoc_insertion_point(field_release:UserSystemInformation.cpu_name)
+  if (!_internal_has_cpu_name()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000020u;
+  return cpu_name_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void UserSystemInformation::set_allocated_cpu_name(std::string* cpu_name) {
+  if (cpu_name != nullptr) {
+    _has_bits_[0] |= 0x00000020u;
+  } else {
+    _has_bits_[0] &= ~0x00000020u;
+  }
+  cpu_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), cpu_name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:UserSystemInformation.cpu_name)
+}
+
+// optional uint32 gaming_device_type = 11;
+inline bool UserSystemInformation::_internal_has_gaming_device_type() const {
+  bool value = (_has_bits_[0] & 0x00008000u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_gaming_device_type() const {
+  return _internal_has_gaming_device_type();
+}
+inline void UserSystemInformation::clear_gaming_device_type() {
+  gaming_device_type_ = 0u;
+  _has_bits_[0] &= ~0x00008000u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 UserSystemInformation::_internal_gaming_device_type() const {
+  return gaming_device_type_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 UserSystemInformation::gaming_device_type() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.gaming_device_type)
+  return _internal_gaming_device_type();
+}
+inline void UserSystemInformation::_internal_set_gaming_device_type(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _has_bits_[0] |= 0x00008000u;
+  gaming_device_type_ = value;
+}
+inline void UserSystemInformation::set_gaming_device_type(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_gaming_device_type(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.gaming_device_type)
+}
+
+// optional string dx_driver_version = 12;
+inline bool UserSystemInformation::_internal_has_dx_driver_version() const {
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_dx_driver_version() const {
+  return _internal_has_dx_driver_version();
+}
+inline void UserSystemInformation::clear_dx_driver_version() {
+  dx_driver_version_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline const std::string& UserSystemInformation::dx_driver_version() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.dx_driver_version)
+  return _internal_dx_driver_version();
+}
+inline void UserSystemInformation::set_dx_driver_version(const std::string& value) {
+  _internal_set_dx_driver_version(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.dx_driver_version)
+}
+inline std::string* UserSystemInformation::mutable_dx_driver_version() {
+  // @@protoc_insertion_point(field_mutable:UserSystemInformation.dx_driver_version)
+  return _internal_mutable_dx_driver_version();
+}
+inline const std::string& UserSystemInformation::_internal_dx_driver_version() const {
+  return dx_driver_version_.Get();
+}
+inline void UserSystemInformation::_internal_set_dx_driver_version(const std::string& value) {
+  _has_bits_[0] |= 0x00000040u;
+  dx_driver_version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void UserSystemInformation::set_dx_driver_version(std::string&& value) {
+  _has_bits_[0] |= 0x00000040u;
+  dx_driver_version_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:UserSystemInformation.dx_driver_version)
+}
+inline void UserSystemInformation::set_dx_driver_version(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000040u;
+  dx_driver_version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:UserSystemInformation.dx_driver_version)
+}
+inline void UserSystemInformation::set_dx_driver_version(const char* value,
+    size_t size) {
+  _has_bits_[0] |= 0x00000040u;
+  dx_driver_version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:UserSystemInformation.dx_driver_version)
+}
+inline std::string* UserSystemInformation::_internal_mutable_dx_driver_version() {
+  _has_bits_[0] |= 0x00000040u;
+  return dx_driver_version_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* UserSystemInformation::release_dx_driver_version() {
+  // @@protoc_insertion_point(field_release:UserSystemInformation.dx_driver_version)
+  if (!_internal_has_dx_driver_version()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000040u;
+  return dx_driver_version_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void UserSystemInformation::set_allocated_dx_driver_version(std::string* dx_driver_version) {
+  if (dx_driver_version != nullptr) {
+    _has_bits_[0] |= 0x00000040u;
+  } else {
+    _has_bits_[0] &= ~0x00000040u;
+  }
+  dx_driver_version_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), dx_driver_version,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:UserSystemInformation.dx_driver_version)
+}
+
+// optional string dx_driver_name = 13;
+inline bool UserSystemInformation::_internal_has_dx_driver_name() const {
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_dx_driver_name() const {
+  return _internal_has_dx_driver_name();
+}
+inline void UserSystemInformation::clear_dx_driver_name() {
+  dx_driver_name_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline const std::string& UserSystemInformation::dx_driver_name() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.dx_driver_name)
+  return _internal_dx_driver_name();
+}
+inline void UserSystemInformation::set_dx_driver_name(const std::string& value) {
+  _internal_set_dx_driver_name(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.dx_driver_name)
+}
+inline std::string* UserSystemInformation::mutable_dx_driver_name() {
+  // @@protoc_insertion_point(field_mutable:UserSystemInformation.dx_driver_name)
+  return _internal_mutable_dx_driver_name();
+}
+inline const std::string& UserSystemInformation::_internal_dx_driver_name() const {
+  return dx_driver_name_.Get();
+}
+inline void UserSystemInformation::_internal_set_dx_driver_name(const std::string& value) {
+  _has_bits_[0] |= 0x00000080u;
+  dx_driver_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void UserSystemInformation::set_dx_driver_name(std::string&& value) {
+  _has_bits_[0] |= 0x00000080u;
+  dx_driver_name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:UserSystemInformation.dx_driver_name)
+}
+inline void UserSystemInformation::set_dx_driver_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000080u;
+  dx_driver_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:UserSystemInformation.dx_driver_name)
+}
+inline void UserSystemInformation::set_dx_driver_name(const char* value,
+    size_t size) {
+  _has_bits_[0] |= 0x00000080u;
+  dx_driver_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:UserSystemInformation.dx_driver_name)
+}
+inline std::string* UserSystemInformation::_internal_mutable_dx_driver_name() {
+  _has_bits_[0] |= 0x00000080u;
+  return dx_driver_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* UserSystemInformation::release_dx_driver_name() {
+  // @@protoc_insertion_point(field_release:UserSystemInformation.dx_driver_name)
+  if (!_internal_has_dx_driver_name()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000080u;
+  return dx_driver_name_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void UserSystemInformation::set_allocated_dx_driver_name(std::string* dx_driver_name) {
+  if (dx_driver_name != nullptr) {
+    _has_bits_[0] |= 0x00000080u;
+  } else {
+    _has_bits_[0] &= ~0x00000080u;
+  }
+  dx_driver_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), dx_driver_name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:UserSystemInformation.dx_driver_name)
+}
+
+// optional string adapter_description = 14;
+inline bool UserSystemInformation::_internal_has_adapter_description() const {
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_adapter_description() const {
+  return _internal_has_adapter_description();
+}
+inline void UserSystemInformation::clear_adapter_description() {
+  adapter_description_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline const std::string& UserSystemInformation::adapter_description() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.adapter_description)
+  return _internal_adapter_description();
+}
+inline void UserSystemInformation::set_adapter_description(const std::string& value) {
+  _internal_set_adapter_description(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.adapter_description)
+}
+inline std::string* UserSystemInformation::mutable_adapter_description() {
+  // @@protoc_insertion_point(field_mutable:UserSystemInformation.adapter_description)
+  return _internal_mutable_adapter_description();
+}
+inline const std::string& UserSystemInformation::_internal_adapter_description() const {
+  return adapter_description_.Get();
+}
+inline void UserSystemInformation::_internal_set_adapter_description(const std::string& value) {
+  _has_bits_[0] |= 0x00000100u;
+  adapter_description_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void UserSystemInformation::set_adapter_description(std::string&& value) {
+  _has_bits_[0] |= 0x00000100u;
+  adapter_description_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:UserSystemInformation.adapter_description)
+}
+inline void UserSystemInformation::set_adapter_description(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000100u;
+  adapter_description_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:UserSystemInformation.adapter_description)
+}
+inline void UserSystemInformation::set_adapter_description(const char* value,
+    size_t size) {
+  _has_bits_[0] |= 0x00000100u;
+  adapter_description_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:UserSystemInformation.adapter_description)
+}
+inline std::string* UserSystemInformation::_internal_mutable_adapter_description() {
+  _has_bits_[0] |= 0x00000100u;
+  return adapter_description_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* UserSystemInformation::release_adapter_description() {
+  // @@protoc_insertion_point(field_release:UserSystemInformation.adapter_description)
+  if (!_internal_has_adapter_description()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000100u;
+  return adapter_description_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void UserSystemInformation::set_allocated_adapter_description(std::string* adapter_description) {
+  if (adapter_description != nullptr) {
+    _has_bits_[0] |= 0x00000100u;
+  } else {
+    _has_bits_[0] &= ~0x00000100u;
+  }
+  adapter_description_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), adapter_description,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:UserSystemInformation.adapter_description)
+}
+
+// optional string driver_version = 15;
+inline bool UserSystemInformation::_internal_has_driver_version() const {
+  bool value = (_has_bits_[0] & 0x00000200u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_driver_version() const {
+  return _internal_has_driver_version();
+}
+inline void UserSystemInformation::clear_driver_version() {
+  driver_version_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000200u;
+}
+inline const std::string& UserSystemInformation::driver_version() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.driver_version)
+  return _internal_driver_version();
+}
+inline void UserSystemInformation::set_driver_version(const std::string& value) {
+  _internal_set_driver_version(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.driver_version)
+}
+inline std::string* UserSystemInformation::mutable_driver_version() {
+  // @@protoc_insertion_point(field_mutable:UserSystemInformation.driver_version)
+  return _internal_mutable_driver_version();
+}
+inline const std::string& UserSystemInformation::_internal_driver_version() const {
+  return driver_version_.Get();
+}
+inline void UserSystemInformation::_internal_set_driver_version(const std::string& value) {
+  _has_bits_[0] |= 0x00000200u;
+  driver_version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void UserSystemInformation::set_driver_version(std::string&& value) {
+  _has_bits_[0] |= 0x00000200u;
+  driver_version_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:UserSystemInformation.driver_version)
+}
+inline void UserSystemInformation::set_driver_version(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000200u;
+  driver_version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:UserSystemInformation.driver_version)
+}
+inline void UserSystemInformation::set_driver_version(const char* value,
+    size_t size) {
+  _has_bits_[0] |= 0x00000200u;
+  driver_version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:UserSystemInformation.driver_version)
+}
+inline std::string* UserSystemInformation::_internal_mutable_driver_version() {
+  _has_bits_[0] |= 0x00000200u;
+  return driver_version_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* UserSystemInformation::release_driver_version() {
+  // @@protoc_insertion_point(field_release:UserSystemInformation.driver_version)
+  if (!_internal_has_driver_version()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000200u;
+  return driver_version_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void UserSystemInformation::set_allocated_driver_version(std::string* driver_version) {
+  if (driver_version != nullptr) {
+    _has_bits_[0] |= 0x00000200u;
+  } else {
+    _has_bits_[0] &= ~0x00000200u;
+  }
+  driver_version_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), driver_version,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:UserSystemInformation.driver_version)
+}
+
+// optional string driver_date = 16;
+inline bool UserSystemInformation::_internal_has_driver_date() const {
+  bool value = (_has_bits_[0] & 0x00000400u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_driver_date() const {
+  return _internal_has_driver_date();
+}
+inline void UserSystemInformation::clear_driver_date() {
+  driver_date_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000400u;
+}
+inline const std::string& UserSystemInformation::driver_date() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.driver_date)
+  return _internal_driver_date();
+}
+inline void UserSystemInformation::set_driver_date(const std::string& value) {
+  _internal_set_driver_date(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.driver_date)
+}
+inline std::string* UserSystemInformation::mutable_driver_date() {
+  // @@protoc_insertion_point(field_mutable:UserSystemInformation.driver_date)
+  return _internal_mutable_driver_date();
+}
+inline const std::string& UserSystemInformation::_internal_driver_date() const {
+  return driver_date_.Get();
+}
+inline void UserSystemInformation::_internal_set_driver_date(const std::string& value) {
+  _has_bits_[0] |= 0x00000400u;
+  driver_date_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void UserSystemInformation::set_driver_date(std::string&& value) {
+  _has_bits_[0] |= 0x00000400u;
+  driver_date_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:UserSystemInformation.driver_date)
+}
+inline void UserSystemInformation::set_driver_date(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000400u;
+  driver_date_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:UserSystemInformation.driver_date)
+}
+inline void UserSystemInformation::set_driver_date(const char* value,
+    size_t size) {
+  _has_bits_[0] |= 0x00000400u;
+  driver_date_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:UserSystemInformation.driver_date)
+}
+inline std::string* UserSystemInformation::_internal_mutable_driver_date() {
+  _has_bits_[0] |= 0x00000400u;
+  return driver_date_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* UserSystemInformation::release_driver_date() {
+  // @@protoc_insertion_point(field_release:UserSystemInformation.driver_date)
+  if (!_internal_has_driver_date()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000400u;
+  return driver_date_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void UserSystemInformation::set_allocated_driver_date(std::string* driver_date) {
+  if (driver_date != nullptr) {
+    _has_bits_[0] |= 0x00000400u;
+  } else {
+    _has_bits_[0] &= ~0x00000400u;
+  }
+  driver_date_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), driver_date,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:UserSystemInformation.driver_date)
+}
+
+// optional uint32 vram_size = 17;
+inline bool UserSystemInformation::_internal_has_vram_size() const {
+  bool value = (_has_bits_[0] & 0x00010000u) != 0;
+  return value;
+}
+inline bool UserSystemInformation::has_vram_size() const {
+  return _internal_has_vram_size();
+}
+inline void UserSystemInformation::clear_vram_size() {
+  vram_size_ = 0u;
+  _has_bits_[0] &= ~0x00010000u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 UserSystemInformation::_internal_vram_size() const {
+  return vram_size_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 UserSystemInformation::vram_size() const {
+  // @@protoc_insertion_point(field_get:UserSystemInformation.vram_size)
+  return _internal_vram_size();
+}
+inline void UserSystemInformation::_internal_set_vram_size(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _has_bits_[0] |= 0x00010000u;
+  vram_size_ = value;
+}
+inline void UserSystemInformation::set_vram_size(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_vram_size(value);
+  // @@protoc_insertion_point(field_set:UserSystemInformation.vram_size)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

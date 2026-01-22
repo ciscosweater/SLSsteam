@@ -185,7 +185,7 @@ namespace Patterns
 		Pattern_t PipeLoop
 		{
 			"IClientApps::PipeLoop",
-			"FF B5 ? ? ? ? 50 8D 86 ? ? ? ? 68 43 08 00 00",
+			"FF B5 ? ? ? ? 50 8D 86 ? ? ? ? 68 44 08 00 00",
 			SigFollowMode::PrologueUpwards,
 			std::vector<uint8_t> { 0x56, 0x57, 0xe5, 0x89, 0x55 }
 		};
@@ -207,7 +207,7 @@ namespace Patterns
 		Pattern_t PipeLoop
 		{
 			"IClientUser::PipeLoop",
-			"FF B5 ? ? ? ? 50 8D 86 ? ? ? ? 68 46 01 00 00",
+			"FF B5 ? ? ? ? 50 8D 86 ? ? ? ? 68 F4 02 00 00",
 			SigFollowMode::PrologueUpwards,
 			std::vector<uint8_t> { 0x56, 0x57, 0xe5, 0x89, 0x55 }
 		};
@@ -265,7 +265,7 @@ namespace Patterns
 		Pattern_t PipeLoop
 		{
 			"IClientUGC::PipeLoop",
-			"FF B5 ? ? ? ? 50 8D 86 ? ? ? ? 68 76 11 00 00",
+			"FF B5 ? ? ? ? 50 8D 86 ? ? ? ? 68 F6 11 00 00",
 			SigFollowMode::PrologueUpwards,
 			std::vector<uint8_t> { 0x56, 0x57, 0xe5, 0x89, 0x55 }
 		};
